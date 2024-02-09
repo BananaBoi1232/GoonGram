@@ -12,8 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('direct_messages', function (Blueprint $table) {
-            $table->id();
+            $table->id('dmID');
+            $table->bigInteger('firstUser');
+            $table->bigInteger('secondUser');
+            $table->integer('approved');
             $table->timestamps();
+
         });
     }
 

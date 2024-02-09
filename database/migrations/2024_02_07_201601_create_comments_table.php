@@ -12,7 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('comments', function (Blueprint $table) {
-            $table->id();
+            $table->id('commentID');
+            $table->bigInteger("postID");
+            $table->text('commentContent');
+            $table->bigInteger('sender');
             $table->timestamps();
         });
     }

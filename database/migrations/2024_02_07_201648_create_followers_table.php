@@ -12,7 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('followers', function (Blueprint $table) {
-            $table->id();
+            $table->bigInteger('personFollowedID');
+            $table->bigInteger('followerID');
+            $table->integer('approved');
             $table->timestamps();
         });
     }

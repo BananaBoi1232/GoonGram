@@ -12,7 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('reported_posts', function (Blueprint $table) {
-            $table->id();
+            $table->bigInteger('postID');
+            $table->bigInteger('reporter');
+            $table->string('reason');
             $table->timestamps();
         });
     }
