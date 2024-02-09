@@ -12,7 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('accounts', function (Blueprint $table) {
-            $table->id();
+            $table->id('userID');
+            $table->string('email');
+            $table->string('pass');
+            $table->string('username');
+            $table->string('accountType');
+            $table->integer('private');
+            $table->text('bio');
+            $table->text('profilePicture');
+            $table->integer('followerCount');
+            $table->integer('followingCount');
             $table->timestamps();
         });
     }

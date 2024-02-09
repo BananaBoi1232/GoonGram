@@ -12,7 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('messages', function (Blueprint $table) {
-            $table->id();
+            $table->bigInteger('dmID');
+            $table->bigInteger('messageSender');
+            $table->string('message');
             $table->timestamps();
         });
     }
