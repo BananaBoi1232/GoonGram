@@ -60,7 +60,10 @@ class AccountControllerApiController extends Controller
      */
     public function update(Request $request, account_controller_api $account_controller_api)
     {
-        
+        $file = $request->file($request->profilePicture);
+        echo $path = $request->file('file')->store('img');
+
+        // $account = DB::table('acounts')->where('email', $request->email['email'])->update(['profilePicture' => $request->profilePicture]);
 
     }
 
