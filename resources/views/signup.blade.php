@@ -9,7 +9,6 @@
 </head>
 <body class = "h-100 w-100 justify-content-center d-flex align-items-center bg-warning" style = "font-family:Verdana">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-
     <div class = "w-75 h-100">
         <div class = "bg-danger pb-5 mt-5 br-20 rounded-5 d-block mx-auto" style = "width:60%;">
             <div class = "justify-content-center d-flex align-items-center p-5">
