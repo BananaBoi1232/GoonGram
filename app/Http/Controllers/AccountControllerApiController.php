@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\account_controller_api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\Account;
 
 class AccountControllerApiController extends Controller
@@ -15,6 +16,7 @@ class AccountControllerApiController extends Controller
     public function index()
     {
         
+        
     }
 
     /**
@@ -22,7 +24,26 @@ class AccountControllerApiController extends Controller
      */
     public function store(Request $request)
     {
-        
+        $account = [
+            'username' => $request->username,
+            'pass' => $request->pass,
+            'email'=> $request->email,
+            'accountType'=>'user',
+            'bio'=>' ',
+            'profilePicture'=>' '
+        ];
+        if ($this->emailExists($account['email'])) {
+            echo "<script>alert('Email already exists. Please use a different email address.');</script>";
+            return view("signup"); 
+        }
+        account::create($account);
+        return view("login");
+    }
+
+    public function emailExists($email)
+    {
+        $user = DB::table('accounts')->where('email', $email)->first();
+        return $user !== null;
     }
 
     /**
@@ -31,6 +52,7 @@ class AccountControllerApiController extends Controller
     public function show(account_controller_api $account_controller_api)
     {
         
+
     }
 
     /**
@@ -39,6 +61,7 @@ class AccountControllerApiController extends Controller
     public function update(Request $request, account_controller_api $account_controller_api)
     {
         
+
     }
 
     /**
@@ -47,5 +70,6 @@ class AccountControllerApiController extends Controller
     public function destroy(account_controller_api $account_controller_api)
     {
         
+
     }
 }
