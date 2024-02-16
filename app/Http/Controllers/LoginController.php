@@ -9,12 +9,28 @@ use App\Models\Account;
 
 class LoginController extends Controller
 {
+
+    public function loginFunc(Request $request){
+        $data = [
+            'email'=>$request['email'],
+            'password'=>$request['pass'],
+        ];
+        $email = $data['email'];
+        $pass = $data['password'];
+        $account = DB::SELECT("SELECT * FROM accounts WHERE pass='$pass' AND email='$email'");
+        if(DB::SELECT("SELECT * FROM accounts WHERE pass='$pass' AND email='$email'")){
+            return view('home',["home" => $account]);
+        }
+        else{
+            return view('login');
+        }
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+
     }
 
     /**
@@ -22,25 +38,7 @@ class LoginController extends Controller
      */
     public function store(Request $request)
     {
-        $email = $request->all('email');
-        if(DB::table('accounts')->select('email')->where('email','=',$email)->get() == '[]'){
-            return view('login',['error' => 'No Account found with such email!']);
-        }
-        else{
-            $account = DB::table('accounts')->select('userID','accountType','email','password')->where('email','=',$email)->get()[0];
-        }
 
-
-        $password = $request->all('password')['password'];
-
-        if($password == $account->password){
-
-
-        }
-
-        else{
-            return view('login',['error'=>'Incorrect Password!']);
-        }
     }
 
     /**
