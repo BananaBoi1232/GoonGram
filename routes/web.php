@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('home');
+    return view('login');
 });
 
 Route::get('/bannedUsers', function () {
@@ -37,8 +38,8 @@ Route::get('/friends', function () {
     return view('friends');
 });
 
-Route::get('/login', function () {
-    return view('login');
+Route::get('/home', function () {
+    return view('home');
 });
 
 Route::get('/manageAccount', function () {
@@ -72,5 +73,7 @@ Route::get('/settings', function () {
 Route::get('/signup', function () {
     return view('signup');
 });
+
+Route::get('/loginFunc', [LoginController::class, 'loginFunc']);
 
 
