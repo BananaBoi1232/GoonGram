@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="m-auto h-100">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,9 +7,29 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <title>Login</title>
 </head>
-<body>
+<body class="m-auto h-100">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-
     
+    <div class="pb-5 mt-5 br-20 rounded-5 d-block mx-auto">
+      <div class="w-100 d-flex justify-content-center" style = "width:40%;">
+        <form action={{ url('/') }} method="GET" class="form-horiontal"> 
+            <h2 class="">GoonGram</h2>
+          @csrf
+          <div class="form-group w-75 col-sm-offset-2 col-sm-10 p-1">
+            <input type="text" id="userName-field" placeholder="Username, or Email">
+          </div>
+          <div class="form-group w-75 col-sm-offset-2 col-sm-10 p-1">
+            <input type="password" id="password-field" placeholder="Password">
+          </div>
+          <div class="form-group p-2"> 
+            <button type="submit" class="btn btn-default">Log in</button>
+          </div>  
+          <div class="col-sm-offset-2 col-sm-10">
+            Don't have an account? 
+            <a href={{ url('/signup') }}>Sign up</a>  
+          </div>
+        </form>
+      </div>
+  </div>
 </body>
 </html>
