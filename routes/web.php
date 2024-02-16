@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\ViewController;
+use App\Http\Controllers\viewController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,18 +15,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [ViewController::class, 'showHome']);
-Route::get('/bannedUsers', [ViewController::class, 'showBannedUsers']);
-Route::get('/blockedUsers', [ViewController::class, 'showBlockedUsers']);
-Route::get('/createPost', [ViewController::class, 'showCreatePost']);
-Route::get('/directMessage', [ViewController::class, 'showDirectMessage']);
-Route::get('/friends', [ViewController::class, 'showFriends']);
-Route::get('/login', [ViewController::class, 'showLogin']);
-Route::get('/manageAccount', [ViewController::class, 'showManageAccount']);
-Route::get('/messages', [ViewController::class, 'showMessages']);
-Route::get('/otherAccount', [ViewController::class, 'showOtherAccount']);
-Route::get('/personalAccount', [ViewController::class, 'showPersonalAccount']);
-Route::get('/reportedPosts', [ViewController::class, 'showReportedPosts']);
-Route::get('/search', [ViewController::class, 'showSearch']);
-Route::get('/settings', [ViewController::class, 'showSettings']);
-Route::get('/signup', [ViewController::class, 'showSignup']);
+Route::get('/', [viewController::class, 'showHome']);
+Route::get('/bannedUsers', [viewController::class, 'showBannedUsers']);
+Route::get('/blockedUsers', [viewController::class, 'showBlockedUsers']);
+Route::get('/createPost', [viewController::class, 'showCreatePost']);
+Route::get('/directMessage', [viewController::class, 'showDirectMessage']);
+Route::get('/friends', [viewController::class, 'showFriends']);
+Route::get('/login', [viewController::class, 'showLogin']);
+Route::get('/manageAccount', [viewController::class, 'showManageAccount']);
+Route::get('/messages', [viewController::class, 'showMessages']);
+Route::get('/otherAccount', [viewController::class, 'showOtherAccount']);
+Route::get('/personalAccount', [viewController::class, 'showPersonalAccount']);
+Route::get('/reportedPosts', [viewController::class, 'showReportedPosts']);
+Route::get('/search', [viewController::class, 'showSearch']);
+Route::get('/settings', [viewController::class, 'showSettings']);
+Route::get('/signup', [viewController::class, 'showSignup']);

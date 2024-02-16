@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class ViewController extends Controller
+class viewController extends Controller
 {
     public function registrationApprovalShow(){
         $query = DB::select("SELECT * FROM accounts WHERE email");
