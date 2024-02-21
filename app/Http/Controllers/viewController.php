@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class viewController extends Controller
@@ -12,8 +13,11 @@ class viewController extends Controller
         return view("manageAccount",["query"=>$query]);
     }
 
-    public function showHome(){
-        return view('home');
+    public function homeView(Request $request)
+    {
+        return view('home', [
+            'user' => auth()->user()
+        ]);
     }
 
     public function showBannedUsers(){

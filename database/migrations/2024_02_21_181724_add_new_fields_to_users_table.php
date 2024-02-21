@@ -11,10 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('accounts', function (Blueprint $table) {
-            $table->id('userID');
-            $table->string('email');
-            $table->string('pass');
+        Schema::table('users', function (Blueprint $table) {
             $table->string('username');
             $table->string('accountType');
             $table->integer('private');
@@ -22,7 +19,6 @@ return new class extends Migration
             $table->text('profilePicture');
             $table->integer('followerCount');
             $table->integer('followingCount');
-            $table->timestamps();
         });
     }
 
@@ -31,6 +27,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('accounts');
+        Schema::table('users', function (Blueprint $table) {
+            //
+        });
     }
 };

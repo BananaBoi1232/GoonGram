@@ -5,26 +5,24 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Models\Account;
+use App\Http\Controllers\viewController;
 
 class LoginController extends Controller
 {
+ 
+    public function login(Request $request){
+        validator(request()->all(), [
+            'email' => ['required', 'email'],
+            'password' => ['required']
+        ])->validate();
 
-    public function loginFunc(Request $request){
-        $data = [
-            'email'=>$request['email'],
-            'password'=>$request['pass'],
-        ];
-        $email = $data['email'];
-        $pass = $data['password'];
-        $account = DB::SELECT("SELECT * FROM accounts WHERE pass='$pass' AND email='$email'");
-        if(DB::SELECT("SELECT * FROM accounts WHERE pass='$pass' AND email='$email'")){
-            return view('home',["home" => $account]);
+        if(auth()->attempt(request()->only(['email', 'password']))){ 
+            return redirect('/home');
         }
-        else{
-            return view('login');
-        }
+
+        return redirect()->back()->withErrors(['email' => 'Invalid Email!']);
     }
+
     /**
      * Display a listing of the resource.
      */

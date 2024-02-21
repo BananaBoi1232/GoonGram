@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\account_controller_api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Models\Account;
+use App\Models\User;
 
 class AccountControllerApiController extends Controller
 {
@@ -26,30 +25,34 @@ class AccountControllerApiController extends Controller
     {
         $account = [
             'username' => $request->username,
-            'pass' => $request->pass,
+            'password' => $request->password,
             'email'=> $request->email,
+            'name'=> $request->name,
             'accountType'=>'user',
             'bio'=>' ',
-            'profilePicture'=>' '
+            'profilePicture'=>' ',
+            'followingCount'=>0,
+            'followerCount'=>0,
+            'private'=>0
         ];
         if ($this->emailExists($account['email'])) {
             echo "<script>alert('Email already exists. Please use a different email address.');</script>";
             return view("signup"); 
         }
-        account::create($account);
-        return view("login");
+        User::create($account);
+        return redirect('/');
     }
 
     public function emailExists($email)
     {
-        $user = DB::table('accounts')->where('email', $email)->first();
+        $user = DB::table('users')->where('email', $email)->first();
         return $user !== null;
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(account_controller_api $account_controller_api)
+    public function show()
     {
         
 
@@ -58,7 +61,7 @@ class AccountControllerApiController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, account_controller_api $account_controller_api)
+    public function update(Request $request)
     {
         $file = $request->file($request->profilePicture);
         echo $path = $request->file('file')->store('img');
@@ -70,7 +73,7 @@ class AccountControllerApiController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(account_controller_api $account_controller_api)
+    public function destroy()
     {
         
 

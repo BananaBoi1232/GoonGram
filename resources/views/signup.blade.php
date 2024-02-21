@@ -30,8 +30,12 @@
                             <td><input type="text" name = "username" class = "pb-2 small" required placeholder = "Username"></td>
                         </tr>
                         <tr class = "">
+                            <td class = "pb-2">Name</td>
+                            <td><input type="text" name = "name" class = "pb-2 small" required placeholder="Name"></td>
+                        </tr>
+                        <tr class = "">
                             <td class = "pb-2">Password</td>
-                            <td><input type="text" name = "pass" class = "pb-2 small" required placeholder = "Password"></td>
+                            <td><input type="password" name = "password" class = "pb-2 small" required placeholder = "Password"></td>
                         </tr>
                         <tr class = "">
                     </table>

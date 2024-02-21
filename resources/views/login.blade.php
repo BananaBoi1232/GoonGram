@@ -14,7 +14,17 @@
 
       <div class="w-100 d-flex justify-content-center align-items-center">
 
-        <form action={{ url('/loginFunc') }} method="GET" class="d-flex justify-content-center flex-column align-items-center"> 
+        @if($errors->any())
+            <div class = "">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li class = "">{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        <form action={{ url('/login ') }} method="POST" class="d-flex justify-content-center flex-column align-items-center">
 
             @csrf
 
@@ -24,11 +34,11 @@
             </div>
 
             <div class="">
-                <input type="password" id="password-field" placeholder="Password" name="pass">
+                <input type="password" id="password-field" placeholder="Password" name="password">
             </div>
 
             <div class=""> 
-                <button>Login</button>
+                <button type = "submit">Login</button>
             </div>
 
             <div class="">
