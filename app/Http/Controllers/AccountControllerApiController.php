@@ -6,9 +6,23 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
+use App\Models\Photo;
+
 
 class AccountControllerApiController extends Controller
-{
+{   
+    public function updateAccount(Request $request){
+        $name = $request->file('profilePicture')->getClientOriginalName();
+        $size = $request->file('profilePicture')->getSize();
+
+        $request->file('profilePicture')->store('public/storage/img/');
+        $photo = new Photo();
+        $photo->name = $name;
+        $photo->size = $size;
+        $photo->save();
+        return redirect()->back();
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -30,7 +44,6 @@ class AccountControllerApiController extends Controller
             'name'=> $request->name,
             'accountType'=>'user',
             'bio'=>' ',
-            'profilePicture'=>' ',
             'followingCount'=>0,
             'followerCount'=>0,
             'private'=>0
@@ -62,12 +75,8 @@ class AccountControllerApiController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request)
-    {
-        $file = $request->file($request->profilePicture);
-        echo $path = $request->file('file')->store('img');
-
-        // $account = DB::table('acounts')->where('email', $request->email['email'])->update(['profilePicture' => $request->profilePicture]);
-
+    {   
+        
     }
 
     /**

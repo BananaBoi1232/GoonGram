@@ -3,6 +3,7 @@
 use App\Http\Controllers\viewController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AccountControllerApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,3 +34,4 @@ Route::get('/signup', [viewController::class, 'showSignup']);
 
 
 Route::post('/login', [LoginController::class, 'login']);
+Route::post('/manageAccount/done', [AccountControllerApiController::class, 'updateAccount']);
