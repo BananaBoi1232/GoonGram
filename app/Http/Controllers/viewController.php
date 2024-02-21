@@ -52,8 +52,7 @@ class viewController extends Controller
         return view('friends', [
             'user' => auth()->user()
         ]);
-    }
-
+    } 
     public function showLogin(){
         return view ('login');
     }
@@ -104,5 +103,9 @@ class viewController extends Controller
         return view('settings', [
             'user' => auth()->user()
         ]);
+    }
+
+    public function showSignup(){
+        return view('signup');
     }
 }

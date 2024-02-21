@@ -13,9 +13,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <div class="d-flex flex-column">
 
-        <form class="d-flex flex-column justify-content-center align-items-center" method = "POST" action = {{ url('api/signup') }}>
+        <form class="d-flex flex-column justify-content-center align-items-center" method = "POST" action = {{ url('/manageAccount/done') }}>
             @csrf
-            @method('PUT')
             <div class="d-flex flex-column justify-content-center align-items-center">
                 <label>Change Profile Picture</label>
                 <input type = "file" name = "profilePicture" class="w-75 h-75">
@@ -37,9 +36,9 @@
             </div>
 
             <div>
-                <button>Edit Profile</button>
-        </form>
-                <button onclick="history.back()">Accept Changes</button>
+                <button type = "submit">Accept Changes</button>
+            </form>
+                <button onclick="history.back()">Cancel</button>
             </div>
     
     </div>
