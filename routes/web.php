@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/home', [viewController::class, 'homeView']);
+Route::get('/home', [viewController::class, 'showHome']);
 Route::get('/bannedUsers', [viewController::class, 'showBannedUsers']);
 Route::get('/blockedUsers', [viewController::class, 'showBlockedUsers']);
 Route::get('/createPost', [viewController::class, 'showCreatePost']);

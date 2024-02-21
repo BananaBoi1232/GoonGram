@@ -13,7 +13,7 @@ class viewController extends Controller
         return view("manageAccount",["query"=>$query]);
     }
 
-    public function homeView(Request $request)
+    public function showHome(Request $request)
     {
         return view('home', [
             'user' => auth()->user()
@@ -37,27 +37,21 @@ class viewController extends Controller
     }
 
     public function showCreatePost(){
-        if(true == true){
-            return view('createPost');
-        } else {
-            return redirect()->back();
-        }
+        return view('createPost', [
+            'user' => auth()->user()
+        ]);
     }
 
     public function showDirectMessage(){
-        if(true == true){
-            return view('directMessage');
-        } else {
-            return redirect()->back();
-        }
+        return view('directMessage', [
+            'user' => auth()->user()
+        ]);
     }
 
     public function showFriends(){
-        if(true == true){
-            return view('friends');
-        } else {
-            return redirect()->back();
-        }
+        return view('friends', [
+            'user' => auth()->user()
+        ]);
     }
 
     public function showLogin(){
@@ -65,11 +59,9 @@ class viewController extends Controller
     }
 
     public function showManageAccount(){
-        if(true == true){
-            return view('manageAccount');
-        } else {
-            return redirect()->back();
-        }
+        return view('manageAccount', [
+            'user' => auth()->user()
+        ]);
     }
 
     public function showMessages(){
@@ -89,11 +81,9 @@ class viewController extends Controller
     }
 
     public function showPersonalAccount(){
-        if(true == true){
-            return view('personalAccount');
-        } else {
-            return redirect()->back();
-        }
+            return view('personalAccount', [
+                'user' => auth()->user()
+        ]);
     }
 
     public function showReportedPosts(){
@@ -105,26 +95,14 @@ class viewController extends Controller
     }
 
     public function showSearch(){
-        if(true == true){
-            return view('search');
-        } else {
-            return redirect()->back();
-        }
+        return view('search', [
+            'user' => auth()->user()
+        ]);
     }
 
     public function showSettings(){
-        if(true == true){
-            return view('settings');
-        } else {
-            return redirect()->back();
-        }
-    }
-
-    public function showSignup(){
-        if(true == true){
-            return view('signup');
-        } else {
-            return redirect()->back();
-        }
+        return view('settings', [
+            'user' => auth()->user()
+        ]);
     }
 }
