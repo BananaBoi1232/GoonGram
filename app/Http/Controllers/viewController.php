@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class viewController extends Controller
@@ -13,15 +14,18 @@ class viewController extends Controller
         return view("manageAccount",["query"=>$query]);
     }
 
-    public function showHome(Request $request)
-    {
-        return view('home', [
-            'user' => auth()->user()
-        ]);
+    public function showHome(Request $request){
+        if(Auth::check()){
+            return view('home', [
+                'user' => auth()->user()
+            ]);
+        } else {
+            return redirect()->back()->withErrors(['You are not logged in!']);
+        }
     }
-
+    
     public function showBannedUsers(){
-        if(true == true){
+        if(Auth::check()){
             return view('bannedUsers');
         } else {
             return redirect()->back();
@@ -29,7 +33,7 @@ class viewController extends Controller
     }
 
     public function showBlockedUsers(){
-        if(true == true){
+        if(Auth::check()){
             return view('blockedUsers');
         } else {
             return redirect()->back();
@@ -37,34 +41,52 @@ class viewController extends Controller
     }
 
     public function showCreatePost(){
-        return view('createPost', [
-            'user' => auth()->user()
-        ]);
+        if(Auth::check()){
+            return view('createPost', [
+                'user' => auth()->user()
+            ]);
+        } else {
+            return redirect()->back();
+        }
     }
 
     public function showDirectMessage(){
-        return view('directMessage', [
+        if(Auth::check()){        return view('directMessage', [
             'user' => auth()->user()
-        ]);
+            ]);
+        } else {
+            return redirect()->back();
+        }
+
     }
 
     public function showFriends(){
-        return view('friends', [
-            'user' => auth()->user()
-        ]);
+        if(Auth::check()){
+            return view('friends', [
+                'user' => auth()->user()
+            ]);
+        } else {
+            return redirect()->back();
+        }
+
     } 
     public function showLogin(){
         return view ('login');
     }
 
     public function showManageAccount(){
-        return view('manageAccount', [
-            'user' => auth()->user()
-        ]);
+        if(Auth::check()){
+            return view('manageAccount', [
+                'user' => auth()->user()
+            ]);
+        } else {
+            return redirect()->back();
+        }
+
     }
 
     public function showMessages(){
-        if(true == true){
+        if(Auth::check()){
             return view('messages');
         } else {
             return redirect()->back();
@@ -72,7 +94,7 @@ class viewController extends Controller
     }
 
     public function showOtherAccount(){
-        if(true == true){
+        if(Auth::check()){
             return view('otherAccount');
         } else {
             return redirect()->back();
@@ -80,13 +102,18 @@ class viewController extends Controller
     }
 
     public function showPersonalAccount(){
+        if(Auth::check()){
             return view('personalAccount', [
                 'user' => auth()->user()
-        ]);
+            ]);
+        } else {
+            return redirect()->back();
+        }
+
     }
 
     public function showReportedPosts(){
-        if(true == true){
+        if(Auth::check()){
             return view('reportedPosts');
         } else {
             return redirect()->back();
@@ -94,15 +121,25 @@ class viewController extends Controller
     }
 
     public function showSearch(){
-        return view('search', [
-            'user' => auth()->user()
-        ]);
+        if(Auth::check()){
+            return view('search', [
+                'user' => auth()->user()
+            ]);
+        } else {
+            return redirect()->back();
+        }
+        
     }
 
     public function showSettings(){
-        return view('settings', [
-            'user' => auth()->user()
-        ]);
+        if(Auth::check()){
+            return view('settings', [
+                'user' => auth()->user()
+            ]);
+        } else {
+            return redirect()->back();
+        }
+        
     }
 
     public function showSignup(){
