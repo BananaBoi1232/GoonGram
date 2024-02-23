@@ -13,10 +13,10 @@
 <body>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-4"><img src="#" alt="pfp"></div>
+            <div class="col-lg-4"><img src="{{ $user -> profilePicture }}" alt="pfp"></div>
             <div class="col-lg-4 d-flex flex-column">
                 <div>
-                    0
+                    {{ $user -> followerCount }}
                 </div>
                 <div>
                     Followers
@@ -24,7 +24,7 @@
             </div>
             <div class="col-lg-4 d-flex flex-column">
                 <div>
-                    0
+                    {{ $user -> followingCount }}
                 </div>
                 <div>
                     Following

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\viewController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
@@ -31,7 +32,7 @@ Route::get('/reportedPosts', [viewController::class, 'showReportedPosts']);
 Route::get('/search', [viewController::class, 'showSearch']);
 Route::get('/settings', [viewController::class, 'showSettings']);
 Route::get('/signup', [viewController::class, 'showSignup']);
-
+Route::get('/logout', [LogoutController::class, 'logout']);
 
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/manageAccount/done', [AccountControllerApiController::class, 'updateAccount']);
