@@ -12,5 +12,30 @@
 </head>
 <body>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+    <div class="text-center">
+        <form action=""{{ url('') }} method="POST">
+            @csrf
+
+            <div>
+                <label for="">Add Image: </label>
+                <input type="file" name="postImage">
+            </div>
+            <div>
+                <label for="">Caption: </label>
+                <textarea name="caption" placeholder="Whats on your mind?"></textarea>
+            </div>
+            <div>
+                <label for="">Tags: </label>
+                <textarea name="tag" placeholder="Tags?"></textarea>
+            </div>
+            <div>
+                <input type="submit" value="add post">
+            </div>
+
+
+        </form>
+    </div>
+
 </body>
 </html>
