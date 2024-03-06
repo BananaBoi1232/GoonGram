@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -51,9 +50,9 @@ class viewController extends Controller
     }
 
     public function showDirectMessage(){
-        if(Auth::check()){        return view('directMessage', [
-            'user' => auth()->user()
-            ]);
+        if(Auth::check()){
+            return view('directMessage', [
+            'user' => auth()->user() ]);
         } else {
             return redirect()->back();
         }
@@ -76,8 +75,10 @@ class viewController extends Controller
 
     public function showManageAccount(){
         if(Auth::check()){
+            $user = auth()->user();
+
             return view('manageAccount', [
-                'user' => auth()->user()
+                'user' => $user,
             ]);
         } else {
             return redirect()->back();
