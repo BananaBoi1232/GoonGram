@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\viewController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AccountControllerApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/home', [viewController::class, 'homeView']);
+Route::get('/home', [viewController::class, 'showHome']);
 Route::get('/bannedUsers', [viewController::class, 'showBannedUsers']);
 Route::get('/blockedUsers', [viewController::class, 'showBlockedUsers']);
 Route::post('/createPost', [viewController::class, 'showCreatePost']);
@@ -30,6 +32,7 @@ Route::get('/reportedPosts', [viewController::class, 'showReportedPosts']);
 Route::get('/search', [viewController::class, 'showSearch']);
 Route::get('/settings', [viewController::class, 'showSettings']);
 Route::get('/signup', [viewController::class, 'showSignup']);
-
+Route::get('/logout', [LogoutController::class, 'logout']);
 
 Route::post('/login', [LoginController::class, 'login']);
+Route::post('/update', [AccountControllerApiController::class, 'updateAccount']);

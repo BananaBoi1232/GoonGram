@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="margin:0; padding:0;">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,6 +31,12 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/settings">Account Settings</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/manageAccount">Manage Account</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/logout">Logout</a>
                 </li>
             </ul>
         </div>
