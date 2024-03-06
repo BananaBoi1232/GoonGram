@@ -35,4 +35,4 @@ Route::get('/signup', [viewController::class, 'showSignup']);
 Route::get('/logout', [LogoutController::class, 'logout']);
 
 Route::post('/login', [LoginController::class, 'login']);
-Route::post('/manageAccount/done', [AccountControllerApiController::class, 'updateAccount']);
+Route::post('/update', [AccountControllerApiController::class, 'updateAccount']);

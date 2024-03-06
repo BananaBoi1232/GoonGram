@@ -13,7 +13,13 @@
 <body>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-4"><img src="{{ $user -> profilePicture }}" alt="pfp"></div>
+            <div class="col-lg-4">
+                @php($profilePicture = $user->profilePicture)
+                <img id = "profilePicture" name = "profilePicture" style = "height:200px; width:200px;" 
+                    src="@if($profilePicture == null) {{ asset('storage/avatar-3814049_1920.png') }} 
+                         @else {{ asset('storage/'.$profilePicture) }}
+                @endif">
+            </div>
             <div class="col-lg-4 d-flex flex-column">
                 <div>
                     {{ $user -> followerCount }}

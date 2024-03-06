@@ -5,22 +5,37 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Models\User;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\File;
 use App\Models\Photo;
+use App\Models\User;
 
 
 class AccountControllerApiController extends Controller
 {   
     public function updateAccount(Request $request){
-        $name = $request->file('profilePicture')->getClientOriginalName();
-        $size = $request->file('profilePicture')->getSize();
+        $validated = Validator::make($request->all(), [
+            'bio' =>['required', 'string', 'max:255'],
+            'private' => ['required', 'int', 'max:1'],
+        ]);
 
-        $request->file('profilePicture')->store('public/storage/img/');
-        $photo = new Photo();
-        $photo->name = $name;
-        $photo->size = $size;
-        $photo->save();
-        return redirect()->back();
+        if($request->hasFile('image')) {
+            $imagePath = 'storage'.auth()->user()->profilePicture;
+
+            if(File::exists($imagePath)) {
+                File::delete($imagePath);
+            }
+
+            $image = $request->image->store('images', 'public');
+        }
+
+        DB::table('users')->where('id' , auth()->user()->id)->update([
+            'bio' => $request->bio, 
+            'private' => $request->private, 
+            'profilePicture' => $image ?? auth()->user()->profilePicture,
+        ]);
+
+        return response()->json(['code' =>200, 'msg' => 'profile updated successfully']);
     }
 
     /**
@@ -43,7 +58,6 @@ class AccountControllerApiController extends Controller
             'email'=> $request->email,
             'name'=> $request->name,
             'accountType'=>'user',
-            'bio'=>' ',
             'followingCount'=>0,
             'followerCount'=>0,
             'private'=>0

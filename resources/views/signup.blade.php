@@ -12,7 +12,7 @@
     <div class = "w-75 h-100">
         <div class = "bg-danger pb-5 mt-5 br-20 rounded-5 d-block mx-auto" style = "width:60%;">
             <div class = "justify-content-center d-flex align-items-center p-5">
-                <img src="{{ asset("storage/img/goonGramLogo.png") }}" style ="width:300px; height:300px;" class = "bg-secondary rounded-circle">
+                <img src="{{ asset("storage/images/goonGramLogo.png") }}" style ="width:300px; height:300px;" class = "bg-secondary rounded-circle">
             </div>
             <div class = "w-100 d-flex justify-content-center">
                 <form action = {{ url('api/signup') }} method = "POST" class = "w-75 bg-light border rounded-4 p-5">
