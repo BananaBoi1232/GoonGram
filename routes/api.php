@@ -4,7 +4,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AccountControllerApiController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\postApiController;
 use App\Models\Account;
 
 /*
@@ -22,5 +21,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+//RESOURCE
 Route::resource('/signup', AccountControllerApiController::class);
 Route::resource('/createPost', postApiController::class);
