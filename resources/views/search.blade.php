@@ -63,7 +63,7 @@
             </tr>
             <tr>
             @foreach($searchTags as $tagres)
-                <th class="userRes">{{ $tagres -> username }}</th>
+                <th class="userRes">{{ $tagres -> tagName }}</th>
             @endforeach
             </tr>
             
@@ -74,7 +74,7 @@
             </tr>
             <tr>
             @foreach($searchPosts as $postres)
-                <th class="userRes">{{ $postres -> username }}</th>
+                <th class="userRes">{{ $postres -> postImage }}</th>
             @endforeach
             </tr>
         </table>
