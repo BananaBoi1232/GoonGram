@@ -123,8 +123,17 @@ class viewController extends Controller
 
     public function showSearch(){
         if(Auth::check()){
-            return view('search', [
-                'user' => auth()->user()
+            $searchUsers = DB::table('users')
+                ->get();
+            $searchPosts = DB::table('posts')
+                ->get();
+            $searchTags = DB::table('tags')
+                ->get();
+             return view('search', [
+                'user' => auth()->user(),
+                'searchUsers' => $searchUsers,
+                'searchPosts' => $searchPosts,
+                'searchTags' => $searchTags
             ]);
         } else {
             return redirect()->back();
