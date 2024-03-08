@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\File;
-use App\Models\Photo;
 use App\Models\User;
 
 
@@ -19,14 +18,15 @@ class AccountControllerApiController extends Controller
             'private' => ['required', 'int', 'max:1'],
         ]);
 
-        if($request->hasFile('image')) {
-            $imagePath = 'storage'.auth()->user()->profilePicture;
 
+        $imagePath = 'storage'.auth()->user()->profilePicture;
+        if($request->hasFile('image')) {
             if(File::exists($imagePath)) {
                 File::delete($imagePath);
             }
 
             $image = $request->image->store('images', 'public');
+
         }
 
         DB::table('users')->where('id' , auth()->user()->id)->update([
@@ -34,6 +34,10 @@ class AccountControllerApiController extends Controller
             'private' => $request->private, 
             'profilePicture' => $image ?? auth()->user()->profilePicture,
         ]);
+
+
+
+
 
         return response()->json(['code' =>200, 'msg' => 'profile updated successfully']);
     }
