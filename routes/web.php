@@ -5,6 +5,7 @@ use App\Http\Controllers\viewController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AccountControllerApiController;
+use App\Http\Controllers\postApiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,3 +38,4 @@ Route::get('/logout', [LogoutController::class, 'logout']);
 //POST
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/update', [AccountControllerApiController::class, 'updateAccount']);
+Route::post('/createdPost', [postApiController::class, 'create_post'] );

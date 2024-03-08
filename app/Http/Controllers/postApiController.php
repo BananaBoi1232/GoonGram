@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\File;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Tag;
@@ -12,23 +15,25 @@ class postApiController extends Controller
 {
     private $error = "";
 
-    public function create_post($userid, $data)
+    public function create_post(Request $request)
     {
     // creating and sending the post to the DB.
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Handle form submission
 
         if (!empty($_POST['_token'])) {
+
     
             // Process form data
-            $postImage = $_FILES['postImage']; // Uploaded file
             $caption = $_POST['caption'];
             $tag = $_POST['tag'];
+            $postImage = $_FILES['postImage']; // Uploaded file
 
-            DB::table('posts')->where('postID' , auth()->user()->postID)->update([
-                'postImage' => $request->postImage, 
-                'caption' => $request->caption, 
-                'userID' => 
+            //Send to DB
+            DB::table('posts')->update([
+                'caption' => $caption,
+                'tagID' => $tag,
+                'postImage' => $postImage
             ]);
 
 
@@ -63,7 +68,19 @@ class postApiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $posts = [
+            'postID' => $request->postID,
+            'userID' => $request->userID,
+            'caption' => $request->caption,
+            'tagID' => null,
+            'likeCount' => 0,
+            'postImage' =>$request->postImage
+
+        ];
+
+        Post::create_post($posts);
+
+        
     }
 
     /**
