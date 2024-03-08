@@ -20,7 +20,7 @@ use App\Http\Controllers\AccountControllerApiController;
 Route::get('/home', [viewController::class, 'showHome']);
 Route::get('/bannedUsers', [viewController::class, 'showBannedUsers']);
 Route::get('/blockedUsers', [viewController::class, 'showBlockedUsers']);
-Route::post('/createPost', [viewController::class, 'showCreatePost']);
+Route::get('/createPost', [viewController::class, 'showCreatePost']);
 Route::get('/directMessage', [viewController::class, 'showDirectMessage']);
 Route::get('/friends', [viewController::class, 'showFriends']);
 Route::get('/', [viewController::class, 'showLogin']);

@@ -11,6 +11,44 @@ use App\Models\Tag;
 class postApiController extends Controller
 {
     private $error = "";
+
+    public function create_post($userid, $data)
+    {
+    // creating and sending the post to the DB.
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // Handle form submission
+
+        if (!empty($_POST['_token'])) {
+    
+            // Process form data
+            $postImage = $_FILES['postImage']; // Uploaded file
+            $caption = $_POST['caption'];
+            $tag = $_POST['tag'];
+
+            DB::table('posts')->where('postID' , auth()->user()->postID)->update([
+                'postImage' => $request->postImage, 
+                'caption' => $request->caption, 
+                'userID' => 
+            ]);
+
+
+
+            // Send response to the frontend
+            $response = ['code' => 200, 'msg' => 'Post created successfully'];
+            echo json_encode($response);
+            exit;
+
+        } else {
+            $response = ['code' => 400, 'msg' => 'CSRF token validation failed'];
+            echo json_encode($response);
+            exit;
+        }
+    } else {
+
+        http_response_code(405);
+        exit('Method Not Allowed');
+    }
+}
     /**
      * Display a listing of the resource.
      */
@@ -23,26 +61,9 @@ class postApiController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store($userid, $data)
+    public function store(Request $request)
     {
-    // creating and sending the post to the DB.
-       if(!empty($data['post']))
-       {
-
-            $post = addslashes($data['post']);
-            $postID = $this->create_postid();
-
-            $query = "insert into posts (userid,postID,post) values ('$userid','$postID','$post')";
-
-            $DB = new Database();
-            $DB ->save($query);
-       }
-       else
-       {
-            $this->error .= "Please type something to post!<br>";
-       }
-       return $this->error;
-
+        //
     }
 
     /**
@@ -50,13 +71,7 @@ class postApiController extends Controller
      */
     public function show(string $id)
     {
-        if($_SERVER['REQUEST_METHOD']== "POST")
-        {
-
-            $post = new Post();
-            $post ->store($userid, $data);
-            print_r($_POST);
-        }
+     //
     }
 
     /**
