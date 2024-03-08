@@ -16,7 +16,7 @@ use App\Http\Controllers\AccountControllerApiController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
+//GET
 Route::get('/home', [viewController::class, 'showHome']);
 Route::get('/bannedUsers', [viewController::class, 'showBannedUsers']);
 Route::get('/blockedUsers', [viewController::class, 'showBlockedUsers']);
@@ -34,5 +34,6 @@ Route::get('/settings', [viewController::class, 'showSettings']);
 Route::get('/signup', [viewController::class, 'showSignup']);
 Route::get('/logout', [LogoutController::class, 'logout']);
 
+//POST
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/update', [AccountControllerApiController::class, 'updateAccount']);

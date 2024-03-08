@@ -9,10 +9,75 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <title>Search</title>
     @include('navbar')
+
+    {{-- Search functionality --}}
+    <script>
+        $(document).ready(function() {
+            $('.userRes').hide();
+            $('#button-addon2').click(function(e) {
+                e.preventDefault();
+                var searchText = $('input[name="search"]').val();
+                $('.userRes').each(function(){
+                    if($(this).html().toLowerCase().indexOf(searchText.toLowerCase()) >= 0){
+                        console.log('test');
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+            });
+        });
+    </script>
 </head>
 <body>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    {{-- SEARCH BAR --}}
+    <div class="container align-items-center">
+        <div class="row justify-content-center">
+            <div class="col-auto gy-3">
+                <form class="input-group mb-3 col-sm">
+                    <input type="text" class="form-control" placeholder="Search users, posts, etc..." aria-label="Search users, posts, etc..." aria-describedby="button-addon2" name="search">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     
-
+    {{-- SHOW DATA FROM SEARCH --}}
+    <div class="container">
+        <table>
+            <tr>
+                <th>Users</th>
+            </tr>
+            <tr>
+            @foreach($searchUsers as $useres)
+                <th class="userRes">{{ $useres -> username }}</th>
+            @endforeach
+            </tr>
+            
+        </table>
+        <table>
+            <tr>
+                <th>Tags</th>
+            </tr>
+            <tr>
+            @foreach($searchTags as $tagres)
+                <th class="userRes">{{ $tagres -> username }}</th>
+            @endforeach
+            </tr>
+            
+        </table>
+        <table>
+            <tr>
+                <th>Posts</th>
+            </tr>
+            <tr>
+            @foreach($searchPosts as $postres)
+                <th class="userRes">{{ $postres -> username }}</th>
+            @endforeach
+            </tr>
+        </table>
+    </div>
 </body>
 </html>
