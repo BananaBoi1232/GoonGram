@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="w-100 h-100">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,35 +11,36 @@
     @include('navbar')
 </head>
 <body>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-4">
+    <div class = "d-flex justify-content-center flex-column">
+        <div class="d-flex">
+            <div class="p-2">
                 @php($profilePicture = $user->profilePicture)
-                <img id = "profilePicture" name = "profilePicture" style = "height:200px; width:200px;" 
-                    src="@if($profilePicture == null) {{ asset('storage/avatar-3814049_1920.png') }} 
-                         @else {{ asset('storage/'.$profilePicture) }}
+                <img id = "profilePicture" name = "profilePicture" style = "height:350px; width:350px;" 
+                    src="@if($profilePicture == null) {{ asset('storage/images/avatar-3814049_1920.png') }} 
+                            @else {{ asset('storage/'.$profilePicture) }}
                 @endif">
             </div>
-            <div class="col-lg-4 d-flex flex-column">
+            <div class="d-flex flex-column p-2">
                 <div>
-                    {{ $user -> followerCount }}
+                    <h1>{{ $user->username }}</h1>
+                </div>
+                <div class = "d-flex flex-row">
+                    <div style = "font-size:16px">{{ $user->followerCount }} followers</div>
+                    <div class = "ps-4" style = "font-size:16px">{{ $user->followingCount }} following</div>
                 </div>
                 <div>
-                    Followers
-                </div>
-            </div>
-            <div class="col-lg-4 d-flex flex-column">
-                <div>
-                    {{ $user -> followingCount }}
-                </div>
-                <div>
-                    Following
+                    <textarea style="height:250px; width:600px; resize:none; border:none; outline:none;" class = "pt-4" readonly>{{ $user->bio }}</textarea>
                 </div>
             </div>
         </div>
+
+        <hr>
+        <divd-flex class = "flex-column justify-content-center text-align-center">
+            <div class = "d-flex justify-content-center text-align-center">
+                <h2>posts</h2>
+            </div>
+        </div>
     </div>
-    <div class="container-fluid">
-        Posts
-    </div>
+    
 </body>
 </html>

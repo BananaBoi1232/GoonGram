@@ -27,7 +27,7 @@
                 <div id = "res"></div>
                 
                 @php($profilePicture = $user->profilePicture)
-                <img id = "profilePicture" name = "profilePicture" style = "height:200px; width:200px;" 
+                <img id = "profilePicture" name = "profilePicture" style = "height:350px; width:350px;" 
                     src="@if($profilePicture == null) {{ asset('storage/avatar-3814049_1920.png') }} 
                          @else {{ asset('storage/'.$profilePicture) }}
                 @endif">
