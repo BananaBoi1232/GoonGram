@@ -18,13 +18,13 @@ use App\Http\Controllers\postApiController;
 |
 */
 //GET
+Route::get('/', [viewController::class, 'showLogin']);
 Route::get('/home', [viewController::class, 'showHome']);
 Route::get('/bannedUsers', [viewController::class, 'showBannedUsers']);
 Route::get('/blockedUsers', [viewController::class, 'showBlockedUsers']);
-Route::get('/createPost', [viewController::class, 'showCreatePost']);
+Route::get('/post', [viewController::class, 'showCreatePost']);
 Route::get('/directMessage', [viewController::class, 'showDirectMessage']);
 Route::get('/friends', [viewController::class, 'showFriends']);
-Route::get('/', [viewController::class, 'showLogin']);
 Route::get('/manageAccount', [viewController::class, 'showManageAccount']);
 Route::get('/messages', [viewController::class, 'showMessages']);
 Route::get('/otherAccount', [viewController::class, 'showOtherAccount']);
@@ -38,4 +38,5 @@ Route::get('/logout', [LogoutController::class, 'logout']);
 //POST
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/update', [AccountControllerApiController::class, 'updateAccount']);
-Route::post('/createdPost', [postApiController::class, 'create_post'] );
+Route::post('/createPost', [postApiController::class, 'createPost']);
+
