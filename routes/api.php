@@ -23,3 +23,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 //RESOURCE
 Route::resource('/signup', AccountControllerApiController::class);
+Route::resource('/createPost', postApiController::class);
