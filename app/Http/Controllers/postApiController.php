@@ -8,52 +8,36 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\File;
 use App\Models\Post;
-use App\Models\User;
-use App\Models\Tag;
 
 class postApiController extends Controller
 {
-    private $error = "";
-
-    public function create_post(Request $request)
+    public function createPost(Request $request)
     {
-    // creating and sending the post to the DB.
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Handle form submission
+        $validated = Validator::make($request->all(), [
+            'image' =>['required', 'string', 'max:255'],
+            'caption' => ['required', 'string', 'max:255']
+        ]);
 
-        if (!empty($_POST['_token'])) {
+        $imagePath = 'storage'.auth()->user()->postImage;
 
-    
-            // Process form data
-            $caption = $_POST['caption'];
-            $tag = $_POST['tag'];
-            $postImage = $_FILES['postImage']; // Uploaded file
+        if($request->hasFile('image')) {
+            if(File::exists($imagePath)) {
+                File::delete($imagePath);
+            }
 
-            //Send to DB
-            DB::table('posts')->update([
-                'caption' => $caption,
-                'tagID' => $tag,
-                'postImage' => $postImage
-            ]);
-
-
-
-            // Send response to the frontend
-            $response = ['code' => 200, 'msg' => 'Post created successfully'];
-            echo json_encode($response);
-            exit;
-
-        } else {
-            $response = ['code' => 400, 'msg' => 'CSRF token validation failed'];
-            echo json_encode($response);
-            exit;
+            $image = $request->image->store('images', 'public');
         }
-    } else {
 
-        http_response_code(405);
-        exit('Method Not Allowed');
+        DB::table('posts')->insert([
+            'userID' => auth()->user()->id,
+            'caption' => $request->caption,
+            'likeCount' => 0,
+            'postImage' => $image
+        ]);
+
+        return response()->json(['code' => 200, 'msg' => 'Post Successfully Created']);
+
     }
-}
     /**
      * Display a listing of the resource.
      */

@@ -35,11 +35,8 @@ class AccountControllerApiController extends Controller
             'profilePicture' => $image ?? auth()->user()->profilePicture,
         ]);
 
+        return response()->json(['code' => 200, 'msg' => 'profile updated successfully']);
 
-
-
-
-        return response()->json(['code' =>200, 'msg' => 'profile updated successfully']);
     }
 
     /**
