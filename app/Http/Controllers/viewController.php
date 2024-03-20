@@ -52,7 +52,8 @@ class viewController extends Controller
     public function showDirectMessage(){
         if(Auth::check()){
             return view('directMessage', [
-            'user' => auth()->user() ]);
+            'user' => auth()->user() 
+        ]);
         } else {
             return redirect()->back();
         }
@@ -69,6 +70,7 @@ class viewController extends Controller
         }
 
     } 
+
     public function showLogin(){
         return view ('login');
     }
@@ -104,8 +106,10 @@ class viewController extends Controller
 
     public function showPersonalAccount(){
         if(Auth::check()){
+            $query = DB::table('posts')->where('userID', '=', auth()->user()->id)->get();
             return view('personalAccount', [
-                'user' => auth()->user()
+                'user' => auth()->user(),
+                'posts' => $query,
             ]);
         } else {
             return redirect()->back();
@@ -138,7 +142,6 @@ class viewController extends Controller
         } else {
             return redirect()->back();
         }
-        
     }
 
     public function showSettings(){
@@ -149,7 +152,6 @@ class viewController extends Controller
         } else {
             return redirect()->back();
         }
-        
     }
 
     public function showSignup(){

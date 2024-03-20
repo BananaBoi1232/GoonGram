@@ -16,7 +16,7 @@
             <div class="p-2">
                 @php($profilePicture = $user->profilePicture)
                 <img id = "profilePicture" name = "profilePicture" style = "height:350px; width:350px;" 
-                    src="@if($profilePicture == null) {{ asset('storage/images/avatar-3814049_1920.png') }} 
+                    src="@if($profilePicture == null) {{ asset('storage/avatar-3814049_1920.png') }} 
                             @else {{ asset('storage/'.$profilePicture) }}
                 @endif">
             </div>
@@ -35,9 +35,18 @@
         </div>
 
         <hr>
-        <divd-flex class = "flex-column justify-content-center text-align-center">
+
+        <div d-flex class = "flex-column justify-content-center text-align-center">
             <div class = "d-flex justify-content-center text-align-center">
                 <h2>posts</h2>
+            </div>
+
+                <div class = "d-flex flex-row flex-wrap">
+                    @foreach($posts as $post)
+                            <img src = "{{ asset('storage/'.$post->postImage) }}" style = "height:190px; width:190px;" class = "p-1">
+                    @endforeach
+                </div>
+
             </div>
         </div>
     </div>
