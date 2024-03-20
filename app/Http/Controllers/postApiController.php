@@ -52,17 +52,6 @@ class postApiController extends Controller
      */
     public function store(Request $request)
     {
-        $posts = [
-            'postID' => $request->postID,
-            'userID' => $request->userID,
-            'caption' => $request->caption,
-            'tagID' => null,
-            'likeCount' => 0,
-            'postImage' =>$request->postImage
-
-        ];
-
-        Post::create_post($posts);
 
         
     }
