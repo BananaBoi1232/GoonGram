@@ -17,10 +17,15 @@
             $('#button-addon2').click(function(e) {
                 e.preventDefault();
                 var searchText = $('input[name="search"]').val();
+                $(".image").hide();
                 $('.userRes').each(function(){
                     if($(this).html().toLowerCase().indexOf(searchText.toLowerCase()) >= 0){
-                        console.log('test');
-                        $(this).show();
+                        if($(this).hasClass("caption")){
+                            $(this).next(".image").show();
+                        }
+                        else{
+                            $(this).show();
+                        }
                     } else {
                         $(this).hide();
                     }
@@ -72,9 +77,10 @@
             <tr>
                 <th>Posts</th>
             </tr>
-            <tr>
+            <tr >
             @foreach($searchPosts as $postres)
-                <th class="userRes">{{ $postres -> postImage }}</th>
+                <th class="userRes caption">{{ $postres -> caption }}</th>
+                <th class="image"><img src="{{ asset('storage/'.$postres -> postImage) }}" style = "height:190px; width:190px;" alt=""></th>
             @endforeach
             </tr>
         </table>
