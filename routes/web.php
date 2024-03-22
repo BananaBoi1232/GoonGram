@@ -39,4 +39,6 @@ Route::get('/logout', [LogoutController::class, 'logout']);
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/update', [AccountControllerApiController::class, 'updateAccount']);
 Route::post('/createPost', [postApiController::class, 'createPost']);
+Route::post('/like', [postApiController::class, 'like']);
+
 

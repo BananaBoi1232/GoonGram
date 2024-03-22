@@ -13,7 +13,7 @@
 <body>
     <div class = "d-flex justify-content-center flex-column">
         <div class="d-flex">
-            <div class="p-2">
+            <div class="">
                 @php($profilePicture = $user->profilePicture)
                 <img id = "profilePicture" name = "profilePicture" style = "height:350px; width:350px;" 
                     src="@if($profilePicture == null) {{ asset('storage/avatar-3814049_1920.png') }} 

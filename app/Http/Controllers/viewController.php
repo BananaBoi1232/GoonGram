@@ -15,8 +15,10 @@ class viewController extends Controller
 
     public function showHome(Request $request){
         if(Auth::check()){
+            $query = DB::select("SELECT * FROM users u Join posts p ON u.id = p.userID;");
             return view('home', [
-                'user' => auth()->user()
+                'user' => auth()->user(),
+                'posts' => $query,
             ]);
         } else {
             return redirect()->back()->withErrors(['You are not logged in!']);
