@@ -15,7 +15,7 @@
         <div class="d-flex">
             <div class="">
                 @php($profilePicture = $user->profilePicture)
-                <img id = "profilePicture" name = "profilePicture" style = "height:350px; width:350px;" 
+                <img draggable="false" id = "profilePicture" name = "profilePicture" style = "height:350px; width:350px;" 
                     src="@if($profilePicture == null) {{ asset('storage/avatar-3814049_1920.png') }} 
                             @else {{ asset('storage/'.$profilePicture) }}
                 @endif">
@@ -43,7 +43,22 @@
 
                 <div class = "d-flex flex-row flex-wrap">
                     @foreach($posts as $post)
-                            <img src = "{{ asset('storage/'.$post->postImage) }}" style = "height:190px; width:190px;" class = "p-1">
+                            <img draggable="false" src = "{{ asset('storage/'.$post->postImage) }}" style = "height:190px; width:190px;" class = "p-1" data-bs-toggle="modal" data-bs-target="#image{{ $post->postID }}">
+                            <div class="modal fade" id="image{{ $post->postID }}" >
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header ">
+                                            <img draggable="false" src = "{{ asset('storage/'.$post->postImage) }}" style = "height:190px; width:190px;" class = "p-1">
+                                            <button class="close" data-bs-dismiss="modal">&times;</button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="likes">{{ $post->likeCount }} Likes</div>
+                                            <div class="caption">{{ $post->caption }}</div>
+                                            <div class="tags">{{ $post->tagID }}</div>
+                                        </div>
+                                    </div>
+                                </div>                                
+                            </div>            
                     @endforeach
                 </div>
 
