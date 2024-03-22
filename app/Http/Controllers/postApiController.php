@@ -38,6 +38,19 @@ class postApiController extends Controller
         return response()->json(['code' => 200, 'msg' => 'Post Successfully Created']);
 
     }
+
+    public function like(Request $request){
+        $postId = $request->input('postId');
+
+        $post = Post::find($postId);
+
+        $post->likeCount += 1;
+
+        $post->save();
+
+        return response()->json(['success' => true]);
+    }
+
     /**
      * Display a listing of the resource.
      */

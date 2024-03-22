@@ -37,12 +37,12 @@
 
                 <div class = "d-flex p-2 flex-column">
                     <h4 class = "p-2">Caption</h4>
-                    <textarea id="caption" name = "caption" placeholder=" Whats on your mind?"></textarea>
+                    <textarea id="caption" name = "caption" placeholder="Whats on your mind?" class = "p-2" style = "resize:none;"></textarea>
                 </div>
 
                 <div class = "d-flex p-2 flex-column">
                     <h4 class = "p-2">Tags</h4>
-                    <textarea id="tag" name = "tag" placeholder="Tag"></textarea>
+                    <textarea id="tag" name = "tag" placeholder="Tag" class = "p-2" style = "resize:none;"></textarea>
                 </div>
 
                 <div class = "d-flex p-2 justify-content-center">
