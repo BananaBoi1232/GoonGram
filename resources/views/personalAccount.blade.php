@@ -47,13 +47,18 @@
                             <div class="modal fade" id="image{{ $post->postID }}" >
                                 <div class="modal-dialog">
                                     <div class="modal-content">     
-                                        <div class="modal-header ">
-                                            <img draggable="false" src = "{{ asset('storage/'.$post->postImage) }}" style = "height:470px; width:470px;" class = "p-1">
-                                            <button class="close" data-bs-dismiss="modal">&times;</button>
+                                        <div class="modal-header d-flex justify-content-center">
+                                            <img draggable="false" src = "{{ asset('storage/'.$post->postImage) }}" style = "height:420px; width:420px;" class = "p-1">
+                                            <button type="button" class="btn-close position-absolute top-0 end-0 m-1" data-bs-dismiss="modal"></button>
                                         </div>
                                         <div class="modal-body">
                                             <div class="caption">{{ $post->caption }}</div>
-                                            <div class="likes">{{ $post->likeCount }} Likes</div>
+                                            <div class="likes">
+                                                <button id = "like-button">
+                                                    <ion-icon name="thumbs-up-outline" id="likeIcon" style = "width:35px; height:35px; color:black;" class ="p-1"></ion-icon>
+                                                </button>
+                                                {{ $post->likeCount }} Likes
+                                            </div>
                                             <div class="tags">{{ $post->tagID }}</div>
                                         </div>
                                     </div>
