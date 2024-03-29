@@ -46,14 +46,14 @@
                             <img draggable="false" src = "{{ asset('storage/'.$post->postImage) }}" style = "height:190px; width:190px;" class = "p-1" data-bs-toggle="modal" data-bs-target="#image{{ $post->postID }}">
                             <div class="modal fade" id="image{{ $post->postID }}" >
                                 <div class="modal-dialog">
-                                    <div class="modal-content">
+                                    <div class="modal-content">     
                                         <div class="modal-header ">
-                                            <img draggable="false" src = "{{ asset('storage/'.$post->postImage) }}" style = "height:190px; width:190px;" class = "p-1">
+                                            <img draggable="false" src = "{{ asset('storage/'.$post->postImage) }}" style = "height:470px; width:470px;" class = "p-1">
                                             <button class="close" data-bs-dismiss="modal">&times;</button>
                                         </div>
                                         <div class="modal-body">
-                                            <div class="likes">{{ $post->likeCount }} Likes</div>
                                             <div class="caption">{{ $post->caption }}</div>
+                                            <div class="likes">{{ $post->likeCount }} Likes</div>
                                             <div class="tags">{{ $post->tagID }}</div>
                                         </div>
                                     </div>
