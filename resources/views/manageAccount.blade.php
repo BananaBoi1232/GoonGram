@@ -104,6 +104,7 @@
                         'X-CSRF.TOKEN' : $('meta[name="csrf.token"]').attr('content')
                     }
                 });
+                
                 $("#btn").attr("disabled", true);
                 $("#btn").html("Updating...");
 
