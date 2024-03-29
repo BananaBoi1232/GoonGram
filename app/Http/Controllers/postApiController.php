@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\File;
 use App\Models\Post;
 
+use function Laravel\Prompts\alert;
+
 class postApiController extends Controller
 {
     public function createPost(Request $request)
@@ -40,15 +42,9 @@ class postApiController extends Controller
     }
 
     public function like(Request $request){
-        $postId = $request->input('postId');
-
-        $post = Post::find($postId);
-
-        $post->likeCount += 1;
-
-        $post->save();
-
-        return response()->json(['success' => true]);
+        $postID = $_POST['postID'];
+        
+        echo $_POST['postID'];
     }
 
     /**
