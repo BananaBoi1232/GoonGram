@@ -22,8 +22,9 @@
     <div class = "d-flex flex-column justify-content-center align-items-center">
         @foreach($posts as $post)
 
-            <div class = "border p-3 m-2">
+            <div style = "display:none;" id = "post" value = "{{ $post->postID }}"></div>
 
+            <div class = "border p-3 m-2">
                 <div class = "d-flex">
 
                     <img id = "profilePicture" name = "profilePicture"style = "height:50px; width:50px;" class = "" src="
@@ -47,7 +48,7 @@
 
                 <div class = "d-flex p-1 align-items-center">
                     <div>
-                        <button id = "like-button">
+                        <button id = "likeBtn">
                             <ion-icon name="thumbs-up-outline" id="likeIcon" style = "width:35px; height:35px; color:black;" class ="p-1"></ion-icon>
                         </button>
                     </div>
@@ -58,20 +59,23 @@
                         </button>
                     </div>
 
-                    <div class="p-2">{{ $post->likeCount }} Likes</div>
+                    <div class="p-2" id = "likeCount">{{ $post->likeCount }} Likes</div>
                 </div>
+    
 
 
             </div>
-
+v  
         @endforeach
+
     </div>
 
     <script>
         $(document).ready(function(){
-            $("like-button").click(function(){
-                var postId = $(this).data('postID');
-                var likeIcon = $(this).find('ion-icon');
+            $("#likeBtn").click(function(e){
+                e.preventDefault();
+
+                var postID = $("#post").val();
 
                 $.ajaxSetup({
                     headers: {
@@ -83,14 +87,14 @@
                     type: 'POST',
                     url: '/like',
                     data: {
-                        postId : postId
+                        postID: postID,
                     },
-                    success: function(response){
-                        if(response.success){
-                            likeIcon.css('color', 'red');
-                        }
+                    cache: false,
+                    success: function(data){
+                        alert(data);
                     }
-                });
+
+                }); 
             });
         });
     </script>
