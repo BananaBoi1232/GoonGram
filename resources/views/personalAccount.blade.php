@@ -15,7 +15,7 @@
         <div class="d-flex">
             <div class="">
                 @php($profilePicture = $user->profilePicture)
-                <img id = "profilePicture" name = "profilePicture" style = "height:350px; width:350px;" 
+                <img draggable="false" id = "profilePicture" name = "profilePicture" style = "height:350px; width:350px;" 
                     src="@if($profilePicture == null) {{ asset('storage/avatar-3814049_1920.png') }} 
                             @else {{ asset('storage/'.$profilePicture) }}
                 @endif">
@@ -43,7 +43,27 @@
 
                 <div class = "d-flex flex-row flex-wrap">
                     @foreach($posts as $post)
-                            <img src = "{{ asset('storage/'.$post->postImage) }}" style = "height:190px; width:190px;" class = "p-1">
+                            <img draggable="false" src = "{{ asset('storage/'.$post->postImage) }}" style = "height:190px; width:190px;" class = "p-1" data-bs-toggle="modal" data-bs-target="#image{{ $post->postID }}">
+                            <div class="modal fade" id="image{{ $post->postID }}" >
+                                <div class="modal-dialog">
+                                    <div class="modal-content">     
+                                        <div class="modal-header d-flex justify-content-center">
+                                            <img draggable="false" src = "{{ asset('storage/'.$post->postImage) }}" style = "height:420px; width:420px;" class = "p-1">
+                                            <button type="button" class="btn-close position-absolute top-0 end-0 m-1" data-bs-dismiss="modal"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="caption">{{ $post->caption }}</div>
+                                            <div class="likes">
+                                                <button id = "like-button">
+                                                    <ion-icon name="thumbs-up-outline" id="likeIcon" style = "width:35px; height:35px; color:black;" class ="p-1"></ion-icon>
+                                                </button>
+                                                {{ $post->likeCount }} Likes
+                                            </div>
+                                            <div class="tags">{{ $post->tagID }}</div>
+                                        </div>
+                                    </div>
+                                </div>                                
+                            </div>            
                     @endforeach
                 </div>
 
