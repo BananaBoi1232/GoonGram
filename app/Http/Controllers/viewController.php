@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Like;
 use Illuminate\Http\Request;
 
 class viewController extends Controller
@@ -16,9 +17,12 @@ class viewController extends Controller
     public function showHome(Request $request){
         if(Auth::check()){
             $query = DB::select("SELECT * FROM users u Join posts p ON u.id = p.userID;");
+            $liked = Like::where('userID', auth()->user()->id)->pluck('postID');
+
             return view('home', [
                 'user' => auth()->user(),
                 'posts' => $query,
+                'liked' => $liked,
             ]);
         } else {
             return redirect()->back()->withErrors(['You are not logged in!']);

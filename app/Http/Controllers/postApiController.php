@@ -42,9 +42,19 @@ class postApiController extends Controller
     }
 
     public function like(Request $request){
-        $postID = $_POST['postID'];
+        $check = DB::table('likes')->where('postID', $request->postID)->where('userID', auth()->user()->id)->first();
         
-        echo $_POST['postID'];
+        if(is_null($check)){
+            DB::table('likes')->insert(['postID' => $request->postID, 'userID' => auth()->user()->id]);
+            DB::table('posts')->where('postID', $request->postID)->increment('likeCount', 1);
+            $likeCount = DB::table('posts')->where('postID', $request->postID)->value('likeCount');
+            return response()->json(['message' => 'Liked', 'action' => 'like', 'likeCount' => $likeCount], 200);
+        }else{
+            DB::table('likes')->where('postID', $request->postID)->where('userID', auth()->user()->id)->delete();
+            DB::table('posts')->where('postID', $request->postID)->decrement('likeCount', 1);
+            $likeCount = DB::table('posts')->where('postID', $request->postID)->value('likeCount');
+            return response()->json(['message' => 'Unliked', 'action' => 'unlike', 'likeCount' => $likeCount], 200);
+        }
     }
 
     /**
