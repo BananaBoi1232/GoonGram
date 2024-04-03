@@ -31,7 +31,7 @@
                         @if($post->profilePicture == null) {{ asset('storage/avatar-3814049_1920.png') }} 
                         @else {{ asset('storage/'.$post->profilePicture) }}
                     @endif">
-
+                    
                     <div> 
                         <div class = "p-2">{{ $post->username }}</div>
                     </div>
