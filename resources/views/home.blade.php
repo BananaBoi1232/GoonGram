@@ -22,9 +22,10 @@
     <div class = "d-flex flex-column justify-content-center align-items-center">
         @foreach($posts as $post)
 
-            <div style = "display:none;" id = "post" value = "{{ $post->postID }}"></div>
-
             <div class = "border p-3 m-2">
+
+                <div id = "postID" class = "invisible"> {{ $post->postID }}</div>
+                
                 <div class = "d-flex">
 
                     <img id = "profilePicture" name = "profilePicture"style = "height:50px; width:50px;" class = "" src="
@@ -48,13 +49,13 @@
 
                 <div class = "d-flex p-1 align-items-center">
                     <div>
-                        <button id = "likeBtn">
-                            <ion-icon name="thumbs-up-outline" id="likeIcon" style = "width:35px; height:35px; color:black;" class ="p-1"></ion-icon>
+                        <button class = "likeBtn">
+                            <ion-icon name="thumbs-up-outline" id="likeIcon" style = "width:35px; height:35px; color:black;" class ="p-1  @if($liked->contains($post->postID)) text-warning @endif "></ion-icon>
                         </button>
                     </div>
 
                     <div>
-                        <button id = "comment-button">
+                        <button ion-button class = "comment-button">
                             <ion-icon name="chatbubble-ellipses-outline" id = "commentIcon" style = "width:35px; height:35px" class = "p-1"></ion-icon>
                         </button>
                     </div>
@@ -65,17 +66,20 @@
 
 
             </div>
-v  
+  
         @endforeach
 
     </div>
 
     <script>
         $(document).ready(function(){
-            $("#likeBtn").click(function(e){
+            $(".likeBtn").click(function(e){
                 e.preventDefault();
 
-                var postID = $("#post").val();
+                var postID = $(this).closest('.border').find('#postID').html();
+                var likeCount = $(this).closest('.border').find('#likeCount');
+                var likeIcon = $(this).closest('.border').find('#likeIcon');
+
 
                 $.ajaxSetup({
                     headers: {
@@ -90,10 +94,15 @@ v
                         postID: postID,
                     },
                     cache: false,
-                    success: function(data){
-                        alert(data);
+                    success: function(response){
+                        if(response.action === 'like'){
+                            $(likeCount).text(response.likeCount + " Likes")
+                            $(likeIcon).addClass('text-warning');
+                        }else if(response.action === 'unlike'){
+                            $(likeCount).html(response.likeCount + " Likes")
+                            $(likeIcon).removeClass('text-warning');
+                        }
                     }
-
                 }); 
             });
         });
