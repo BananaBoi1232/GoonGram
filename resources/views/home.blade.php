@@ -27,7 +27,7 @@
             <div class = "border p-3 m-2">
                 <div class = "d-flex">
 
-                    <img id = "profilePicture" name = "profilePicture"style = "height:50px; width:50px;" class = "" src="
+                    <img draggable="false" id = "profilePicture" name = "profilePicture"style = "height:50px; width:50px;" class = "" src="
                         @if($post->profilePicture == null) {{ asset('storage/avatar-3814049_1920.png') }} 
                         @else {{ asset('storage/'.$post->profilePicture) }}
                     @endif">
@@ -39,7 +39,7 @@
                 </div>
 
                 <div>
-                    <img src = "{{ asset('storage/'.$post->postImage) }}" style = "height:300px; width:300px;" class = "p-1">
+                    <img draggable="false" src = "{{ asset('storage/'.$post->postImage) }}" style = "height:300px; width:300px;" class = "p-1">
                 </div>
 
                 <div>
@@ -64,8 +64,7 @@
     
 
 
-            </div>
-v  
+            </div>  
         @endforeach
 
     </div>
