@@ -43,7 +43,7 @@
                 </div>
 
                 <div>
-                    <img src = "{{ asset('storage/'.$post->postImage) }}" style = "height:300px; width:300px;" class = "p-1">
+                    <img draggable="false" src = "{{ asset('storage/'.$post->postImage) }}" style = "height:300px; width:300px;" class = "p-1">
                 </div>
 
                 <div>
@@ -69,7 +69,7 @@
 
 
             </div>
-  
+            
         @endforeach
 
     </div>
