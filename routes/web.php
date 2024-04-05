@@ -27,13 +27,14 @@ Route::get('/directMessage', [viewController::class, 'showDirectMessage']);
 Route::get('/friends', [viewController::class, 'showFriends']);
 Route::get('/manageAccount', [viewController::class, 'showManageAccount']);
 Route::get('/messages', [viewController::class, 'showMessages']);
-Route::get('/otherAccount', [viewController::class, 'showOtherAccount']);
 Route::get('/personalAccount', [viewController::class, 'showPersonalAccount']);
 Route::get('/reportedPosts', [viewController::class, 'showReportedPosts']);
 Route::get('/search', [viewController::class, 'showSearch']);
 Route::get('/settings', [viewController::class, 'showSettings']);
 Route::get('/signup', [viewController::class, 'showSignup']);
 Route::get('/logout', [LogoutController::class, 'logout']);
+Route::get('/otherAccount/{id}', [viewController::class, 'showOtherAccount']);
+
 
 //POST
 Route::post('/login', [LoginController::class, 'login']);

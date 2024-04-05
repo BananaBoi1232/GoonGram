@@ -11,6 +11,46 @@
     @include('navbar')
 </head>
 <body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
+    <div class = "d-flex justify-content-center flex-column">
+        <div class="d-flex">
+            <div class="">
+                @php($profilePicture = $user->profilePicture)
+                <img id = "profilePicture" name = "profilePicture" style = "height:350px; width:350px;" 
+                    src="@if($profilePicture == null) {{ asset('storage/avatar-3814049_1920.png') }} 
+                            @else {{ asset('storage/'.$profilePicture) }}
+                @endif">
+            </div>
+            <div class="d-flex flex-column p-2">
+                <div>
+                    <h1>{{ $user->username }}</h1>
+                </div>
+                <div class = "d-flex flex-row">
+                    <div style = "font-size:16px">{{ $user->followerCount }} followers</div>
+                    <div class = "ps-4" style = "font-size:16px">{{ $user->followingCount }} following</div>
+                </div>
+                <div>
+                    <textarea style="height:250px; width:600px; resize:none; border:none; outline:none;" class = "pt-4" readonly>{{ $user->bio }}</textarea>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <div d-flex class = "flex-column justify-content-center text-align-center">
+            <div class = "d-flex justify-content-center text-align-center">
+                <h2>posts</h2>
+            </div>
+
+                <div class = "d-flex flex-row flex-wrap">
+                    @foreach($posts as $post)
+                            <img src = "{{ asset('storage/'.$post->postImage) }}" style = "height:190px; width:190px;" class = "p-1">
+                    @endforeach
+                </div>
+
+            </div>
+        </div>
+    </div>
 </body>
 </html>
