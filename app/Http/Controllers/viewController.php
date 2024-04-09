@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Like;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Follower;
 
 class viewController extends Controller
 {
@@ -94,7 +95,6 @@ class viewController extends Controller
         } else {
             return redirect()->back();
         }
-
     }
 
     public function showMessages(){
@@ -104,12 +104,19 @@ class viewController extends Controller
             return redirect()->back();
         }
     }
-
     public function showOtherAccount($id){
         $user = User::find($id);
         $query = DB::table('posts')->where('userID', '=', $user->id)->get();
+        $followed = Follower::where('followerID', auth()->user()->id)->pluck('personFollowedID');
         if(Auth::check()){
-            return view('otherAccount')->with('user', $user)->with('posts', $query);
+            if($user->id == auth()->user()->id){
+                return view('personalAccount', [
+                    'user' => auth()->user(),
+                    'posts' => $query,
+                ]);
+            }else{
+                return view('otherAccount')->with('user', $user)->with('posts', $query)->with('followed', $followed);
+            }
         } else {
             return redirect()->back();
         }
@@ -143,7 +150,7 @@ class viewController extends Controller
                 ->get();
             $searchTags = DB::table('tags')
                 ->get();
-             return view('search', [
+            return view('search', [
                 'user' => auth()->user(),
                 'searchUsers' => $searchUsers,
                 'searchPosts' => $searchPosts,
