@@ -5,6 +5,7 @@ use App\Http\Controllers\viewController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AccountControllerApiController;
+use App\Http\Controllers\followController;
 use App\Http\Controllers\postApiController;
 
 /*
@@ -37,6 +38,7 @@ Route::get('/otherAccount/{id}', [viewController::class, 'showOtherAccount']);
 
 
 //POST
+Route::post('/follow', [followController::class, 'follow']);
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/update', [AccountControllerApiController::class, 'updateAccount']);
 Route::post('/createPost', [postApiController::class, 'createPost']);
