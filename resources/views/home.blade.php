@@ -21,9 +21,11 @@
     <div class = "d-flex flex-column justify-content-center align-items-center">
         @foreach($posts as $post)
 
-            <div class = "border p-3 m-2 position-relative">
+            <div class = "border p-3 m-2">
 
-                <div id = "postID" class = "invisible"> {{ $post->postID }}</div>
+                {{-- data loaders --}}
+                <div name = "id" class = " userID invisible">{{ $post->id }}</div> 
+                <div name = "postID"class = " postID invisible">{{ $post->postID }}</div>
 
                 <div class="dropdown position-absolute top-0 end-0 m-2">
                     <button class="btn btn-outline-dark btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
@@ -43,7 +45,7 @@
                         @if($post->profilePicture == null) {{ asset('storage/avatar-3814049_1920.png') }} 
                         @else {{ asset('storage/'.$post->profilePicture) }}
                     @endif">
-                    
+
                     <div> 
                         <div class = "p-2">{{ $post->username }}</div>
                     </div>
@@ -60,18 +62,18 @@
 
                 <div class = "d-flex p-1 align-items-center">
                     <div>
-                        <button class = "likeBtn">
-                            <ion-icon name="thumbs-up-outline" id="likeIcon" style = "width:35px; height:35px; color:black;" class ="p-1  @if($liked->contains($post->postID)) text-warning @endif "></ion-icon>
-                        </button>
+                        <a class = "likeBtn">
+                            <ion-icon name="thumbs-up-outline" class="likeIcon p-1  @if($liked->contains($post->postID)) text-warning @endif" style = "width:35px; height:35px; color:black;"></ion-icon>
+                        </a>
                     </div>
 
                     <div>
-                        <button ion-button class = "comment-button">
+                        <a class = "comment-button">
                             <ion-icon name="chatbubble-ellipses-outline" id = "commentIcon" style = "width:35px; height:35px" class = "p-1"></ion-icon>
-                        </button>
+                        </a>
                     </div>
 
-                    <div class="p-2" id = "likeCount">{{ $post->likeCount }} Likes</div>
+                    <div class = "likeCount p-2">{{ $post->likeCount }} Likes</div>
                 </div>
             </div>
         @endforeach
@@ -83,9 +85,10 @@
             $(".likeBtn").click(function(e){
                 e.preventDefault();
 
-                var postID = $(this).closest('.border').find('#postID').html();
-                var likeCount = $(this).closest('.border').find('#likeCount');
-                var likeIcon = $(this).closest('.border').find('#likeIcon');
+                var userID = $(this).closest('.border').find('.userID').html();
+                var postID = $(this).closest('.border').find('.postID').html();
+                var likeCount = $(this).closest('.border').find('.likeCount');
+                var likeIcon = $(this).closest('.border').find('.likeIcon');
 
 
                 $.ajaxSetup({

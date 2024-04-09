@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Like;
 use Illuminate\Http\Request;
+use App\Models\User;
+use App\Models\Follower;
 
 class viewController extends Controller
 {
@@ -16,7 +18,10 @@ class viewController extends Controller
 
     public function showHome(Request $request){
         if(Auth::check()){
-            $query = DB::select("SELECT * FROM users u Join posts p ON u.id = p.userID;");
+            $query = DB::table('users')
+            ->join('posts', 'users.id', '=', 'posts.userID')
+            ->select('users.*', 'posts.postID', 'posts.caption', 'posts.tagID', 'posts.likeCount', 'posts.postImage')
+            ->get();
             $liked = Like::where('userID', auth()->user()->id)->pluck('postID');
 
             return view('home', [
@@ -84,14 +89,12 @@ class viewController extends Controller
     public function showManageAccount(){
         if(Auth::check()){
             $user = auth()->user();
-
             return view('manageAccount', [
                 'user' => $user,
             ]);
         } else {
             return redirect()->back();
         }
-
     }
 
     public function showMessages(){
@@ -101,10 +104,19 @@ class viewController extends Controller
             return redirect()->back();
         }
     }
-
-    public function showOtherAccount(){
+    public function showOtherAccount($id){
+        $user = User::find($id);
+        $query = DB::table('posts')->where('userID', '=', $user->id)->get();
+        $followed = Follower::where('followerID', auth()->user()->id)->pluck('personFollowedID');
         if(Auth::check()){
-            return view('otherAccount');
+            if($user->id == auth()->user()->id){
+                return view('personalAccount', [
+                    'user' => auth()->user(),
+                    'posts' => $query,
+                ]);
+            }else{
+                return view('otherAccount')->with('user', $user)->with('posts', $query)->with('followed', $followed);
+            }
         } else {
             return redirect()->back();
         }
@@ -120,7 +132,6 @@ class viewController extends Controller
         } else {
             return redirect()->back();
         }
-
     }
 
     public function showReportedPosts(){
@@ -139,7 +150,7 @@ class viewController extends Controller
                 ->get();
             $searchTags = DB::table('tags')
                 ->get();
-             return view('search', [
+            return view('search', [
                 'user' => auth()->user(),
                 'searchUsers' => $searchUsers,
                 'searchPosts' => $searchPosts,

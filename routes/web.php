@@ -6,6 +6,7 @@ use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AccountControllerApiController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\followController;
 use App\Http\Controllers\postApiController;
 
 /*
@@ -28,16 +29,15 @@ Route::get('/directMessage', [viewController::class, 'showDirectMessage']);
 Route::get('/friends', [viewController::class, 'showFriends']);
 Route::get('/manageAccount', [viewController::class, 'showManageAccount']);
 Route::get('/messages', [viewController::class, 'showMessages']);
-Route::get('/otherAccount', [viewController::class, 'showOtherAccount']);
 Route::get('/personalAccount', [viewController::class, 'showPersonalAccount']);
 Route::get('/reportedPosts', [viewController::class, 'showReportedPosts']);
 Route::get('/search', [viewController::class, 'showSearch']);
 Route::get('/settings', [viewController::class, 'showSettings']);
 Route::get('/signup', [viewController::class, 'showSignup']);
 Route::get('/logout', [LogoutController::class, 'logout']);
-Route::get('/messages', [MessageController::class, 'getMessages'])->name('get.messages');
 
 //POST
+Route::post('/follow', [followController::class, 'follow']);
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/update', [AccountControllerApiController::class, 'updateAccount']);
 Route::post('/createPost', [postApiController::class, 'createPost']);
