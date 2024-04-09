@@ -36,9 +36,6 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/manageAccount">Manage Account</a>
                 </li>
-                <li>
-                    <a class="nav-link" href="/messages">Message Requests</a>
-                </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/logout">Logout</a>
                 </li>

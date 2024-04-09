@@ -8,7 +8,7 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     
     <title>Home Page</title>
@@ -17,14 +17,25 @@
 
 </head>
 <body>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    
+
     <div class = "d-flex flex-column justify-content-center align-items-center">
         @foreach($posts as $post)
 
-            <div class = "border p-3 m-2">
+            <div class = "border p-3 m-2 position-relative">
 
                 <div id = "postID" class = "invisible"> {{ $post->postID }}</div>
+
+                <div class="dropdown position-absolute top-0 end-0 m-2">
+                    <button class="btn btn-outline-dark btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                        <source class="bi bi-three-dots">
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <li><a class="dropdown-item" href="#">Block User</a></li>
+                        <li><a class="dropdown-item" href="/messages">Message User</a></li>
+                        <li><a class="dropdown-item" href="#">Send Friend Request</a></li>
+                        <li><a class="dropdown-item" href="#">Report Post</a></li>
+                    </ul>
+                </div>
                 
                 <div class = "d-flex">
 
@@ -62,11 +73,7 @@
 
                     <div class="p-2" id = "likeCount">{{ $post->likeCount }} Likes</div>
                 </div>
-    
-
-
             </div>
-            
         @endforeach
 
     </div>

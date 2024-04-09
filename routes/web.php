@@ -5,6 +5,7 @@ use App\Http\Controllers\viewController;
 use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AccountControllerApiController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\postApiController;
 
 /*
@@ -34,11 +35,14 @@ Route::get('/search', [viewController::class, 'showSearch']);
 Route::get('/settings', [viewController::class, 'showSettings']);
 Route::get('/signup', [viewController::class, 'showSignup']);
 Route::get('/logout', [LogoutController::class, 'logout']);
+Route::get('/messages', [MessageController::class, 'getMessages'])->name('get.messages');
 
 //POST
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/update', [AccountControllerApiController::class, 'updateAccount']);
 Route::post('/createPost', [postApiController::class, 'createPost']);
 Route::post('/like', [postApiController::class, 'like']);
+Route::post('/send-message', [MessageController::class, 'sendMessage'])->name('send.message');
+Route::post('/approve-message/{directMessage}', [MessageController::class, 'approveMessage'])->name('approve.message');
 
 
