@@ -104,18 +104,22 @@ class viewController extends Controller
             return redirect()->back();
         }
     }
+
     public function showOtherAccount($id){
         $user = User::find($id);
         $query = DB::table('posts')->where('userID', '=', $user->id)->get();
         $followed = Follower::where('followerID', auth()->user()->id)->pluck('personFollowedID');
+        $liked = Like::where('userID', auth()->user()->id)->pluck('postID');
+
         if(Auth::check()){
             if($user->id == auth()->user()->id){
                 return view('personalAccount', [
                     'user' => auth()->user(),
                     'posts' => $query,
+                    'liked' => $liked,
                 ]);
             }else{
-                return view('otherAccount')->with('user', $user)->with('posts', $query)->with('followed', $followed);
+                return view('otherAccount')->with('user', $user)->with('posts', $query)->with('followed', $followed)->with('liked', $liked);
             }
         } else {
             return redirect()->back();
@@ -125,9 +129,11 @@ class viewController extends Controller
     public function showPersonalAccount(){
         if(Auth::check()){
             $query = DB::table('posts')->where('userID', '=', auth()->user()->id)->get();
+            $liked = Like::where('userID', auth()->user()->id)->pluck('postID');
             return view('personalAccount', [
                 'user' => auth()->user(),
                 'posts' => $query,
+                'liked' => $liked,
             ]);
         } else {
             return redirect()->back();
