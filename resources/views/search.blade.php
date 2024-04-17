@@ -14,6 +14,7 @@
     <script>
         $(document).ready(function() {
             $('.userRes').hide();
+            $('.image').hide();
             $('#button-addon2').click(function(e) {
                 e.preventDefault();
                 var searchText = $('input[name="search"]').val();
@@ -51,39 +52,44 @@
     
     {{-- SHOW DATA FROM SEARCH --}}
     <div class="container">
-        <table>
-            <tr>
-                <th>Users</th>
-            </tr>
-            <tr>
-            @foreach($searchUsers as $useres)
-                <th class="userRes">{{ $useres -> username }}</th>
-            @endforeach
-            </tr>
-            
-        </table>
-        <table>
-            <tr>
-                <th>Tags</th>
-            </tr>
-            <tr>
-            @foreach($searchTags as $tagres)
-                <th class="userRes">{{ $tagres -> tagName }}</th>
-            @endforeach
-            </tr>
-            
-        </table>
-        <table>
-            <tr>
-                <th>Posts</th>
-            </tr>
-            <tr >
-            @foreach($searchPosts as $postres)
-                <th class="userRes caption">{{ $postres -> caption }}</th>
-                <th class="image"><img src="{{ asset('storage/'.$postres -> postImage) }}" style = "height:190px; width:190px;" alt=""></th>
-            @endforeach
-            </tr>
-        </table>
+        <div style="overflow-y: auto; width 100%; height 100px">
+            <table>
+                <tr>
+                    <th>Users</th>
+                </tr>
+                <tr class="d-flex flex-row flex-wrap">
+                @foreach($searchUsers as $useres)
+                    <th class="userRes">{{ $useres -> username }}</th>
+                @endforeach
+                </tr>
+                
+            </table>
+        </div>
+        <div style="overflow-y: auto; width 100%; height 100px">
+            <table>
+                <tr>
+                    <th>Tags</th>
+                </tr>
+                <tr class="d-flex flex-row flex-wrap">
+                @foreach($searchTags as $tagres)
+                    <th class="userRes">{{ $tagres -> tagName }}</th>
+                @endforeach
+                </tr>
+            </table>
+        </div>
+        <div style="overflow-y: auto; width 100%; height 200px">
+            <table>
+                <tr>
+                    <th>Posts</th>
+                </tr>
+                <tr class="d-flex flex-row flex-wrap">
+                @foreach($searchPosts as $postres)
+                    <th class="userRes caption">{{ $postres -> caption }}</th>
+                    <th class="image"><img src="{{ asset('storage/'.$postres -> postImage) }}" style = "height:190px; width:190px;" alt=""></th>
+                @endforeach
+                </tr>
+            </table>
+        </div>
     </div>
 </body>
 </html>
