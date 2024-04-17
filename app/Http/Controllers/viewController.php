@@ -8,6 +8,8 @@ use App\Models\Like;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Follower;
+use App\Models\Post;
+use App\Models\Comment;
 
 class viewController extends Controller
 {
@@ -122,6 +124,25 @@ class viewController extends Controller
                 return view('otherAccount')->with('user', $user)->with('posts', $query)->with('followed', $followed)->with('liked', $liked);
             }
         } else {
+            return redirect()->back();
+        }
+    }
+
+    public function showComments($postID){
+        $post = DB::table('users')
+        ->join('posts', 'users.id', '=', 'posts.userID')
+        ->select('users.*', 'posts.*')
+        ->where('posts.postID', $postID)
+        ->first();
+        $comments = DB::table('users')
+        ->join('comments', 'users.id', '=', 'comments.sender')
+        ->select('users.*', 'comments.*')
+        ->where('comments.postID', $postID)
+        ->get();
+
+        if(Auth::check()){
+            return view('comments')->with('post', $post)->with('comments', $comments);
+        }else{ 
             return redirect()->back();
         }
     }

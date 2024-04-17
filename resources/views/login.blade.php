@@ -29,6 +29,7 @@
             @csrf
 
             <h2 class="">GoonGram</h2>
+            
             <div class="">
                 <input type="text" id="userName-field" placeholder="Email" name="email">
             </div>
