@@ -130,15 +130,15 @@ class viewController extends Controller
 
     public function showComments($postID){
         $post = DB::table('users')
-        ->join('posts', 'users.id', '=', 'posts.userID')
-        ->select('users.*', 'posts.*')
-        ->where('posts.postID', $postID)
-        ->first();
+            ->join('posts', 'users.id', '=', 'posts.userID')
+            ->select('users.*', 'posts.*')
+            ->where('posts.postID', $postID)
+            ->first();
         $comments = DB::table('users')
-        ->join('comments', 'users.id', '=', 'comments.sender')
-        ->select('users.*', 'comments.*')
-        ->where('comments.postID', $postID)
-        ->get();
+            ->join('comments', 'users.id', '=', 'comments.sender')
+            ->select('users.*', 'comments.*')
+            ->where('comments.postID', $postID)
+            ->get();
 
         if(Auth::check()){
             return view('comments')->with('post', $post)->with('comments', $comments);
