@@ -8,7 +8,7 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     
     <title>Home Page</title>
@@ -17,25 +17,31 @@
 
 </head>
 <body>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    
-    <div class = "d-flex flex-column justify-content-center align-items-center">
 
+    <div class = "d-flex flex-column justify-content-center align-items-center">
         @foreach($posts as $post)
+
             <div class = "border p-3 m-2">
 
                 {{-- data loaders --}}
                 <div name = "id" class = " userID invisible">{{ $post->id }}</div> 
                 <div name = "postID"class = " postID invisible">{{ $post->postID }}</div>
+
+                {{-- Popover button --}}
+                <div class="dropdown d-flex justify-content-end">
+                    <button id="popoverButton" type="button" class="btn btn-sm" data-bs-toggle="popover" data-bs-placement="bottom">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
+                          <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/>
+                        </svg>
+                      </button>
+                  </div>
                 
                 <div class = "d-flex">
 
-                    <a href = "/otherAccount/{{ $post->id }}">
-                        <img id = "profilePicture" name = "profilePicture" style = "height:50px; width:50px;" src="
-                            @if($post->profilePicture == null) {{ asset('storage/avatar-3814049_1920.png') }} 
-                            @else {{ asset('storage/'.$post->profilePicture) }}
-                        @endif">
-                    </a>
+                    <img draggable="false" id = "profilePicture" name = "profilePicture"style = "height:50px; width:50px;" class = "" src="
+                        @if($post->profilePicture == null) {{ asset('storage/avatar-3814049_1920.png') }} 
+                        @else {{ asset('storage/'.$post->profilePicture) }}
+                    @endif">
 
                     <div> 
                         <div class = "p-2">{{ $post->username }}</div>
@@ -59,19 +65,77 @@
                     </div>
 
                     <div>
-                        <a class = "comment-button" href = "/comments/{{ $post->postID }}">
+                        <a class = "comment-button">
                             <ion-icon name="chatbubble-ellipses-outline" id = "commentIcon" style = "width:35px; height:35px" class = "p-1"></ion-icon>
                         </a>
                     </div>
 
                     <div class = "likeCount p-2">{{ $post->likeCount }} Likes</div>
                 </div>
-
             </div>
-            
         @endforeach
 
     </div>
+    <!-- Popover content div -->
+    <ul class='dropdown-menu list-group-flush' id="popoverContent" width="400px" height="400px" aria-labelledby="dropdownMenuButton">
+        <li class='dropdown-item'><a class="link-dark link-underline link-underline-opacity-0" href='#'>Block User</a></li>
+        <li class='dropdown-item'><a class="link-dark link-underline link-underline-opacity-0" href="#" id="messageUser">Message User</a></li>
+        <li class='dropdown-item'><a class="link-dark link-underline link-underline-opacity-0" href='#'>Report Post</a></li>
+    </ul>
+    {{-- Dropdown options functionalty --}}
+    <script>
+        //script to block user via post(s).
+
+        //script to send messages via User's post(s).
+        document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById('messageUser').addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent the default behavior of the anchor tag
+            sendMessage(); // Call the sendMessage function
+        });
+    });
+
+        //script to report post(s) via post(s).
+</script>
+
+    {{-- Popover script for function --}}
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+    //display popover when clicked
+    var popover = new bootstrap.Popover(document.getElementById('popoverButton'), {
+      content: document.getElementById('popoverContent').innerHTML,
+      placement: 'bottom',
+      html: true
+    });
+
+    var button = document.getElementById('popoverButton');
+
+    button.addEventListener('click', function () {
+      if (!popover._isOpen) { // Check if popover is not open
+        popover.show();
+      } else {
+        popover.hide();
+      }
+    });
+
+    // Close popover when clicking outside
+    document.addEventListener('click', function (event) {
+      var isClickInsidePopover = button.contains(event.target);
+      if (!isClickInsidePopover && popover._isOpen) {
+        popover.hide();
+      }
+    });
+  });
+
+  //basic function for popover to work properly
+    $(document).ready(function() {
+        $('[data-toggle="popover"]').popover({
+            html: true,
+            content: function() {
+            return $('#popover-content').html();
+            }
+        });
+    });
+    </script>
 
     <script>
         $(document).ready(function(){
