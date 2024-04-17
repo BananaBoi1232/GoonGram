@@ -19,7 +19,6 @@
 <body>
 
     <div class = "d-flex flex-column justify-content-center align-items-center">
-
         @foreach($posts as $post)
 
             <div class = "border p-3 m-2">
@@ -29,7 +28,7 @@
                 <div name = "postID"class = " postID invisible">{{ $post->postID }}</div>
 
                 {{-- Popover button --}}
-                <div class="d-flex justify-content-end">
+                <div class="dropdown d-flex justify-content-end">
                     <button id="popoverButton" type="button" class="btn btn-sm" data-bs-toggle="popover" data-bs-placement="bottom">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
                           <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/>
@@ -66,47 +65,37 @@
                     </div>
 
                     <div>
-                        <a class = "comment-button" href = "/comments/{{ $post->postID }}">
+                        <a class = "comment-button">
                             <ion-icon name="chatbubble-ellipses-outline" id = "commentIcon" style = "width:35px; height:35px" class = "p-1"></ion-icon>
                         </a>
                     </div>
 
                     <div class = "likeCount p-2">{{ $post->likeCount }} Likes</div>
                 </div>
-
             </div>
         @endforeach
 
     </div>
     <!-- Popover content div -->
-    <ul class='list-group-flush' id="popoverContent" width="400px" height="400px">
-        <li><a class="link-dark link-underline link-underline-opacity-0" href='#'>Block User</a></li>
-        <li><a class="link-dark link-underline link-underline-opacity-0" href="javascript:void(0)" onclick="sendMessage();">Message User</a></li>
-        <li><a class="link-dark link-underline link-underline-opacity-0" href='#'>Report Post</a></li>
+    <ul class='dropdown-menu list-group-flush' id="popoverContent" width="400px" height="400px" aria-labelledby="dropdownMenuButton">
+        <li class='dropdown-item'><a class="link-dark link-underline link-underline-opacity-0" href='#'>Block User</a></li>
+        <li class='dropdown-item'><a class="link-dark link-underline link-underline-opacity-0" href="#" id="messageUser">Message User</a></li>
+        <li class='dropdown-item'><a class="link-dark link-underline link-underline-opacity-0" href='#'>Report Post</a></li>
     </ul>
-
-
     {{-- Dropdown options functionalty --}}
     <script>
+        //script to block user via post(s).
+
         //script to send messages via User's post(s).
-            function sendMessage() {
-        $.ajax({
-            url: '/send-message', // URL to send the message
-            type: 'POST',
-            data: {
-                _token: '{{ csrf_token() }}', // Add CSRF token for Laravel
-                receiver_id: RECEIVER_ID, // Replace RECEIVER_ID with the receiver's ID
-                message: 'Type your message...' // Replace with the actual message
-            },
-            success: function(response) {
-                alert('Message sent successfully');
-            },
-            error: function(xhr, status, error) {
-                alert('Error sending message');
-            }
+        document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById('messageUser').addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent the default behavior of the anchor tag
+            sendMessage(); // Call the sendMessage function
         });
-    }
-    </script>
+    });
+
+        //script to report post(s) via post(s).
+</script>
 
     {{-- Popover script for function --}}
     <script>
