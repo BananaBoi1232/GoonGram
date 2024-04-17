@@ -1,13 +1,16 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\viewController;
 use App\Http\Controllers\LoginController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AccountControllerApiController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\followController;
 use App\Http\Controllers\postApiController;
+use App\Http\Controllers\commentController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +22,7 @@ use App\Http\Controllers\postApiController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
 //GET
 Route::get('/', [viewController::class, 'showLogin']);
 Route::get('/home', [viewController::class, 'showHome']);
@@ -35,6 +39,8 @@ Route::get('/search', [viewController::class, 'showSearch']);
 Route::get('/settings', [viewController::class, 'showSettings']);
 Route::get('/signup', [viewController::class, 'showSignup']);
 Route::get('/logout', [LogoutController::class, 'logout']);
+Route::get('/otherAccount/{id}', [viewController::class, 'showOtherAccount']);
+Route::get('/comments/{postID}', [viewController::class, 'showComments']);
 
 //POST
 Route::post('/follow', [followController::class, 'follow']);
@@ -42,7 +48,5 @@ Route::post('/login', [LoginController::class, 'login']);
 Route::post('/update', [AccountControllerApiController::class, 'updateAccount']);
 Route::post('/createPost', [postApiController::class, 'createPost']);
 Route::post('/like', [postApiController::class, 'like']);
-Route::post('/send-message', [MessageController::class, 'sendMessage'])->name('send.message');
-Route::post('/approve-message/{directMessage}', [MessageController::class, 'approveMessage'])->name('approve.message');
 
 

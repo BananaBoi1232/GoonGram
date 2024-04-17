@@ -14,30 +14,45 @@ use function Laravel\Prompts\alert;
 class postApiController extends Controller
 {
     public function createPost(Request $request)
-    {
-        $validated = Validator::make($request->all(), [
-            'image' =>['required', 'string', 'max:255'],
-            'caption' => ['required', 'string', 'max:255']
-        ]);
-
-        $imagePath = 'storage'.auth()->user()->postImage;
-
-        if($request->hasFile('image')) {
-            if(File::exists($imagePath)) {
-                File::delete($imagePath);
+    {   
+        //Adds Tags Into An Array
+        $tags = array();
+        $space = 0;
+        for($i = 0; $i < strlen($request->tag); $i++){
+            if($request->tag[$i] == ' '){
+               array_push($tags, substr($request->tag, $space, $i));
+               $space = $i;
             }
-
-            $image = $request->image->store('images', 'public');
         }
+        if($space == 0){
+            array_push($tags, $request->tag);
+        }
+        return print_r(array_values($tags));
 
-        DB::table('posts')->insert([
-            'userID' => auth()->user()->id,
-            'caption' => $request->caption,
-            'likeCount' => 0,
-            'postImage' => $image
-        ]);
+        
+        // $validated = Validator::make($request->all(), [
+        //     'image' =>['required', 'string', 'max:255'],
+        //     'caption' => ['required', 'string', 'max:255']
+        // ]);
 
-        return response()->json(['code' => 200, 'msg' => 'Post Successfully Created']);
+        // $imagePath = 'storage'.auth()->user()->postImage;
+
+        // if($request->hasFile('image')) {
+        //     if(File::exists($imagePath)) {
+        //         File::delete($imagePath);
+        //     }
+
+        //     $image = $request->image->store('images', 'public');
+        // }
+
+        // DB::table('posts')->insert([
+        //     'userID' => auth()->user()->id,
+        //     'caption' => $request->caption,
+        //     'likeCount' => 0,
+        //     'postImage' => $image
+        // ]);
+
+        // return response()->json(['code' => 200, 'msg' => 'Post Successfully Created']);
 
     }
 

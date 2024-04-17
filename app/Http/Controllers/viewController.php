@@ -8,6 +8,8 @@ use App\Models\Like;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Follower;
+use App\Models\Post;
+use App\Models\Comment;
 
 class viewController extends Controller
 {
@@ -20,7 +22,7 @@ class viewController extends Controller
         if(Auth::check()){
             $query = DB::table('users')
             ->join('posts', 'users.id', '=', 'posts.userID')
-            ->select('users.*', 'posts.postID', 'posts.caption', 'posts.tagID', 'posts.likeCount', 'posts.postImage')
+            ->select('users.*', 'posts.postID', 'posts.caption', 'posts.likeCount', 'posts.postImage')
             ->get();
             $liked = Like::where('userID', auth()->user()->id)->pluck('postID');
 
@@ -104,20 +106,43 @@ class viewController extends Controller
             return redirect()->back();
         }
     }
+
     public function showOtherAccount($id){
         $user = User::find($id);
         $query = DB::table('posts')->where('userID', '=', $user->id)->get();
         $followed = Follower::where('followerID', auth()->user()->id)->pluck('personFollowedID');
+        $liked = Like::where('userID', auth()->user()->id)->pluck('postID');
+
         if(Auth::check()){
             if($user->id == auth()->user()->id){
                 return view('personalAccount', [
                     'user' => auth()->user(),
                     'posts' => $query,
+                    'liked' => $liked,
                 ]);
             }else{
-                return view('otherAccount')->with('user', $user)->with('posts', $query)->with('followed', $followed);
+                return view('otherAccount')->with('user', $user)->with('posts', $query)->with('followed', $followed)->with('liked', $liked);
             }
         } else {
+            return redirect()->back();
+        }
+    }
+
+    public function showComments($postID){
+        $post = DB::table('users')
+        ->join('posts', 'users.id', '=', 'posts.userID')
+        ->select('users.*', 'posts.*')
+        ->where('posts.postID', $postID)
+        ->first();
+        $comments = DB::table('users')
+        ->join('comments', 'users.id', '=', 'comments.sender')
+        ->select('users.*', 'comments.*')
+        ->where('comments.postID', $postID)
+        ->get();
+
+        if(Auth::check()){
+            return view('comments')->with('post', $post)->with('comments', $comments);
+        }else{ 
             return redirect()->back();
         }
     }
@@ -125,9 +150,11 @@ class viewController extends Controller
     public function showPersonalAccount(){
         if(Auth::check()){
             $query = DB::table('posts')->where('userID', '=', auth()->user()->id)->get();
+            $liked = Like::where('userID', auth()->user()->id)->pluck('postID');
             return view('personalAccount', [
                 'user' => auth()->user(),
                 'posts' => $query,
+                'liked' => $liked,
             ]);
         } else {
             return redirect()->back();

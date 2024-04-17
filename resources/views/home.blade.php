@@ -19,6 +19,7 @@
 <body>
 
     <div class = "d-flex flex-column justify-content-center align-items-center">
+
         @foreach($posts as $post)
 
             <div class = "border p-3 m-2">
@@ -65,13 +66,14 @@
                     </div>
 
                     <div>
-                        <a class = "comment-button">
+                        <a class = "comment-button" href = "/comments/{{ $post->postID }}">
                             <ion-icon name="chatbubble-ellipses-outline" id = "commentIcon" style = "width:35px; height:35px" class = "p-1"></ion-icon>
                         </a>
                     </div>
 
                     <div class = "likeCount p-2">{{ $post->likeCount }} Likes</div>
                 </div>
+
             </div>
         @endforeach
 
