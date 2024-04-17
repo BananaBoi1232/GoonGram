@@ -27,17 +27,14 @@
                 <div name = "id" class = " userID invisible">{{ $post->id }}</div> 
                 <div name = "postID"class = " postID invisible">{{ $post->postID }}</div>
 
-                <div class="dropdown position-absolute top-0 end-0 m-2">
-                    <button class="btn btn-outline-dark btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                        <source class="bi bi-three-dots">
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <li><a class="dropdown-item" href="#">Block User</a></li>
-                        <li><a class="dropdown-item" href="/messages">Message User</a></li>
-                        <li><a class="dropdown-item" href="#">Send Friend Request</a></li>
-                        <li><a class="dropdown-item" href="#">Report Post</a></li>
-                    </ul>
-                </div>
+                {{-- Popover button --}}
+                <div class="d-flex justify-content-end">
+                    <button id="popoverButton" type="button" class="btn btn-sm" data-bs-toggle="popover" data-bs-placement="bottom">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
+                          <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/>
+                        </svg>
+                      </button>
+                  </div>
                 
                 <div class = "d-flex">
 
@@ -79,6 +76,75 @@
         @endforeach
 
     </div>
+    <!-- Popover content div -->
+    <ul class='list-group-flush' id="popoverContent" width="400px" height="400px">
+        <li><a class="link-dark link-underline link-underline-opacity-0" href='#'>Block User</a></li>
+        <li><a class="link-dark link-underline link-underline-opacity-0" href="javascript:void(0)" onclick="sendMessage();">Message User</a></li>
+        <li><a class="link-dark link-underline link-underline-opacity-0" href='#'>Report Post</a></li>
+    </ul>
+
+
+    {{-- Dropdown options functionalty --}}
+    <script>
+        //script to send messages via User's post(s).
+            function sendMessage() {
+        $.ajax({
+            url: '/send-message', // URL to send the message
+            type: 'POST',
+            data: {
+                _token: '{{ csrf_token() }}', // Add CSRF token for Laravel
+                receiver_id: RECEIVER_ID, // Replace RECEIVER_ID with the receiver's ID
+                message: 'Type your message...' // Replace with the actual message
+            },
+            success: function(response) {
+                alert('Message sent successfully');
+            },
+            error: function(xhr, status, error) {
+                alert('Error sending message');
+            }
+        });
+    }
+    </script>
+
+    {{-- Popover script for function --}}
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+    //display popover when clicked
+    var popover = new bootstrap.Popover(document.getElementById('popoverButton'), {
+      content: document.getElementById('popoverContent').innerHTML,
+      placement: 'bottom',
+      html: true
+    });
+
+    var button = document.getElementById('popoverButton');
+
+    button.addEventListener('click', function () {
+      if (!popover._isOpen) { // Check if popover is not open
+        popover.show();
+      } else {
+        popover.hide();
+      }
+    });
+
+    // Close popover when clicking outside
+    document.addEventListener('click', function (event) {
+      var isClickInsidePopover = button.contains(event.target);
+      if (!isClickInsidePopover && popover._isOpen) {
+        popover.hide();
+      }
+    });
+  });
+
+  //basic function for popover to work properly
+    $(document).ready(function() {
+        $('[data-toggle="popover"]').popover({
+            html: true,
+            content: function() {
+            return $('#popover-content').html();
+            }
+        });
+    });
+    </script>
 
     <script>
         $(document).ready(function(){
