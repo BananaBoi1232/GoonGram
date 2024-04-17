@@ -22,7 +22,7 @@ class viewController extends Controller
         if(Auth::check()){
             $query = DB::table('users')
             ->join('posts', 'users.id', '=', 'posts.userID')
-            ->select('users.*', 'posts.postID', 'posts.caption', 'posts.tagID', 'posts.likeCount', 'posts.postImage')
+            ->select('users.*', 'posts.postID', 'posts.caption', 'posts.likeCount', 'posts.postImage')
             ->get();
             $liked = Like::where('userID', auth()->user()->id)->pluck('postID');
 

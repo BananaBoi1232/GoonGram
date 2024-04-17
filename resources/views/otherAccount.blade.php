@@ -93,8 +93,6 @@
                                             <div class = "likeCount"> {{ $post->likeCount }} Likes </div>
                                         </div>
 
-                                        <div class="tags">{{ $post->tagID }}</div>
-
                                     </div>
 
                                 </div>
