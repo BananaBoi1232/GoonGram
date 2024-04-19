@@ -181,10 +181,12 @@ function sendMessage(receiverId) {
                     }
                 }); 
             });
+
             $(".reportPost").click(function(e){
                 e.preventDefault();
 
                 var postID = $(this).closest('.border').find('.postID').html();
+                var reason = $(this).closest('.border').find('.reason').val();
 
                 $.ajaxSetup({
                     headers: {
@@ -197,10 +199,11 @@ function sendMessage(receiverId) {
                     url: '/reportPost',
                     data: {
                         postID: postID,
+                        reason: reason,
                     },
                     cache: false,
                     success: function(response){
-                        
+                        return alert(response.message);
                     }
                 }); 
             });
