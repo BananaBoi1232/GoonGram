@@ -95,7 +95,12 @@ class postApiController extends Controller
 
     public function reportPost(Request $request){
         $user = auth()->user()->id;
-        
+        $check = DB::table('reported_posts')->where('postID' , $request->postID)->where('reporter', $user)->first();
+        if(is_null($check)){
+            DB::table('reported_posts')->insert(['postID' => $request->postID, 'reporter' => $user, 'reason' => $request->reason]);
+            return response()->json(['message' => 'Post Successfully Reported', 200]);
+        }
+        return response()->json(['message' => 'Cannot Report Post More Than Once', 200]);
     }
 
     /**
