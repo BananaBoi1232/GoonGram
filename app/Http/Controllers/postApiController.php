@@ -55,7 +55,6 @@ class postApiController extends Controller
         //Extracts the postID from the object
         $newestPostID = $newestPost->postID;
 
-
         //Adds The Tags Into The Tag Table
         $tagQuery = DB::Table('tags')->pluck('tagName')->toArray();
         foreach($tags as $tag){
@@ -67,7 +66,6 @@ class postApiController extends Controller
         //Retrieves Tag Ids
         $insertedTags = DB::table('tags')->whereIn('tagName', $tags)->pluck('tagID')->toArray();
         
-
         //Inserts All The Data Into The Pt Table
         foreach($insertedTags as $tag){
             DB::table('pt')->insert([
@@ -77,7 +75,6 @@ class postApiController extends Controller
         }
 
         return response()->json(['code' => 200, 'msg' => 'Post Successfully Created']);
-
     }
 
     public function like(Request $request){
@@ -94,6 +91,11 @@ class postApiController extends Controller
             $likeCount = DB::table('posts')->where('postID', $request->postID)->value('likeCount');
             return response()->json(['message' => 'Unliked', 'action' => 'unlike', 'likeCount' => $likeCount], 200);
         }
+    }
+
+    public function reportPost(Request $request){
+        $user = auth()->user()->id;
+        
     }
 
     /**

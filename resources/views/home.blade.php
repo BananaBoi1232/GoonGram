@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -16,6 +17,7 @@
     @include('navbar')
 
 </head>
+
 <body>
 
     <div class = "d-flex flex-column justify-content-center align-items-center">
@@ -38,10 +40,12 @@
                 
                 <div class = "d-flex">
 
-                    <img draggable="false" id = "profilePicture" name = "profilePicture"style = "height:50px; width:50px;" class = "" src="
-                        @if($post->profilePicture == null) {{ asset('storage/avatar-3814049_1920.png') }} 
-                        @else {{ asset('storage/'.$post->profilePicture) }}
-                    @endif">
+                    <a href = "otherAccount/{{ $post->id }}">
+                        <img draggable="false" id = "profilePicture" name = "profilePicture"style = "height:50px; width:50px;" class = "" src="
+                            @if($post->profilePicture == null) {{ asset('storage/avatar-3814049_1920.png') }} 
+                            @else {{ asset('storage/'.$post->profilePicture) }}
+                        @endif">
+                    </a>
 
                     <div> 
                         <div class = "p-2">{{ $post->username }}</div>
@@ -65,23 +69,34 @@
                     </div>
 
                     <div>
-                        <a class = "comment-button">
+                        <a href = "/comments/{{ $post->postID }}" class = "comment-button">
                             <ion-icon name="chatbubble-ellipses-outline" id = "commentIcon" style = "width:35px; height:35px" class = "p-1"></ion-icon>
                         </a>
                     </div>
 
                     <div class = "likeCount p-2">{{ $post->likeCount }} Likes</div>
+
                 </div>
+                
             </div>
+
         @endforeach
 
     </div>
+
     <!-- Popover content div -->
     <ul class='dropdown-menu list-group-flush' id="popoverContent" width="400px" height="400px" aria-labelledby="dropdownMenuButton">
-        <li class='dropdown-item'><a class="link-dark link-underline link-underline-opacity-0" href='#'>Block User</a></li>
-        <li class='dropdown-item'><a class="link-dark link-underline link-underline-opacity-0" href="#" id="messageUser">Message User</a></li>
-        <li class='dropdown-item'><a class="link-dark link-underline link-underline-opacity-0" href='#'>Report Post</a></li>
+        <li class='dropdown-item'>
+            <a class="link-dark link-underline link-underline-opacity-0" href='#'>Block User</a>
+        </li>
+        <li class='dropdown-item'>
+            <a class="link-dark link-underline link-underline-opacity-0" href="#" id="messageUser">Message User</a>
+        </li>
+        <li class='dropdown-item'>
+            <a class="link-dark link-underline link-underline-opacity-0 reportPost">Report Post</a>
+        </li>
     </ul>
+
     {{-- Dropdown options functionalty --}}
     <script>
         //script to block user via post(s).
@@ -95,46 +110,46 @@
     });
 
         //script to report post(s) via post(s).
-</script>
+    </script>
 
     {{-- Popover script for function --}}
     <script>
-    document.addEventListener('DOMContentLoaded', function () {
-    //display popover when clicked
-    var popover = new bootstrap.Popover(document.getElementById('popoverButton'), {
-      content: document.getElementById('popoverContent').innerHTML,
-      placement: 'bottom',
-      html: true
-    });
+        document.addEventListener('DOMContentLoaded', function () {
+            //display popover when clicked
+            var popover = new bootstrap.Popover(document.getElementById('popoverButton'), {
+                content: document.getElementById('popoverContent').innerHTML,
+                placement: 'bottom',
+                html: true
+            });
 
-    var button = document.getElementById('popoverButton');
+            var button = document.getElementById('popoverButton');
 
-    button.addEventListener('click', function () {
-      if (!popover._isOpen) { // Check if popover is not open
-        popover.show();
-      } else {
-        popover.hide();
-      }
-    });
+            button.addEventListener('click', function () {
+                if (!popover._isOpen) { // Check if popover is not open
+                    popover.show();
+                }else {
+                popover.hide();
+                }
+            });
 
-    // Close popover when clicking outside
-    document.addEventListener('click', function (event) {
-      var isClickInsidePopover = button.contains(event.target);
-      if (!isClickInsidePopover && popover._isOpen) {
-        popover.hide();
-      }
-    });
-  });
-
-  //basic function for popover to work properly
-    $(document).ready(function() {
-        $('[data-toggle="popover"]').popover({
-            html: true,
-            content: function() {
-            return $('#popover-content').html();
+            // Close popover when clicking outside
+            document.addEventListener('click', function (event) {
+            var isClickInsidePopover = button.contains(event.target);
+            if (!isClickInsidePopover && popover._isOpen) {
+                popover.hide();
             }
+            });
+            });
+
+            //basic function for popover to work properly
+            $(document).ready(function() {
+                $('[data-toggle="popover"]').popover({
+                    html: true,
+                    content: function() {
+                    return $('#popover-content').html();
+                    }
+                });
         });
-    });
     </script>
 
     <script>
@@ -169,6 +184,29 @@
                             $(likeCount).html(response.likeCount + " Likes")
                             $(likeIcon).removeClass('text-warning');
                         }
+                    }
+                }); 
+            });
+            $(".reportPost").click(function(e){
+                e.preventDefault();
+
+                var postID = $(this).closest('.border').find('.postID').html();
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/reportPost',
+                    data: {
+                        postID: postID,
+                    },
+                    cache: false,
+                    success: function(response){
+                        
                     }
                 }); 
             });
