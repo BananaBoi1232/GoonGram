@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\File;
 use App\Models\Post;
+use App\Models\Pt;
+
 
 use function Laravel\Prompts\alert;
 
@@ -16,44 +18,63 @@ class postApiController extends Controller
     public function createPost(Request $request)
     {   
         //Adds Tags Into An Array
-        $tags = array();
-        $space = 0;
-        for($i = 0; $i < strlen($request->tag); $i++){
-            if($request->tag[$i] == ' '){
-               array_push($tags, substr($request->tag, $space, $i));
-               $space = $i;
+        $tags = explode(' ', $request->tag);
+        
+
+        //Validate Request
+        $validated = Validator::make($request->all(), [
+            'image' =>['required', 'image'],
+            'caption' => ['required', 'string', 'max:255']
+        ]);
+        if($validated->fails()){
+            return response()->json(['code' => 400, 'msg' => $validated->errors()->first()]);
+        }
+
+        //Store Image
+        $imagePath = 'storage'.auth()->user()->postImage;
+
+        if($request->hasFile('image')) {
+            if(File::exists($imagePath)) {
+                File::delete($imagePath);
+            }
+
+            $image = $request->image->store('images', 'public');
+        }
+
+        //Adds The Post To The Database
+        DB::table('posts')->insert([
+            'userID' => auth()->user()->id,
+            'caption' => $request->caption,
+            'likeCount' => 0,
+            'postImage' => $image
+        ]);
+
+        //Gets the id of the newly created post
+        $newestPost = DB::Table('posts')->select('postID')->orderBy('postID', 'desc')->first();
+
+        //Extracts the postID from the object
+        $newestPostID = $newestPost->postID;
+
+        //Adds The Tags Into The Tag Table
+        $tagQuery = DB::Table('tags')->pluck('tagName')->toArray();
+        foreach($tags as $tag){
+            if(!in_array($tag, $tagQuery)){
+                DB::table('tags')->insert(['tagName' => $tag]);
             }
         }
-        if($space == 0){
-            array_push($tags, $request->tag);
-        }
-        return print_r(array_values($tags));
 
+        //Retrieves Tag Ids
+        $insertedTags = DB::table('tags')->whereIn('tagName', $tags)->pluck('tagID')->toArray();
         
-        // $validated = Validator::make($request->all(), [
-        //     'image' =>['required', 'string', 'max:255'],
-        //     'caption' => ['required', 'string', 'max:255']
-        // ]);
+        //Inserts All The Data Into The Pt Table
+        foreach($insertedTags as $tag){
+            DB::table('pt')->insert([
+                'pt_postid' => $newestPostID,
+                'pt_tagid' => $tag,
+            ]);
+        }
 
-        // $imagePath = 'storage'.auth()->user()->postImage;
-
-        // if($request->hasFile('image')) {
-        //     if(File::exists($imagePath)) {
-        //         File::delete($imagePath);
-        //     }
-
-        //     $image = $request->image->store('images', 'public');
-        // }
-
-        // DB::table('posts')->insert([
-        //     'userID' => auth()->user()->id,
-        //     'caption' => $request->caption,
-        //     'likeCount' => 0,
-        //     'postImage' => $image
-        // ]);
-
-        // return response()->json(['code' => 200, 'msg' => 'Post Successfully Created']);
-
+        return response()->json(['code' => 200, 'msg' => 'Post Successfully Created']);
     }
 
     public function like(Request $request){
@@ -70,6 +91,11 @@ class postApiController extends Controller
             $likeCount = DB::table('posts')->where('postID', $request->postID)->value('likeCount');
             return response()->json(['message' => 'Unliked', 'action' => 'unlike', 'likeCount' => $likeCount], 200);
         }
+    }
+
+    public function reportPost(Request $request){
+        $user = auth()->user()->id;
+        
     }
 
     /**
