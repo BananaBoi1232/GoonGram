@@ -6,27 +6,29 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Message;
 use App\Models\DirectMessage;
+use App\Models\Post;
 
 class MessageController extends Controller
 {
+    
     public function sendMessage(Request $request)
-    {
-        // Create a new DirectMessage with pending approval
-        $directMessage = DirectMessage::create([
-            'firstUser' => auth()->id(),
-            'secondUser' => $request->receiver_id,
-            'approved' => false
-        ]);
+{
+    // Create a new DirectMessage with pending approval
+    $directMessage = DirectMessage::create([
+        'firstUser' => auth()->id(),
+        'secondUser' => $request->UserID,
+        'approved' => false
+    ]);
 
-        // Create the message associated with the DirectMessage
-        $message = new Message();
-        $message->dmID = $directMessage->dmID;
-        $message->messageSender = auth()->id();
-        $message->message = $request->message;
-        $message->save();
+    // Create the message associated with the DirectMessage
+    $message = new Message();
+    $message->dmID = $directMessage->dmID;
+    $message->messageSender = auth()->id();
+    $message->message = $request->message;
+    $message->save();
 
-        return redirect()->back()->withSuccess('Message sent successfully');
-    }
+    return redirect()->back()->withSuccess('Message sent successfully');
+}
 
     public function getMessages()
     {

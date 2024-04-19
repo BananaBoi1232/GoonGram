@@ -29,7 +29,7 @@
 
                 {{-- Popover button --}}
                 <div class="dropdown d-flex justify-content-end">
-                    <button id="popoverButton" type="button" class="btn btn-sm" data-bs-toggle="popover" data-bs-placement="bottom">
+                    <button type="button" class="popoverButton btn btn-sm" data-bs-toggle="popover" data-bs-placement="bottom">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
                           <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/>
                         </svg>
@@ -77,22 +77,54 @@
 
     </div>
     <!-- Popover content div -->
-    <ul class='dropdown-menu list-group-flush' id="popoverContent" width="400px" height="400px" aria-labelledby="dropdownMenuButton">
+    <ul class='popoverContent dropdown-menu list-group-flush' width="400px" height="400px" aria-labelledby="dropdownMenuButton">
         <li class='dropdown-item'><a class="link-dark link-underline link-underline-opacity-0" href='#'>Block User</a></li>
-        <li class='dropdown-item'><a class="link-dark link-underline link-underline-opacity-0" href="#" id="messageUser">Message User</a></li>
+        <a class="link-dark link-underline link-underline-opacity-0 messageUser" href="/messages/{$post}"><li class='dropdown-item'>Message User</li></a>
         <li class='dropdown-item'><a class="link-dark link-underline link-underline-opacity-0" href='#'>Report Post</a></li>
     </ul>
     {{-- Dropdown options functionalty --}}
     <script>
         //script to block user via post(s).
 
-        //script to send messages via User's post(s).
-        document.addEventListener('DOMContentLoaded', function () {
-        document.getElementById('messageUser').addEventListener('click', function(event) {
-            event.preventDefault(); // Prevent the default behavior of the anchor tag
-            sendMessage(); // Call the sendMessage function
+    //script to message user via post(s).
+    document.addEventListener('DOMContentLoaded', function () {
+    // Get all elements with class "messageUser"
+    var messageUserLinks = document.querySelectorAll('.messageUser');
+
+    // Loop through each link and add click event listener
+    messageUserLinks.forEach(function(link) {
+        link.addEventListener('click', function(event) {
+            event.preventDefault();
+            var id = link.getAttribute('href').split('/').pop(); 
+            sendMessage(id); // Call the sendMessage function with receiver ID
         });
     });
+});
+
+function sendMessage(receiverId) {
+    fetch('/send-message', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+        },
+        body: JSON.stringify({ receiver_id: receiverId, message: 'Your message here' })
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.json();
+        }
+        throw new Error('Network response was not ok.');
+    })
+    .then(data => {
+        // Handle success response
+        console.log(data);
+    })
+    .catch(error => {
+        // Handle error
+        console.error('There was a problem with your fetch operation:', error);
+    });
+}
 
         //script to report post(s) via post(s).
 </script>
@@ -101,13 +133,13 @@
     <script>
     document.addEventListener('DOMContentLoaded', function () {
     //display popover when clicked
-    var popover = new bootstrap.Popover(document.getElementById('popoverButton'), {
-      content: document.getElementById('popoverContent').innerHTML,
+    var popover = new bootstrap.Popover(document.getElementsByClassName('popoverButton'), {
+      content: document.getElementsByClassName('popoverContent').innerHTML,
       placement: 'bottom',
       html: true
     });
 
-    var button = document.getElementById('popoverButton');
+    var button = document.getElementsByClassName('popoverButton');
 
     button.addEventListener('click', function () {
       if (!popover._isOpen) { // Check if popover is not open
