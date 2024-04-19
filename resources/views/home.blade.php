@@ -29,14 +29,22 @@
                 <div name = "id" class = " userID invisible">{{ $post->id }}</div> 
                 <div name = "postID"class = " postID invisible">{{ $post->postID }}</div>
 
-                {{-- Popover button --}}
-                <div class="dropdown d-flex justify-content-end">
-                    <button type="button" class="popoverButton btn btn-sm" data-bs-toggle="popover" data-bs-placement="bottom">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
-                          <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/>
-                        </svg>
-                      </button>
-                  </div>
+                {{-- Dropdown selection menu --}}
+                <div class="container d-flex justify-content-end">
+                    <div class="menu-container">
+                        <div class="menu">
+                            <div class="menu-drop">
+                                <ul>
+                                    <a href="" class="link-dark link-underline link-underline-opacity-0"><li class="" name="messageUser">Message User</li></a>
+                                    <a href="" class="link-dark link-underline link-underline-opacity-0"><li class="" name="blockUser">Block User</li></a>
+                                    <a href="" class="link-dark link-underline link-underline-opacity-0"><li class="" name="reportPost">Report Post</li></a>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                
                 
                 <div class = "d-flex">
 
@@ -84,14 +92,7 @@
 
     </div>
 
-    <!-- Popover content div -->
-    <ul class='popoverContent dropdown-menu list-group-flush' width="400px" height="400px" aria-labelledby="dropdownMenuButton">
-        <li class='dropdown-item'><a class="link-dark link-underline link-underline-opacity-0" href='#'>Block User</a></li>
-        <a class="link-dark link-underline link-underline-opacity-0 messageUser" href="/messages/{$post}"><li class='dropdown-item'>Message User</li></a>
-        <li class='dropdown-item'><a class="link-dark link-underline link-underline-opacity-0" href='#'>Report Post</a></li>
-    </ul>
-
-    {{-- Dropdown options functionalty --}}
+    {{-- Dropdown Menu options functionalty --}}
     <script>
         //script to block user via post(s).
 
@@ -138,44 +139,11 @@ function sendMessage(receiverId) {
         //script to report post(s) via post(s).
     </script>
 
-    {{-- Popover script for function --}}
+        {{-- Dropdown script functionalty--}}
     <script>
-    document.addEventListener('DOMContentLoaded', function () {
-    //display popover when clicked
-    var popover = new bootstrap.Popover(document.getElementsByClassName('popoverButton'), {
-      content: document.getElementsByClassName('popoverContent').innerHTML,
-      placement: 'bottom',
-      html: true
-    });
-
-    var button = document.getElementsByClassName('popoverButton');
-
-            button.addEventListener('click', function () {
-                if (!popover._isOpen) { // Check if popover is not open
-                    popover.show();
-                }else {
-                popover.hide();
-                }
-            });
-
-            // Close popover when clicking outside
-            document.addEventListener('click', function (event) {
-            var isClickInsidePopover = button.contains(event.target);
-            if (!isClickInsidePopover && popover._isOpen) {
-                popover.hide();
-            }
-            });
-            });
-
-            //basic function for popover to work properly
-            $(document).ready(function() {
-                $('[data-toggle="popover"]').popover({
-                    html: true,
-                    content: function() {
-                    return $('#popover-content').html();
-                    }
-                });
-        });
+        $(document).ready(function() {
+        $(.menu).prepend()  
+        })
     </script>
 
     <script>
