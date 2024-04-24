@@ -59,7 +59,7 @@
                 </tr>
                 <tr class="d-flex flex-row flex-wrap">
                 @foreach($searchUsers as $useres)
-                    <th class="userRes">{{ $useres -> username }}</th>
+                    <th class="userRes"><a href="/otherAccount/{{ $useres->id }}">{{ $useres -> username }}</a></th>
                 @endforeach
                 </tr>
                 
