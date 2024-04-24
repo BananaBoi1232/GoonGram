@@ -11,7 +11,7 @@
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    
+
     <title>Home Page</title>
 
     @include('navbar')
@@ -19,6 +19,7 @@
 </head>
 
 <body>
+
 
     <div class = "d-flex flex-column justify-content-center align-items-center">
         @foreach($posts as $post)
@@ -31,12 +32,53 @@
 
                 {{-- Popover button --}}
                 <div class="dropdown d-flex justify-content-end">
+
                     <button id="popoverButton" type="button" class="btn btn-sm" data-bs-toggle="popover" data-bs-placement="bottom">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
                           <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/>
                         </svg>
                       </button>
                   </div>
+
+                    </button>
+
+                </div>
+
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reportPost{{ $post->postID }}">
+                    Report Post
+                </button>
+
+                <!-- Report Post Modal -->
+                <div class="modal fade" id="reportPost{{ $post->postID }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+                    <div class="modal-dialog" role="document">
+
+                        <div class="modal-content">
+
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+
+                            <div class="modal-body">
+                                <div>Please Give Us Your Reasoning Behind This Report</div>
+                                <textarea class = "reason" name = "reason" style="height:250px; width:450px; resize:none;" placeholder="ex. offensive content"></textarea>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary reportPost">Report Post</button>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
 
                 <div class = "d-flex">
 
@@ -62,6 +104,7 @@
                 </div>
 
                 <div class = "d-flex p-1 align-items-center">
+
                     <div>
                         <a class = "likeBtn">
                             <ion-icon name="thumbs-up-outline" class="likeIcon p-1  @if($liked->contains($post->postID)) text-warning @endif" style = "width:35px; height:35px; color:black;"></ion-icon>
@@ -93,9 +136,9 @@
             <a class="link-dark link-underline link-underline-opacity-0" href="#" id="messageUser">Message User</a>
         </li>
         <li class='dropdown-item'>
-            <a class="link-dark link-underline link-underline-opacity-0 reportPost">Report Post</a>
         </li>
     </ul>
+
 
     {{-- Dropdown options functionalty --}}
     <script>
@@ -134,21 +177,21 @@
 
             // Close popover when clicking outside
             document.addEventListener('click', function (event) {
-            var isClickInsidePopover = button.contains(event.target);
-            if (!isClickInsidePopover && popover._isOpen) {
-                popover.hide();
-            }
+                var isClickInsidePopover = button.contains(event.target);
+                if (!isClickInsidePopover && popover._isOpen) {
+                    popover.hide();
+                }
             });
-            });
+        });
 
-            //basic function for popover to work properly
-            $(document).ready(function() {
-                $('[data-toggle="popover"]').popover({
-                    html: true,
-                    content: function() {
-                    return $('#popover-content').html();
-                    }
-                });
+        //basic function for popover to work properly
+        $(document).ready(function() {
+            $('[data-toggle="popover"]').popover({
+                html: true,
+                content: function() {
+                return $('#popover-content').html();
+                }
+            });
         });
     </script>
 
@@ -187,10 +230,12 @@
                     }
                 });
             });
+
             $(".reportPost").click(function(e){
                 e.preventDefault();
 
                 var postID = $(this).closest('.border').find('.postID').html();
+                var reason = $(this).closest('.border').find('.reason').val();
 
                 $.ajaxSetup({
                     headers: {
@@ -203,6 +248,7 @@
                     url: '/reportPost',
                     data: {
                         postID: postID,
+                        reason: reason,
                     },
                     cache: false,
                     success: function(response){

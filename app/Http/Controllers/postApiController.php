@@ -95,7 +95,40 @@ class postApiController extends Controller
 
     public function reportPost(Request $request){
         $user = auth()->user()->id;
-        
+        $check = DB::table('reported_posts')->where('postID' , $request->postID)->where('reporter', $user)->first();
+        if(is_null($check)){
+            DB::table('reported_posts')->insert(['postID' => $request->postID, 'reporter' => $user, 'reason' => $request->reason]);
+            return response()->json(['message' => 'Post Successfully Reported', 200]);
+        }
+        return response()->json(['message' => 'Cannot Report Post More Than Once', 200]);
+    }
+
+    public function deleteReportedPost(Request $request){
+        // Deletes All Likes On The Post
+        DB::table('likes')->where('postID', $request->postID)->delete();
+
+        //Deletes All Comments On The Post
+        DB::table('comments')->where('postID', $request->postID)->delete();
+
+        //Deletes All Tags On The Post
+        DB::table('pt')->where('pt_postid', $request->postID)->delete();
+
+        //Deletes Post From Reported Posts Table
+        DB::table('reported_posts')->where('postID', $request->postID)->delete();
+
+        //Deletes The Post From Post Table
+        DB::table('posts')->where('postID', $request->postID)->delete();
+
+        // Returns message
+        return response()->json(['message' => 'Reported Post Successfully Deleted', 200]);
+    }
+
+    public function spareReportedPost(Request $request){
+        //Deletes Post From Reported Posts Table
+        DB::table('reported_posts')->where('postID', $request->postID)->delete();
+
+        // Returns message
+        return response()->json(['message' => 'Reported Post Successfully Spared', 200]);
     }
 
     /**
