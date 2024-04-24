@@ -44,6 +44,39 @@
                       </div>
                     </div>
                   </div>
+
+                  <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reportPost{{ $post->postID }}">
+                    Report Post
+                </button>
+
+                <!-- Report Post Modal -->
+                <div class="modal fade" id="reportPost{{ $post->postID }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+                    <div class="modal-dialog" role="document">
+
+                        <div class="modal-content">
+
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+
+                            <div class="modal-body">
+                                <div>Please Give Us Your Reasoning Behind This Report</div>
+                                <textarea class = "reason" name = "reason" style="height:250px; width:450px; resize:none;" placeholder="ex. offensive content"></textarea>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary reportPost">Report Post</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
                 
                 
                 <div class = "d-flex">
