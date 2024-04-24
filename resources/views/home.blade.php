@@ -13,7 +13,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     
     <title>Home Page</title>
-    
+
     @include('navbar')
 
 </head>
@@ -26,7 +26,7 @@
             <div class = "border p-3 m-2">
 
                 {{-- data loaders --}}
-                <div name = "id" class = " userID invisible">{{ $post->id }}</div> 
+                <div name = "id" class = " userID invisible">{{ $post->id }}</div>
                 <div name = "postID"class = " postID invisible">{{ $post->postID }}</div>
 
                 {{-- Popover button --}}
@@ -37,17 +37,17 @@
                         </svg>
                       </button>
                   </div>
-                
+
                 <div class = "d-flex">
 
                     <a href = "otherAccount/{{ $post->id }}">
                         <img draggable="false" id = "profilePicture" name = "profilePicture"style = "height:50px; width:50px;" class = "" src="
-                            @if($post->profilePicture == null) {{ asset('storage/avatar-3814049_1920.png') }} 
+                            @if($post->profilePicture == null) {{ asset('storage/avatar-3814049_1920.png') }}
                             @else {{ asset('storage/'.$post->profilePicture) }}
                         @endif">
                     </a>
 
-                    <div> 
+                    <div>
                         <div class = "p-2">{{ $post->username }}</div>
                     </div>
 
@@ -77,7 +77,7 @@
                     <div class = "likeCount p-2">{{ $post->likeCount }} Likes</div>
 
                 </div>
-                
+
             </div>
 
         @endforeach
@@ -185,7 +185,7 @@
                             $(likeIcon).removeClass('text-warning');
                         }
                     }
-                }); 
+                });
             });
             $(".reportPost").click(function(e){
                 e.preventDefault();
@@ -206,9 +206,9 @@
                     },
                     cache: false,
                     success: function(response){
-                        
+
                     }
-                }); 
+                });
             });
         });
     </script>
