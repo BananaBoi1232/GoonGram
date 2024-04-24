@@ -11,22 +11,24 @@
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    
+
     <title>Home Page</title>
-    
+
     @include('navbar')
 
 </head>
 
 <body>
+    
+
     <div class = "d-flex flex-column justify-content-center align-items-center">
         @foreach($posts as $post)
         @if($followed->contains($post->id) || $post->private == 0 || $post->id == auth()->user()->id)
             <div class = "border p-3 m-2">
 
                 {{-- data loaders --}}
-                <div name = "id" class = " userID d-none">{{ $post->id }}</div> 
-                <div name = "postID" class = " postID d-none">{{ $post->postID }}</div>
+                <div name = "id" class = " userID invisible">{{ $post->id }}</div>
+                <div name = "postID"class = " postID invisible">{{ $post->postID }}</div>
 
                 {{-- Popover button --}}
                 <div class="dropdown d-flex justify-content-end">
@@ -34,6 +36,9 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
                           <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/>
                         </svg>
+                      </button>
+                  </div>
+
                     </button>
                 </div>
 
@@ -41,7 +46,7 @@
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reportPost{{ $post->postID }}">
                     Report Post
                 </button>
-                
+
                 <!-- Report Post Modal -->
                 <div class="modal fade" id="reportPost{{ $post->postID }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
@@ -64,14 +69,15 @@
                     </div>
                 </div>
 
-                {{-- Display Posts --}}
+                
                 <div class = "d-flex">
                     <a href = "otherAccount/{{ $post->id }}">
                         <img draggable="false" id = "profilePicture" name = "profilePicture"style = "height:50px; width:50px;" class = "" src="
-                            @if($post->profilePicture == null) {{ asset('storage/avatar-3814049_1920.png') }} 
+                            @if($post->profilePicture == null) {{ asset('storage/avatar-3814049_1920.png') }}
                             @else {{ asset('storage/'.$post->profilePicture) }}
                         @endif">
                     </a>
+
                     <div> 
                         <div class = "p-2">{{ $post->username }}</div>
                     </div>
@@ -83,6 +89,7 @@
                     <textarea class = "m-1" style = "resize:none; border:0; outline:none;" readonly>{{ $post->caption }}</textarea>
                 </div>
                 <div class = "d-flex p-1 align-items-center">
+                    
                     <div>
                         <a class = "likeBtn">
                             <ion-icon name="thumbs-up-outline" class="likeIcon p-1  @if($liked->contains($post->postID)) text-warning @endif" style = "width:35px; height:35px; color:black;"></ion-icon>
@@ -95,9 +102,9 @@
                     </div>
                     <div class = "likeCount p-2">{{ $post->likeCount }} Likes</div>
                 </div>
+                
             </div>
-        
-        @endif
+
         @endforeach
     </div>
 
@@ -202,7 +209,7 @@
                             $(likeIcon).removeClass('text-warning');
                         }
                     }
-                }); 
+                });
             });
 
             $(".reportPost").click(function(e){
@@ -226,9 +233,9 @@
                     },
                     cache: false,
                     success: function(response){
-                        return alert(response.message);
+
                     }
-                }); 
+                });
             });
         });
     </script>

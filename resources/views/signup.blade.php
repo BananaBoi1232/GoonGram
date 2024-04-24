@@ -1,65 +1,43 @@
 <!DOCTYPE html>
-<html lang="en" class = "h-100">
+<html class="html">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <title>Sign Up For Goongram!</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ asset('css/signup.css') }}">
 </head>
-<body class = "h-100 w-100 justify-content-center d-flex align-items-center" style = "font-family:Verdana">
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    
-    <div class = "w-75 h-100">
-        
-        <div class = "pb-5 mt-5 br-20 rounded-5 d-block mx-auto" style = "width:60%;">
-            
-            <div class = "justify-content-center d-flex align-items-center p-5">
-                <img src="{{ asset("storage/images/goonGramLogo.png") }}" style ="width:300px; height:300px;" class = "rounded-circle">
+<body class="body">
+    <div class="container">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" ></script>
+        <div class="bg-danger mt-5">
+            <div class="d-flex align-items-center p-5">
+                 <img src="{{ asset("storage/images/goonGramLogo.png") }}" style="width:200px; height:200px;" class="rounded-circle mx-auto">
             </div>
-
-            <div class = "w-100 d-flex justify-content-center">
-
-                <form action = {{ url('api/signup') }} method = "POST" class = "w-75 border rounded-4 p-5">
+            <div class="text-center">
+                <p class="text">Create an Account</p>
+            </div>
+            <div class="w-100 d-flex justify-content-center">
+                <form action={{ url('api/signup') }} method="POST" class="w-785 bg-light p-4 rounded">
                     @csrf
-                    <table class = "fs-3 d-flex justify-content-center align-middle p-2 border rounded-3">
-
-                        <div class = "d-flex justify-content-center align-items-center pb-4">
-                            <h1>Sign Up Here</h1>
-                        </div>
-
-                        <tr class = "">
-                            <td class = "pb-2">Email</td>
-                            <td><input type="email" name = "email" class = "pb-2 small" required placeholder="example@example.com"></td>
-                        </tr>
-
-                        <tr class = "">
-                            <td class = "pb-2">Username</td>
-                            <td><input type="text" name = "username" class = "pb-2 small" required placeholder = "Username"></td>
-                        </tr>
-
-                        <tr class = "">
-                            <td class = "pb-2">Name</td>
-                            <td><input type="text" name = "name" class = "pb-2 small" required placeholder="Name"></td>
-                        </tr>
-
-                        <tr class = "">
-                            <td class = "pb-2">Password</td>
-                            <td><input type="password" name = "password" class = "pb-2 small" required placeholder = "Password"></td>
-                        </tr>
-
-                    </table>
-
-                    <div class = "mt-4 w-100 d-flex justify-content-center">
-                    
-                        <button class = "w-50 p-3 m-3 btn btn-outline-secondary">Sign Up</button>
-
-                </form>
-
-                        <button class = "w-50 p-3 m-3 btn btn-outline-secondary" onclick="history.back()">Go Back</button>
-                        
+                    <div class="mb-3">
+                        <input type="email" name="email" class="form-control" required placeholder="Email">
                     </div>
+                    <div class="mb-3">
+                        <input type="text" name="username" class="form-control" required placeholder="Username">
+                    </div>
+                    <div class="mb-3">
+                        <input type="text" name="name" class="form-control" required placeholder="Name">
+                    </div>
+                    <div class="mb-3">
+                        <input type="password" name="password" class="form-control" required placeholder="Password">
+                    </div>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                        <button class="btn btn-outline-secondary btn-custom me-md-2" type="submit">Sign Up</button>
+                        <button class="btn btn-outline-secondary btn-custom" type="button" onclick="history.back()">Go Back</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

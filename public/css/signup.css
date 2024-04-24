@@ -1,0 +1,256 @@
+body {
+    background: url('background.png');
+    background-size: cover;
+}
+
+.bg-danger {
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+    background-color: transparent !important;
+    padding-top: 85px;
+    padding-left: 26px;
+}
+
+.table {
+    border: none;
+}
+
+.full-height {
+    height: 100vh;
+    width: 100%;
+}
+
+.rounded-circle {
+    width: 300px;
+    height: 300px;
+}
+
+.bg-light {
+    padding: 20px;
+    background-color: transparent !important;
+}
+
+.w-75 {
+    width: 75%;
+}
+
+.h1 {
+    text-align: center;
+    color: gray;
+    margin-bottom: 70px;
+}
+
+.btn {
+    width: 100%;
+    color: white;
+    border-color: white;
+}
+
+.border {
+    background-color: transparent !important;
+}
+
+@keyframes pulse {
+    0% {
+        color: gray;
+        text-shadow: 0 0 10px gray;
+    }
+    50% {
+        color: black;
+        text-shadow: 0 0 20px black;
+    }
+    100% {
+        color: gray;
+        text-shadow: 0 0 10px gray;
+    }
+}
+
+.pulsing-text {
+    animation: pulse 2s infinite;
+}
+
+@keyframes sword {
+    0% {
+        text-shadow: 0 0 0 transparent;
+    }
+    50% {
+        text-shadow: 0 0 5px #f8f5f5;
+    }
+    100% {
+        text-shadow: 0 0 0 transparent;
+    }
+}
+
+.sword-effect {
+    animation: sword 5s linear infinite;
+}
+
+.text {
+    font-size: 48px;
+    color: #212332;
+    -webkit-text-stroke: 1px white;
+    animation: pulse 3s infinite;
+}
+
+.text-visible {
+    color: rgb(0, 0, 0);
+    font-size: 36px;
+    padding: 10px;
+}
+
+.text-light-gray {
+    color: gray;
+}
+
+.text-typable {
+    width: 375px;
+    color: rgb(0, 0, 0);
+    border-color: rgb(255, 255, 255);
+}
+
+.invisible-input {
+    background-color: transparent;
+    color: white;
+    outline: none;
+    width: 375px;
+}
+
+.btn-custom:hover,
+.btn-custom:focus {
+    background-color: #ffffff;
+    color: #ffffff;
+    animation: pulse 3s infinite;
+}
+
+.btn-custom:active {
+    transform: translateY(1px);
+}
+body {
+    background: url('background.png');
+    background-size: cover;
+}
+
+.bg-danger {
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+    background-color: transparent !important;
+    padding-top: 85px;
+    padding-left: 26px;
+}
+
+.table {
+    border: none;
+}
+
+.full-height {
+    height: 100vh;
+    width: 100%;
+}
+
+.rounded-circle {
+    width: 300px;
+    height: 300px;
+}
+
+.bg-light {
+    padding: 20px;
+    background-color: transparent !important;
+}
+
+.w-75 {
+    width: 75%;
+}
+
+.h1 {
+    text-align: center;
+    color: gray;
+    margin-bottom: 70px;
+}
+
+.btn {
+    width: 100%;
+    color: white;
+    border-color: white;
+}
+
+.border {
+    background-color: transparent !important;
+}
+
+@keyframes pulse {
+    0% {
+        color: gray;
+        text-shadow: 0 0 10px gray;
+    }
+    50% {
+        color: black;
+        text-shadow: 0 0 20px black;
+    }
+    100% {
+        color: gray;
+        text-shadow: 0 0 10px gray;
+    }
+}
+
+.pulsing-text {
+    animation: pulse 2s infinite;
+}
+
+@keyframes sword {
+    0% {
+        text-shadow: 0 0 0 transparent;
+    }
+    50% {
+        text-shadow: 0 0 5px #f8f5f5;
+    }
+    100% {
+        text-shadow: 0 0 0 transparent;
+    }
+}
+
+.sword-effect {
+    animation: sword 5s linear infinite;
+}
+
+.text {
+    font-size: 48px;
+    color: #212332;
+    -webkit-text-stroke: 1px white;
+    animation: pulse 3s infinite;
+}
+
+.text-visible {
+    color: rgb(0, 0, 0);
+    font-size: 36px;
+    padding: 10px;
+}
+
+.text-light-gray {
+    color: gray;
+}
+
+.text-typable {
+    width: 375px;
+    color: rgb(0, 0, 0);
+    border-color: rgb(255, 255, 255);
+}
+
+.invisible-input {
+    background-color: transparent;
+    color: white;
+    outline: none;
+    width: 375px;
+}
+
+.btn-custom:hover,
+.btn-custom:focus {
+    background-color: #ffffff;
+    color: #ffffff;
+    animation: pulse 3s infinite;
+}
+
+.btn-custom:active {
+    transform: translateY(1px);
+}
