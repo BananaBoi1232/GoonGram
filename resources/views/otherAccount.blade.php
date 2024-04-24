@@ -20,7 +20,7 @@
 
     <div class = "d-flex justify-content-center flex-column containerF">
         {{-- data handlers --}}
-        <div class = "userID invisible">{{ $user->id }}</div>
+        <div class = "userID d-none">{{ $user->id }}</div>
         <div class="d-flex">
             <div class="">
                 @php($profilePicture = $user->profilePicture)
@@ -55,7 +55,7 @@
                     @foreach($posts as $post)
                             <img draggable="false" src = "{{ asset('storage/'.$post->postImage) }}" style = "height:190px; width:190px;" class = "p-1" data-bs-toggle="modal" data-bs-target="#image{{ $post->postID }}">
                             <div class="modal fade" id="image{{ $post->postID }}">
-                                <div class = "postID invisible">{{ $post->postID }}</div>
+                                <div class = "postID d-none">{{ $post->postID }}</div>
                                 <div class="modal-dialog">
                                     <div class="modal-content">     
                                         <div class="modal-header d-flex justify-content-center">

@@ -52,6 +52,7 @@ Route::post('/send-message', [viewController::class, 'sendMessage']);
 Route::post('/approve-message/{directMessage}', [MessageController::class, 'approveMessage'])->name('approve.message');
 Route::post('/reportPost', [postApiController::class, 'reportPost']);
 Route::post('/deleteReportedPost', [postApiController::class, 'deleteReportedPost']);
+Route::post('/createComment', [commentController::class, 'createComment']);
 Route::post('/spareReportedPost', [postApiController::class, 'spareReportedPost']);
 
 

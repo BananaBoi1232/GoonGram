@@ -64,7 +64,7 @@
                     
                     <div class="modal fade" id="image{{ $post->postID }}">
                         
-                        <div class = "postID invisible">{{ $post->postID }}</div>
+                        <div class = "postID d-none">{{ $post->postID }}</div>
                         
                         <div class="modal-dialog">
                             
