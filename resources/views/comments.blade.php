@@ -19,7 +19,7 @@
 
     <div class = "d-flex justify-content-center align-items-center ">
 
-        <div class = "invisible" id = "postID">{{ $post->postID }}</div>
+        <div class = "d-none" id = "postID">{{ $post->postID }}</div>
 
         <img id = "profilePicture" name = "profilePicture" style = "height:50px; width:50px;" src="
             @if($post->profilePicture == null) {{ asset('storage/avatar-3814049_1920.png') }} 
@@ -48,7 +48,7 @@
     </div>
 
     <div class = "d-flex justify-content-center">
-        <h2> Comments</h2>
+        <h2>Comments</h2>
     </div>
 
 
@@ -104,7 +104,7 @@
                     },
                     cache: false,
                     error: function(data){
-                        alert("Comment Cannot be empty!");
+                        alert("Comment cannot be empty");
                     },
                     success: function(response){
                         alert(response.msg);

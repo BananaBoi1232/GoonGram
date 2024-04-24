@@ -27,8 +27,8 @@
             <div class = "border p-3 m-2">
 
                 {{-- data loaders --}}
-                <div name = "id" class = " userID invisible">{{ $post->id }}</div> 
-                <div name = "postID"class = " postID invisible">{{ $post->postID }}</div>
+                <div name = "id" class = " userID d-none">{{ $post->id }}</div> 
+                <div name = "postID" class = " postID d-none">{{ $post->postID }}</div>
 
                 {{-- Popover button --}}
                 <div class="dropdown d-flex justify-content-end">
