@@ -44,8 +44,8 @@ class viewController extends Controller
             //Query for reported posts and their data
             $query = DB::table('reported_posts')
             ->join('posts', 'reported_posts.postID', '=', 'posts.postID')
-            ->select('posts.*')
-            ->distinct()
+            ->join('users', 'posts.userID', '=', 'users.id')
+            ->select('posts.*', 'users.*', 'reported_posts.*')
             ->get();
 
             //Returns the view with query results 

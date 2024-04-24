@@ -36,7 +36,9 @@
                 <div class = "d-flex flex-row">
                     <div id = "followerCount" style = "font-size:16px">{{ $user->followerCount }} followers</div>
                     <div class = "ps-4" style = "font-size:16px">{{ $user->followingCount }} following</div>
-                    <div class = "ps-4" style = "font-size:16px"><b>You are following this user</b></div>
+                    @if($followed->contains($user->id))
+                        <div class = "ps-4" style = "font-size:16px"><b>You are following this user</b></div>
+                    @endif
                 </div>
                     <button id = "followBtn" class = "w-25 p-2 mt-2 followBtn" onClick="window.location.reload();">@if($followed->contains($user->id)) unfollow @else follow @endif</button>
                 <div>
