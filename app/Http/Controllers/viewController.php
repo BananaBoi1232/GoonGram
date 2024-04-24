@@ -130,7 +130,6 @@ class viewController extends Controller
         $query = DB::table('posts')->where('userID', '=', $user->id)->get();
         $followed = Follower::where('followerID', auth()->user()->id)->pluck('personFollowedID');
         $liked = Like::where('userID', auth()->user()->id)->pluck('postID');
-
         if(Auth::check()){
             if($user->id == auth()->user()->id){
                 return view('personalAccount', [

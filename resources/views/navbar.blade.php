@@ -33,9 +33,6 @@
                     <a class="nav-link" href="/personalAccount">Personal Account</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/settings">Account Settings</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="/manageAccount">Manage Account</a>
                 </li>
                 <li class="nav-item">
