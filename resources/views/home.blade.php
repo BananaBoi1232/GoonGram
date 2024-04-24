@@ -20,6 +20,7 @@
 </head>
 
 <body>
+    
 
     <div class = "d-flex flex-column justify-content-center align-items-center">
         @foreach($posts as $post)
@@ -69,6 +70,7 @@
                 </div>
 
                 <div class = "d-flex p-1 align-items-center">
+                    
                     <div>
                         <a class = "likeBtn">
                             <ion-icon name="thumbs-up-outline" class="likeIcon p-1  @if($liked->contains($post->postID)) text-warning @endif" style = "width:35px; height:35px; color:black;"></ion-icon>
