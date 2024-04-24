@@ -47,6 +47,7 @@
 
         <hr>
         <div d-flex class = "flex-column justify-content-center text-align-center">
+<<<<<<<<< Temporary merge branch 1
             @if($followed->contains($user->id) || $user->private == 0 || $user == auth()->user()){
                 <div class = "d-flex justify-content-center text-align-center">
                     <h2>Posts</h2>
@@ -70,9 +71,46 @@
                                                 </a>
                                                 <div class = "likeCount"> {{ $post->likeCount }} Likes </div>
                                             </div>
+=========
+
+            <div class = "d-flex justify-content-center text-align-center">
+                <h2>posts</h2>
+            </div>
+
+            <div class = "d-flex flex-row flex-wrap">
+                
+                @foreach($posts as $post)
+
+                        <img draggable="false" src = "{{ asset('storage/'.$post->postImage) }}" style = "height:190px; width:190px;" class = "p-1" data-bs-toggle="modal" data-bs-target="#image{{ $post->postID }}">
+                       
+                        <div class="modal fade" id="image{{ $post->postID }}">
+
+                            <div class = "postID invisible">{{ $post->postID }}</div>
+
+
+                            <div class="modal-dialog">
+
+                                <div class="modal-content">     
+
+                                    <div class="modal-header d-flex justify-content-center">
+                                        <img draggable="false" src = "{{ asset('storage/'.$post->postImage) }}" style = "height:420px; width:420px;" class = "p-1">
+                                        <button type="button" class="btn-close position-absolute top-0 end-0 m-1" data-bs-dismiss="modal"></button>
+                                    </div>
+
+                                    <div class="modal-body">
+
+                                        <div class="caption">{{ $post->caption }}</div>
+
+                                        <div class="likes">
+                                            <a class = "likeBtn">
+                                                <ion-icon name="thumbs-up-outline" class="likeIcon p-1  @if($liked->contains($post->postID)) text-warning @endif" style = "width:35px; height:35px; color:black;"></ion-icon>
+                                            </a>
+                                            <div class = "likeCount"> {{ $post->likeCount }} Likes </div>
+>>>>>>>>> Temporary merge branch 2
                                         </div>
                                     </div>
                                 </div>
+                                
                             </div>
                     @endforeach
                 </div>
