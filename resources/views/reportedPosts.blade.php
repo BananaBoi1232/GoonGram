@@ -18,21 +18,30 @@
 </head>
 
 <body>
-
     <div class = "px-1">
         <h1> Reported Posts </h1>
     </div>
     
     <hr>
 
+    <div class="container align-items-center">
+        <div class="row justify-content-center">
+            <div class="col-auto gy-3">
+                <form class="input-group mb-3 col-sm">
+                    <input type="text" class="form-control" placeholder="Search users, posts, etc..." aria-label="Search users, posts, etc..." aria-describedby="button-addon2" name="search">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <div class = "d-flex flex-row flex-wrap">
-
         @foreach($reportedPosts as $post)
-
-            <div class = "reportBorder">
-
+            <div class = "reportBorder results">
                 <div class = "postID d-none">{{ $post->postID }}</div>
-
+                <div class = "postID d-none">{{ $post->username }}</div>
 
                 {{-- Unique Post Images --}}
                 <img src = "{{ asset('storage/'.$post->postImage) }}"
@@ -42,45 +51,33 @@
                     data-bs-toggle="modal" 
                     data-bs-target="#reportPost{{ $post->postID }}"
                 >
-
                 
                 <!-- Report Post Modal -->
                 <div class="modal fade" id="reportPost{{ $post->postID }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-
                     <div class="modal-dialog" role="document">
-
                         <div class="modal-content">
-
                             <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLabel">Manage Post</h5>
                                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-
                             <div class="modal-body">
                                 
                                 <img draggable="false" src = "{{ asset('storage/'.$post->postImage) }}" style = "height:420px; width:420px;">
                                 <textarea style = "resize:none; border:0; outline:none;" readonly>caption: {{ $post->caption }}</textarea>
                             
                             </div>
-
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-primary deletePost">Delete Post</button>
                                 <button type="button" class="btn btn-primary sparePost">Spare Post</button>
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             </div>
-
                         </div>
-
                     </div>
-
                 </div>
-
             </div>
-
         @endforeach
-
     </div>
 
     <script>
@@ -136,6 +133,19 @@
                 }); 
             });
         });
+
+        //Search function
+        $('#button-addon2').click(function(e) {
+                e.preventDefault();
+                var searchText = $('input[name="search"]').val();
+                $('.results').each(function(){
+                    if($(this).html().toLowerCase().indexOf(searchText.toLowerCase()) >= 0){
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+                });
+            });
 
     </script>
 
