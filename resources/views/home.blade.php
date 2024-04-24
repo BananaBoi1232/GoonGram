@@ -19,8 +19,6 @@
 </head>
 
 <body>
-    
-
     <div class = "d-flex flex-column justify-content-center align-items-center">
         @foreach($posts as $post)
         @if($followed->contains($post->id) || $post->private == 0 || $post->id == auth()->user()->id)
@@ -69,7 +67,7 @@
                     </div>
                 </div>
 
-                
+                {{-- Display Posts --}}
                 <div class = "d-flex">
                     <a href = "otherAccount/{{ $post->id }}">
                         <img draggable="false" id = "profilePicture" name = "profilePicture"style = "height:50px; width:50px;" class = "" src="
@@ -77,7 +75,6 @@
                             @else {{ asset('storage/'.$post->profilePicture) }}
                         @endif">
                     </a>
-
                     <div> 
                         <div class = "p-2">{{ $post->username }}</div>
                     </div>
@@ -89,7 +86,6 @@
                     <textarea class = "m-1" style = "resize:none; border:0; outline:none;" readonly>{{ $post->caption }}</textarea>
                 </div>
                 <div class = "d-flex p-1 align-items-center">
-                    
                     <div>
                         <a class = "likeBtn">
                             <ion-icon name="thumbs-up-outline" class="likeIcon p-1  @if($liked->contains($post->postID)) text-warning @endif" style = "width:35px; height:35px; color:black;"></ion-icon>
@@ -102,9 +98,9 @@
                     </div>
                     <div class = "likeCount p-2">{{ $post->likeCount }} Likes</div>
                 </div>
-                
             </div>
-
+        
+        @endif
         @endforeach
     </div>
 
