@@ -35,6 +35,24 @@ class viewController extends Controller
             return redirect()->back()->withErrors(['You are not logged in!']);
         }
     }
+
+    public function showReportedPosts(){
+        if(Auth::check()){
+
+            //Query for reported posts and their data
+            $query = DB::table('reported_posts')
+            ->join('posts', 'reported_posts.postID', '=', 'posts.postID')
+            ->select('posts.*')
+            ->distinct()
+            ->get();
+
+            //Returns the view with query results 
+            return view('reportedPosts')->with('reportedPosts', $query);
+
+        } else {
+            return redirect()->back();
+        }
+    }
     
     public function showBannedUsers(){
         if(Auth::check()){
@@ -156,14 +174,6 @@ class viewController extends Controller
                 'posts' => $query,
                 'liked' => $liked,
             ]);
-        } else {
-            return redirect()->back();
-        }
-    }
-
-    public function showReportedPosts(){
-        if(Auth::check()){
-            return view('reportedPosts');
         } else {
             return redirect()->back();
         }

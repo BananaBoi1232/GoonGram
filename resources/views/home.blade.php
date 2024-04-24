@@ -19,6 +19,7 @@
 </head>
 
 <body>
+    
 
     <div class = "d-flex flex-column justify-content-center align-items-center">
         @foreach($posts as $post)
@@ -31,11 +32,13 @@
 
                 {{-- Popover button --}}
                 <div class="dropdown d-flex justify-content-end">
+
                     <button id="popoverButton" type="button" class="btn btn-sm" data-bs-toggle="popover" data-bs-placement="bottom">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
                           <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/>
                         </svg>
                     </button>
+
                 </div>
 
                 <!-- Button trigger modal -->
@@ -43,7 +46,7 @@
                     Report Post
                 </button>
                 
-                <!-- Modal -->
+                <!-- Report Post Modal -->
                 <div class="modal fade" id="reportPost{{ $post->postID }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
                     <div class="modal-dialog" role="document">
@@ -59,7 +62,7 @@
 
                             <div class="modal-body">
                                 <div>Please Give Us Your Reasoning Behind This Report</div>
-                                <textarea class = "reason" name = "reason" style="height:250px; width:450px; resize:none;"></textarea>
+                                <textarea class = "reason" name = "reason" style="height:250px; width:450px; resize:none;" placeholder="ex. offensive content"></textarea>
                             </div>
 
                             <div class="modal-footer">
@@ -98,6 +101,7 @@
                 </div>
 
                 <div class = "d-flex p-1 align-items-center">
+                    
                     <div>
                         <a class = "likeBtn">
                             <ion-icon name="thumbs-up-outline" class="likeIcon p-1  @if($liked->contains($post->postID)) text-warning @endif" style = "width:35px; height:35px; color:black;"></ion-icon>

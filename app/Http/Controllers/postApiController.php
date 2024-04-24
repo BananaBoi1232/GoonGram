@@ -103,6 +103,34 @@ class postApiController extends Controller
         return response()->json(['message' => 'Cannot Report Post More Than Once', 200]);
     }
 
+    public function deleteReportedPost(Request $request){
+        // Deletes All Likes On The Post
+        DB::table('likes')->where('postID', $request->postID)->delete();
+
+        //Deletes All Comments On The Post
+        DB::table('comments')->where('postID', $request->postID)->delete();
+
+        //Deletes All Tags On The Post
+        DB::table('pt')->where('pt_postid', $request->postID)->delete();
+
+        //Deletes Post From Reported Posts Table
+        DB::table('reported_posts')->where('postID', $request->postID)->delete();
+
+        //Deletes The Post From Post Table
+        DB::table('posts')->where('postID', $request->postID)->delete();
+
+        // Returns message
+        return response()->json(['message' => 'Reported Post Successfully Deleted', 200]);
+    }
+
+    public function spareReportedPost(Request $request){
+        //Deletes Post From Reported Posts Table
+        DB::table('reported_posts')->where('postID', $request->postID)->delete();
+
+        // Returns message
+        return response()->json(['message' => 'Reported Post Successfully Spared', 200]);
+    }
+
     /**
      * Display a listing of the resource.
      */

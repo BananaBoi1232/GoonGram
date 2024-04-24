@@ -67,22 +67,28 @@
                         <div class = "postID invisible">{{ $post->postID }}</div>
                         
                         <div class="modal-dialog">
+                            
                             <div class="modal-content">     
                                 
                                 <div class="modal-header d-flex justify-content-center">
+                                    
                                     <img draggable="false" src = "{{ asset('storage/'.$post->postImage) }}" style = "height:420px; width:420px;" class = "p-1">
                                     <button type="button" class="btn-close position-absolute top-0 end-0 m-1" data-bs-dismiss="modal"></button>
+                                
                                 </div>
                                 
                                 <div class="modal-body">
-                                    
-                                    <div class="caption">{{ $post->caption }}</div>
+                                
+                                    <div class="caption">{{ $post->caption }}</div>    
                                     
                                     <div class="likes">
+
                                         <a class = "likeBtn">
                                             <ion-icon name="thumbs-up-outline" class="likeIcon p-1  @if($liked->contains($post->postID)) text-warning @endif" style = "width:35px; height:35px; color:black;"></ion-icon>
                                         </a>
+
                                         <div class = "likeCount">{{ $post->likeCount }} Likes </div>
+
                                     </div>
                                     
                                 </div>

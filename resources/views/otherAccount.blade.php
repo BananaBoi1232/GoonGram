@@ -65,7 +65,9 @@
             </div>
 
             <div class = "d-flex flex-row flex-wrap">
+                
                 @foreach($posts as $post)
+
                         <img draggable="false" src = "{{ asset('storage/'.$post->postImage) }}" style = "height:190px; width:190px;" class = "p-1" data-bs-toggle="modal" data-bs-target="#image{{ $post->postID }}">
                        
                         <div class="modal fade" id="image{{ $post->postID }}">
