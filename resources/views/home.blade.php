@@ -29,29 +29,37 @@
                     {{-- Dropdown selection menu --}}
                     <div class="container d-flex justify-content-end">
                         <div class="menu-container">
-                        <div class="menu">
+                          <div class="menu">
                             <i class="bi bi-three-dots menu-toggle"></i>
-                            <ul class="dropdown-menu menu-drop">
-                                <a href="#" class="link-dark link-underline link-underline-opacity-0"><li class="dropdown-item">Message User</li></a>
-                                <a href="#" class="link-dark link-underline link-underline-opacity-0"><li class="dropdown-item">Block User</li></a>
-                                <a href="#" class="link-dark link-underline link-underline-opacity-0"><li class="dropdown-item">Report Post</li></a>
-                            </ul>
+                              <ul class="dropdown-menu menu-drop">
+                                <a href="#" class="link-dark link-underline link-underline-opacity-0">
+                                    <li class="dropdown-item">
+                                    Direct Message
+                                    </li>
+                                </a>
+                                <a href="#" class="link-dark link-underline link-underline-opacity-0">
+                                    <li class="dropdown-item">
+                                    Block User
+                                    </li>
+                                </a>
+                                <a href="#" class="link-dark link-underline link-underline-opacity-0">
+                                    <li class="dropdown-item" data-bs-toggle="modal" data-bs-target="#reportPost{{ $post->postID }}">
+                                        Report Post
+    
+                                    </li>
+                                </a>
+                              </ul>
+                          </div>
                         </div>
-                        </div>
-                    </div>
-                    <!-- Button trigger modal -->
-                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#reportPost{{ $post->postID }}">
-                        Report Post
-                    </button>
+                      </div>
+
                     <!-- Report Post Modal -->
                     <div class="modal fade" id="reportPost{{ $post->postID }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
+                                    <button type="button" class="btn-close position-absolute top-0 end-0 m-1" data-bs-dismiss="modal"></button>
                                 </div>
                                 <div class="modal-body">
                                     <div>Please Give Us Your Reasoning Behind This Report</div>
@@ -61,9 +69,9 @@
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                     <button type="button" class="btn btn-primary reportPost">Report Post</button>
                                 </div>
-                            </div>
                         </div>
                     </div>
+                </div>
                     <div class = "d-flex">
                         <a href = "otherAccount/{{ $post->id }}">
                             <img draggable="false" id = "profilePicture" name = "profilePicture"style = "height:50px; width:50px;" class = "" src="
@@ -139,63 +147,22 @@
         }
     </style>
 
-    {{-- Dropdown Menu options functionalty --}}
-    <script>
-        //script to block user via post(s).
-
-    //script to message user via post(s).
-    document.addEventListener('DOMContentLoaded', function () {
-    // Get all elements with class "messageUser"
-    var messageUserLinks = document.querySelectorAll('.messageUser');
-
-    // Loop through each link and add click event listener
-    messageUserLinks.forEach(function(link) {
-        link.addEventListener('click', function(event) {
-            event.preventDefault();
-            var id = link.getAttribute('href').split('/').pop(); 
-            sendMessage(id); // Call the sendMessage function with receiver ID
-        });
-    });
-});
-
-function sendMessage(receiverId) {
-    fetch('/send-message', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': '{{ csrf_token() }}'
-        },
-        body: JSON.stringify({ receiver_id: receiverId, message: 'Your message here' })
-    })
-    .then(response => {
-        if (response.ok) {
-            return response.json();
-        }
-        throw new Error('Network response was not ok.');
-    })
-    .then(data => {
-        // Handle success response
-        console.log(data);
-    })
-    .catch(error => {
-        // Handle error
-        console.error('There was a problem with your fetch operation:', error);
-    });
-}
-
-        //script to report post(s) via post(s).
-    </script>
-
         {{-- Dropdown script functionalty--}}
     <script>
         $(document).ready(function() {
-            $('.menu-container').prepend('<i class=""></i>');
-          
-            $('.menu-toggle').click(function(){
-              $(this).toggleClass('bi bi-three-dots bi bi-dash');
-              $(".menu-drop").slideToggle("300");
+        $('.menu-container').each(function() {
+            $(this).prepend('<i class=""></i>');
+        });
+
+        $('.menu-toggle').click(function(){
+            $(this).toggleClass('bi bi-three-dots bi bi-dash');
+
+            $('.menu-toggle').not(this).removeClass('bi bi-dash').addClass('bi bi-three-dots');
+            $('.menu-drop').not($(this).siblings('.menu-drop')).slideUp("300");
+
+            $(this).siblings('.menu-drop').slideToggle("300");
             });
-          });
+        });
     </script>
 
     <script>

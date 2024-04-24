@@ -15,47 +15,53 @@
     @include('navbar')
 </head>
 <body>
-<!-- Compose Message Form -->
-<form action="{{ route('send.message') }}" method="post" class="flex-column justify-content-center text-align-center">
-    @csrf
-    <input type="hidden" name="receiver_id" value="{{ $receiver->id }}">
-    <input type="text" name="message" placeholder="Type your message...">
-    <button type="submit">Send</button>
-</form>
-<div>
-    <h4>Disable/Enable message requests</h4>
-    <label for="disable">Disable: </label>
-    <input type="radio" name="disable" value="0">
-    <label for="enable">Enable: </label>
-    <input type="radio" name="enable" value="1">
-</div>
+    <!-- Compose Message Form -->
+    <form action={{ url('/send-message') }} method="post" class="flex-column justify-content-center text-align-center">
+        @csrf
+        <input type="hidden" name="receiver_id" value="{{ $post->id }}">
+        <input type="text" name="message" placeholder="Type your message...">
+        <button type="submit">Send</button>
+    </form>
 
-<!-- Pending Messages -->
-@if($pendingMessages->isNotEmpty())
-    <h3>Pending Messages:</h3>
-    <ul>
-        @foreach($pendingMessages as $directMessage)
-            @foreach($directMessage->messages as $message)
-                <li>{{ $message->message }}</li>
-            @endforeach
-            <form action="{{ route('approve.message', $directMessage) }}" method="post">
-                @csrf
-                <button type="submit">Approve</button>
-            </form>
-        @endforeach
-    </ul>
-@endif
+    <!-- Disable/Enable message requests -->
+    <div>
+        <h4>Disable/Enable message requests</h4>
+        <form action="{{ route('update.message.status') }}" method="post">
+            @csrf
+            <label for="disable">Disable: </label>
+            <input type="radio" name="status" value="0" {{ $messageStatus == 0 ? 'checked' : '' }}>
+            <label for="enable">Enable: </label>
+            <input type="radio" name="status" value="1" {{ $messageStatus == 1 ? 'checked' : '' }}>
+            <button type="submit">Update Status</button>
+        </form>
+    </div>
 
-<!-- Conversations -->
-@if($approvedMessages->isNotEmpty())
-    <h3>Conversation:</h3>
-    <ul>
-        @foreach($approvedMessages as $directMessage)
-            @foreach($directMessage->messages as $message)
-                <li>{{ $message->message }}</li>
+    <!-- Pending Messages -->
+    @if($pendingMessages->isNotEmpty())
+        <h3>Pending Messages:</h3>
+        <ul>
+            @foreach($pendingMessages as $directMessage)
+                @foreach($directMessage->messages as $message)
+                    <li>{{ $message->message }}</li>
+                @endforeach
+                <form action="{{ route('approve.message', $directMessage) }}" method="post">
+                    @csrf
+                    <button type="submit">Approve</button>
+                </form>
             @endforeach
-        @endforeach
-    </ul>
-@endif
+        </ul>
+    @endif
+
+    <!-- Conversations -->
+    @if($approvedMessages->isNotEmpty())
+        <h3>Conversation:</h3>
+        <ul>
+            @foreach($approvedMessages as $directMessage)
+                @foreach($directMessage->messages as $message)
+                    <li>{{ $message->message }}</li>
+                @endforeach
+            @endforeach
+        </ul>
+    @endif
 </body>
 </html>
