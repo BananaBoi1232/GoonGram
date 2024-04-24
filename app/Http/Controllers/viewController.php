@@ -25,11 +25,13 @@ class viewController extends Controller
             ->select('users.*', 'posts.postID', 'posts.caption', 'posts.likeCount', 'posts.postImage')
             ->get();
             $liked = Like::where('userID', auth()->user()->id)->pluck('postID');
+            $followed = Follower::where('followerID', auth()->user()->id)->pluck('personFollowedID');
 
             return view('home', [
                 'user' => auth()->user(),
                 'posts' => $query,
                 'liked' => $liked,
+                'followed' => $followed,
             ]);
         } else {
             return redirect()->back()->withErrors(['You are not logged in!']);

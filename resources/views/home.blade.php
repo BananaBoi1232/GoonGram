@@ -19,11 +19,9 @@
 </head>
 
 <body>
-    
-
     <div class = "d-flex flex-column justify-content-center align-items-center">
         @foreach($posts as $post)
-
+        @if($followed->contains($post->id) || $post->private == 0 || $post->id == auth()->user()->id)
             <div class = "border p-3 m-2">
 
                 {{-- data loaders --}}
@@ -32,13 +30,11 @@
 
                 {{-- Popover button --}}
                 <div class="dropdown d-flex justify-content-end">
-
                     <button id="popoverButton" type="button" class="btn btn-sm" data-bs-toggle="popover" data-bs-placement="bottom">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
                           <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/>
                         </svg>
                     </button>
-
                 </div>
 
                 <!-- Button trigger modal -->
@@ -48,80 +44,61 @@
                 
                 <!-- Report Post Modal -->
                 <div class="modal fade" id="reportPost{{ $post->postID }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-
                     <div class="modal-dialog" role="document">
-
                         <div class="modal-content">
-
                             <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
                                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-
                             <div class="modal-body">
                                 <div>Please Give Us Your Reasoning Behind This Report</div>
                                 <textarea class = "reason" name = "reason" style="height:250px; width:450px; resize:none;" placeholder="ex. offensive content"></textarea>
                             </div>
-
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                 <button type="button" class="btn btn-primary reportPost">Report Post</button>
                             </div>
-
                         </div>
-
                     </div>
-
                 </div>
 
-                
+                {{-- Display Posts --}}
                 <div class = "d-flex">
-
                     <a href = "otherAccount/{{ $post->id }}">
                         <img draggable="false" id = "profilePicture" name = "profilePicture"style = "height:50px; width:50px;" class = "" src="
                             @if($post->profilePicture == null) {{ asset('storage/avatar-3814049_1920.png') }} 
                             @else {{ asset('storage/'.$post->profilePicture) }}
                         @endif">
                     </a>
-
                     <div> 
                         <div class = "p-2">{{ $post->username }}</div>
                     </div>
-
                 </div>
-
                 <div>
                     <img draggable="false" src = "{{ asset('storage/'.$post->postImage) }}" style = "height:300px; width:300px;" class = "p-1">
                 </div>
-
                 <div>
                     <textarea class = "m-1" style = "resize:none; border:0; outline:none;" readonly>{{ $post->caption }}</textarea>
                 </div>
-
                 <div class = "d-flex p-1 align-items-center">
-                    
                     <div>
                         <a class = "likeBtn">
                             <ion-icon name="thumbs-up-outline" class="likeIcon p-1  @if($liked->contains($post->postID)) text-warning @endif" style = "width:35px; height:35px; color:black;"></ion-icon>
                         </a>
                     </div>
-
                     <div>
                         <a href = "/comments/{{ $post->postID }}" class = "comment-button">
                             <ion-icon name="chatbubble-ellipses-outline" id = "commentIcon" style = "width:35px; height:35px" class = "p-1"></ion-icon>
                         </a>
                     </div>
-
                     <div class = "likeCount p-2">{{ $post->likeCount }} Likes</div>
-
                 </div>
-                
             </div>
-
+        
+        @endif
         @endforeach
-
     </div>
 
     <!-- Popover content div -->
