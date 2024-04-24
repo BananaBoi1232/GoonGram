@@ -39,9 +39,13 @@
 
     <div class = "d-flex flex-row flex-wrap">
         @foreach($reportedPosts as $post)
-            <div class = "reportBorder results">
-                <div class = "postID d-none">{{ $post->postID }}</div>
-                <div class = "postID d-none">{{ $post->username }}</div>
+            <div class = "reportBorder">
+                <div class="d-none results">
+                    <div class = "postID d-none">{{ $post->postID }}</div>
+                    <div class = "username d-none">{{ $post->username }}</div>
+                    <div class = "reportmsg d-none">{{ $post->reason }}</div>
+                    <div class = "caption d-none">{{ $post->caption }}</div>
+                </div>
 
                 {{-- Unique Post Images --}}
                 <img src = "{{ asset('storage/'.$post->postImage) }}"
@@ -140,9 +144,9 @@
                 var searchText = $('input[name="search"]').val();
                 $('.results').each(function(){
                     if($(this).html().toLowerCase().indexOf(searchText.toLowerCase()) >= 0){
-                        $(this).show();
+                        $(this).parent().show();
                     } else {
-                        $(this).hide();
+                        $(this).parent().hide();
                     }
                 });
             });

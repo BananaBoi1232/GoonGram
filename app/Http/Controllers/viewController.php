@@ -45,7 +45,7 @@ class viewController extends Controller
             $query = DB::table('reported_posts')
             ->join('posts', 'reported_posts.postID', '=', 'posts.postID')
             ->join('users', 'posts.userID', '=', 'users.id')
-            ->select('posts.*', 'users.*')
+            ->select('posts.*', 'users.*', 'reported_posts.*')
             ->get();
 
             //Returns the view with query results 
