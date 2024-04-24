@@ -11,7 +11,8 @@
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
     <title>Home Page</title>
     
     @include('navbar')
@@ -32,18 +33,16 @@
                 {{-- Dropdown selection menu --}}
                 <div class="container d-flex justify-content-end">
                     <div class="menu-container">
-                        <div class="menu">
-                            <div class="menu-drop">
-                                <ul>
-                                    <a href="" class="link-dark link-underline link-underline-opacity-0"><li class="" name="messageUser">Message User</li></a>
-                                    <a href="" class="link-dark link-underline link-underline-opacity-0"><li class="" name="blockUser">Block User</li></a>
-                                    <a href="" class="link-dark link-underline link-underline-opacity-0"><li class="" name="reportPost">Report Post</li></a>
-                                </ul>
-                            </div>
-                        </div>
+                      <div class="menu">
+                        <i class="bi bi-three-dots menu-toggle"></i>
+                          <ul class="dropdown-menu menu-drop">
+                            <a href="#" class="link-dark link-underline link-underline-opacity-0"><li class="dropdown-item">Message User</li></a>
+                            <a href="#" class="link-dark link-underline link-underline-opacity-0"><li class="dropdown-item">Block User</li></a>
+                            <a href="#" class="link-dark link-underline link-underline-opacity-0"><li class="dropdown-item">Report Post</li></a>
+                          </ul>
+                      </div>
                     </div>
-
-                </div>
+                  </div>
                 
                 
                 <div class = "d-flex">
@@ -91,6 +90,46 @@
         @endforeach
 
     </div>
+
+    {{-- Styling for the dropdown menu --}}
+    <style>
+        .menu-container {
+        position: relative;
+        }
+
+        .menu-toggle {
+        font-size: 30px;
+        cursor: pointer;
+        color: #000;
+        }
+
+        .menu-drop {
+        display: none;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        }
+
+        .dropdown-menu {
+        margin: 0;
+        }
+
+        .dropdown-item {
+        font-size: 16px;
+        cursor: pointer;
+        }
+
+        .dropdown-item a {
+        display: block;
+        padding: 0.5rem 1rem;
+        color: #000;
+        text-decoration: none;
+        }
+
+        .dropdown-item a:hover {
+        background-color: #2e3135;
+        }
+    </style>
 
     {{-- Dropdown Menu options functionalty --}}
     <script>
@@ -142,8 +181,13 @@ function sendMessage(receiverId) {
         {{-- Dropdown script functionalty--}}
     <script>
         $(document).ready(function() {
-        $(.menu).prepend()  
-        })
+            $('.menu-container').prepend('<i class=""></i>');
+          
+            $('.menu-toggle').click(function(){
+              $(this).toggleClass('bi bi-three-dots bi bi-dash');
+              $(".menu-drop").slideToggle("300");
+            });
+          });
     </script>
 
     <script>
