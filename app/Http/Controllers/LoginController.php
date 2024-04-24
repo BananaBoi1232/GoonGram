@@ -14,9 +14,11 @@ class LoginController extends Controller
             'password' => ['required']
         ])->validate();
 
-        if(auth()->attempt(request()->only(['email', 'password']))){ 
+        if(auth()->attempt(['email' => $request->email, 'password' => $request->password, 'accountType' => 'user'])){
             return redirect('/home');
-        }
+        }elseif(auth()->attempt(['email' => $request->email, 'password' => $request->password, 'accountType' => 'admin'])){
+            return redirect('/reportedPosts');
+        };
 
         return redirect()->back()->withErrors(['email' => 'Invalid Email!']);
     }
