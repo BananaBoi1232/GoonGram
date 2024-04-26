@@ -32,7 +32,6 @@ Route::get('/post', [viewController::class, 'showCreatePost']);
 Route::get('/directMessage', [viewController::class, 'showDirectMessage']);
 Route::get('/friends', [viewController::class, 'showFriends']);
 Route::get('/manageAccount', [viewController::class, 'showManageAccount']);
-Route::get('/messages', [viewController::class, 'showMessages']);
 Route::get('/personalAccount', [viewController::class, 'showPersonalAccount']);
 Route::get('/reportedPosts', [viewController::class, 'showReportedPosts']);
 Route::get('/search', [viewController::class, 'showSearch']);
@@ -41,6 +40,7 @@ Route::get('/signup', [viewController::class, 'showSignup']);
 Route::get('/logout', [LogoutController::class, 'logout']);
 Route::get('/otherAccount/{id}', [viewController::class, 'showOtherAccount']);
 Route::get('/comments/{postID}', [viewController::class, 'showComments']);
+Route::get('/showMessages/{id}', [viewController::class, 'showMessages']);
 
 //POST
 Route::post('/follow', [followController::class, 'follow']);
@@ -48,7 +48,7 @@ Route::post('/login', [LoginController::class, 'login']);
 Route::post('/update', [AccountControllerApiController::class, 'updateAccount']);
 Route::post('/createPost', [postApiController::class, 'createPost']);
 Route::post('/like', [postApiController::class, 'like']);
-Route::post('/send-message', [viewController::class, 'sendMessage']);
+Route::post('/send-message', [MessageController::class, 'sendMessage'])->name('send.message');
 Route::post('/approve-message/{directMessage}', [MessageController::class, 'approveMessage'])->name('approve.message');
 Route::post('/reportPost', [postApiController::class, 'reportPost']);
 Route::post('/deleteReportedPost', [postApiController::class, 'deleteReportedPost']);

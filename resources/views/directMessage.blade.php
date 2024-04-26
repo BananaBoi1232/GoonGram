@@ -11,6 +11,6 @@
     @include('navbar')
 </head>
 <body>
-
+    
 </body>
 </html>
