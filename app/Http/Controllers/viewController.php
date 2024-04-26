@@ -215,14 +215,18 @@ class viewController extends Controller
             $searchUsers = DB::table('users')
                 ->get();
             $searchPosts = DB::table('posts')
+                ->join('users', 'posts.userID', '=', 'users.id')
+                ->select('users.*', 'posts.*')
                 ->get();
             $searchTags = DB::table('tags')
                 ->get();
+            $followed = Follower::where('followerID', auth()->user()->id)->pluck('personFollowedID');
             return view('search', [
                 'user' => auth()->user(),
                 'searchUsers' => $searchUsers,
                 'searchPosts' => $searchPosts,
-                'searchTags' => $searchTags
+                'searchTags' => $searchTags,
+                'followed' => $followed
             ]);
         } else {
             return redirect()->back();

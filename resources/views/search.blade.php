@@ -84,8 +84,10 @@
                 </tr>
                 <tr class="d-flex flex-row flex-wrap">
                 @foreach($searchPosts as $postres)
-                    <th class="userRes caption">{{ $postres -> caption }}</th>
-                    <th class="image"><img src="{{ asset('storage/'.$postres -> postImage) }}" style = "height:190px; width:190px;" alt=""></th>
+                    @if($postres->private == 0 || $followed->contains($postres->id) || $postres->id == auth()->user()->id)
+                        <th class="userRes caption">{{ $postres -> caption }}</th>
+                        <th class="image"><img src="{{ asset('storage/'.$postres -> postImage) }}" style = "height:190px; width:190px;" alt=""></th>
+                    @endif
                 @endforeach
                 </tr>
             </table>
