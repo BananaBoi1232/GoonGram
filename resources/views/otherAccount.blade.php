@@ -49,7 +49,7 @@
 
         <hr>
         <div d-flex class = "flex-column justify-content-center text-align-center">
-            @if($followed->contains($user->id) || $user->private == 0 || $user == auth()->user()){
+            @if($followed->contains($user->id) || $user->private == 0 || $user == auth()->user())
                 <div class = "d-flex justify-content-center text-align-center">
                     <h2>Posts</h2>
                 </div>
@@ -78,11 +78,10 @@
                             </div>
                     @endforeach
                 </div>
-            } @else {
+            @else
                 <div class = "d-flex justify-content-center text-align-center">
                     <h2>Follow this user to see their posts</h2>
                 </div>
-            }
             @endif
         </div>
     </div>
