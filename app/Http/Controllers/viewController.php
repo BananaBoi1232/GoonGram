@@ -151,7 +151,7 @@ class viewController extends Controller
                 ->where('dmID', $dm->dmID)
                 ->get();
 
-            return view('messages')->with('messages', $messages)->with('dmId', $dm->dmID);
+            return view('messages')->with('messages', $messages)->with('dmId', $dm->dmID)->with('user', $user);
 
         } else {
             return redirect()->back();
