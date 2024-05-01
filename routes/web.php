@@ -54,6 +54,8 @@ Route::post('/reportPost', [postApiController::class, 'reportPost']);
 Route::post('/deleteReportedPost', [postApiController::class, 'deleteReportedPost']);
 Route::post('/createComment', [commentController::class, 'createComment']);
 Route::post('/spareReportedPost', [postApiController::class, 'spareReportedPost']);
+Route::post('/newMessage', [MessageController::class, 'newMessage']);
+
 
 
 

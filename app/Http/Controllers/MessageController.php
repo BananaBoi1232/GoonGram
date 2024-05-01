@@ -14,53 +14,13 @@ use App\Models\User;
 class MessageController extends Controller
 {
     
-    public function sendMessage(Request $request)
-    {
-        // Create a new DirectMessage with pending approval
-        $directMessage = DirectMessage::create([
-            'firstUser' => auth()->id(),
-            'secondUser' => $request->UserID,
-            'approved' => false
+    function newMessage(Request $request){
+        DB::table('messages')->insert([
+            'dmID' => $request->dmID, 
+            'messageSender' => auth()->user()->id,
+            'message' => $request->message,
         ]);
-
-        // Create the message associated with the DirectMessage
-        $message = new Message();
-        $message->dmID = $directMessage->dmID;
-        $message->messageSender = auth()->id();
-        $message->message = $request->message;
-        $message->save();
-
-        return redirect()->back()->withSuccess('Message sent successfully');
-    }
-
-    public function getMessages()
-    {
-        $user = auth()->user();
-
-        // Get pending messages to be approved
-        $pendingMessages = DirectMessage::where('secondUser', $user->id)
-            ->where('approved', false)
-            ->with('messages')
-            ->get();
-
-        // Get approved messages for ongoing conversations
-        $approvedMessages = DirectMessage::where(function ($query) use ($user) {
-            $query->where('firstUser', $user->id)
-                ->orWhere('secondUser', $user->id);
-        })
-            ->where('approved', true)
-            ->with('messages')
-            ->get();
-
-        return view('messages.index', compact('pendingMessages', 'approvedMessages'));
-    }
-
-    public function approveMessage(DirectMessage $directMessage)
-    {
-        // Approve the pending message
-        $directMessage->update(['approved' => true]);
-
-        return redirect()->back()->withSuccess('Message approved successfully');
+        return response()->json(['message' => 'Message Sent'], 200);
     }
     
     /**
