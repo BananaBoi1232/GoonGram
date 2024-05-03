@@ -1,0 +1,28 @@
+body {
+    background-image: url('/css/background.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: white;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.search-container {
+    margin-bottom: 20px;
+}
+
+.userRes {
+    background-color: black;
+    border-radius: 20px;
+    border: 2px solid white;
+    padding: 10px;
+    margin-bottom: 10px;
+}
