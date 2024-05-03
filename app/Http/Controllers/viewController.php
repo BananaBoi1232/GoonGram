@@ -8,8 +8,8 @@ use App\Models\Like;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Follower;
-use App\Models\Post;
-use App\Models\Comment;
+use App\Models\DirectMessage;
+
 
 class viewController extends Controller
 {
@@ -119,9 +119,40 @@ class viewController extends Controller
         }
     }
 
-    public function showMessages(){
+    public function showMessages($id){
         if(Auth::check()){
-            return view('messages');
+            //you
+            $user = auth()->user();
+
+            //other person
+            $other = User::find($id);
+
+            $dm = DB::table('direct_messages')
+            ->where(function ($query) use ($user, $other) {
+                $query->where('firstUser', $user->id)
+                      ->where('secondUser', $other->id);
+            })
+            ->orWhere(function ($query) use ($user, $other) {
+                $query->where('firstUser', $other->id)
+                      ->where('secondUser', $user->id);
+            })
+            ->first();
+
+            if(is_null($dm)){
+                $dmId = DB::table('direct_messages')->insertGetId([
+                    'firstUser' => $user->id, 
+                    'secondUser' => $other->id, 
+                    'approved' => 1
+                ]);
+                $dm = DB::table('direct_messages')->where('dmID', $dmId)->first();
+            }
+
+            $messages = DB::table('messages')
+                ->where('dmID', $dm->dmID)
+                ->get();
+
+            return view('messages')->with('messages', $messages)->with('dmId', $dm->dmID)->with('user', $user);
+
         } else {
             return redirect()->back();
         }
@@ -158,7 +189,6 @@ class viewController extends Controller
             ->select('users.*', 'comments.*')
             ->where('comments.postID', $postID)
             ->get();
-
         if(Auth::check()){
             return view('comments')->with('post', $post)->with('comments', $comments);
         }else{ 
@@ -185,14 +215,18 @@ class viewController extends Controller
             $searchUsers = DB::table('users')
                 ->get();
             $searchPosts = DB::table('posts')
+                ->join('users', 'posts.userID', '=', 'users.id')
+                ->select('users.*', 'posts.*')
                 ->get();
             $searchTags = DB::table('tags')
                 ->get();
+            $followed = Follower::where('followerID', auth()->user()->id)->pluck('personFollowedID');
             return view('search', [
                 'user' => auth()->user(),
                 'searchUsers' => $searchUsers,
                 'searchPosts' => $searchPosts,
-                'searchTags' => $searchTags
+                'searchTags' => $searchTags,
+                'followed' => $followed
             ]);
         } else {
             return redirect()->back();

@@ -31,27 +31,26 @@
                         <div class="menu-container">
                           <div class="menu">
                             <i class="bi bi-three-dots menu-toggle"></i>
-                              <ul class="dropdown-menu menu-drop">
-                                <a href="#" class="link-dark link-underline link-underline-opacity-0">
-                                    <li class="dropdown-item">
-                                    Direct Message
-                                    </li>
-                                </a>
-                                <a href="#" class="link-dark link-underline link-underline-opacity-0">
-                                    <li class="dropdown-item">
-                                    Block User
-                                    </li>
-                                </a>
-                                <a href="#" class="link-dark link-underline link-underline-opacity-0">
-                                    <li class="dropdown-item" data-bs-toggle="modal" data-bs-target="#reportPost{{ $post->postID }}">
-                                        Report Post
-    
-                                    </li>
-                                </a>
-                              </ul>
-                          </div>
-                        </div>
-                      </div>
+                                <ul class="dropdown-menu menu-drop">
+                                    <a href = "/showMessages/{{ $post->id }}" class="link-dark link-underline link-underline-opacity-0 message">
+                                        <li class="dropdown-item">
+                                            Message
+                                        </li>
+                                    </a>
+                                    <a class="link-dark link-underline link-underline-opacity-0">
+                                        <li class="dropdown-item">
+                                            Block User
+                                        </li>
+                                    </a>
+                                    <a class="link-dark link-underline link-underline-opacity-0">
+                                        <li class="dropdown-item" data-bs-toggle="modal" data-bs-target="#reportPost{{ $post->postID }}">
+                                            Report Post
+                                        </li>
+                                    </a>
+                                </ul>
+                            </div>
+                        </div>  
+                    </div>
 
                     <!-- Report Post Modal -->
                     <div class="modal fade" id="reportPost{{ $post->postID }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -147,7 +146,7 @@
         }
     </style>
 
-        {{-- Dropdown script functionalty--}}
+    {{-- Dropdown script functionalty--}}
     <script>
         $(document).ready(function() {
         $('.menu-container').each(function() {

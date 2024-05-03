@@ -69,8 +69,10 @@
             <h2>Posts</h2>
             <div>
                 @foreach($searchPosts as $postres)
-                    <div class="userRes caption">{{ $postres -> caption }}</div>
-                    <div class="image"><img src="{{ asset('storage/'.$postres -> postImage) }}" style="height: 190px; width: 190px;" alt=""></div>
+                    @if($postres->private == 0 || $followed->contains($postres->id) || $postres->id == auth()->user()->id)
+                        <th class="userRes caption">{{ $postres -> caption }}</th>
+                        <th class="image"><img src="{{ asset('storage/'.$postres -> postImage) }}" style = "height:190px; width:190px;" alt=""></th>
+                    @endif
                 @endforeach
             </div>
         </div>
