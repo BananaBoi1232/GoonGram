@@ -41,6 +41,7 @@ Route::get('/logout', [LogoutController::class, 'logout']);
 Route::get('/otherAccount/{id}', [viewController::class, 'showOtherAccount']);
 Route::get('/comments/{postID}', [viewController::class, 'showComments']);
 Route::get('/showMessages/{id}', [viewController::class, 'showMessages']);
+Route::get('/fetchMessages/{dmId}', [MessageController::class, 'fetchMessages']);
 
 //POST
 Route::post('/follow', [followController::class, 'follow']);
