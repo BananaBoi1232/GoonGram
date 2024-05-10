@@ -17,15 +17,15 @@
     {{-- DM ID data loader --}}
     <div class="dmID d-none">{{ $dmId }}</div>
 
-    @foreach($messages as $message)
+    <div id ="messageContainer">
+        @foreach($messages as $message)
 
-        <div>
-            {{ $message->message }}
-        </div>
-            
-
-    @endforeach
-
+            <div>
+                {{ $message->message }}
+            </div>
+                
+        @endforeach
+    </div>
 
     <div class = "a d-flex justify-content-center flex-row fixed-bottom">
         <textarea class = "message w-50" name = "message" style="height:100px; resize:none;" placeholder="Write Your Message Here"></textarea>
@@ -33,8 +33,34 @@
     </div>
 
     <script>
+        function fetchMessages() {
+            var dmId = $(".dmID").html();
+
+
+            $.ajax({
+                type: 'GET',
+                url: '/fetchMessages/' + dmId, 
+                cache: false,
+                success: function(response) {
+                    $("#messageContainer").empty();
+                    response.messages.sort(function(a, b){
+                        return new Date(a.created_at) - new Date(b.created_at);
+                    });
+                    $.each(response.messages, function(index, message) {
+                    $("#messageContainer").append('<div>' + message.message + '</div>');
+                });
+                },
+                error: function(xhr, status, error) {
+                    console.error(xhr.responseText);
+                }
+            });
+        }
+
 
         $(document).ready(function(){
+            fetchMessages();
+            setInterval(fetchMessages, 5000);
+
             $(".messageBtn").click(function(e){
                 e.preventDefault();
 
@@ -57,7 +83,8 @@
                     },
                     cache: false,
                     success: function(response){
-                        alert(response.message);
+                        $(".message").val("");
+                        fetchMessages();
                     }
                 }); 
             });

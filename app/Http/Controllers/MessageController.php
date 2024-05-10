@@ -19,8 +19,19 @@ class MessageController extends Controller
             'dmID' => $request->dmID, 
             'messageSender' => auth()->user()->id,
             'message' => $request->message,
+            'created_at' => now(),
+            'updated_at' => now()
         ]);
         return response()->json(['message' => 'Message Sent'], 200);
+    }
+
+    public function fetchMessages($dmId) {
+        $messages = DB::table('messages')
+            ->where('dmID', $dmId)
+            ->get();
+        return response()->json([
+            'messages' => $messages,
+        ]);
     }
     
     /**

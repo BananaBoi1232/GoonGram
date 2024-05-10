@@ -45,7 +45,7 @@ Route::get('/showMessages/{id}', [viewController::class, 'showMessages']);
 Route::get('/blockedUsers',[blockUsersController::class,'showBlockedUsers'] );
 Route::post('/blockUsers/{id}', [blockUsersController::class, 'blockUser'])->name('blockUser');
 Route::delete('/unblockUser/{id}', [blockUsersController::class, 'unblockUser'])->name('unblockUser');
-
+Route::get('/fetchMessages/{dmId}', [MessageController::class, 'fetchMessages']);
 
 //POST
 Route::post('/follow', [followController::class, 'follow']);

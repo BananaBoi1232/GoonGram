@@ -87,10 +87,14 @@
                                             <ion-icon name="thumbs-up-outline" class="likeIcon p-1  @if($liked->contains($post->postID)) text-warning @endif" style = "width:35px; height:35px; color:black;"></ion-icon>
                                         </a>
 
+                                        <a href = "/comments/{{ $post->postID }}" class = "comment-button">
+                                            <ion-icon name="chatbubble-ellipses-outline" id = "commentIcon" style = "width:35px; height:35px" class = "p-1"></ion-icon>
+                                        </a>
+
                                         <div class = "likeCount">{{ $post->likeCount }} Likes </div>
 
                                     </div>
-                                    
+
                                 </div>
                             
                             </div>

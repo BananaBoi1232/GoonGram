@@ -82,10 +82,22 @@ class viewController extends Controller
         }
     }
 
+
     public function showDirectMessage(){
         if(Auth::check()){
+            //Query for open all existing dms
+            $query = DB::table('direct_messages as d')
+                ->select('d.dmID', 'a.id as firstId', 'a.username as firstUsername', 'a.profilePicture as firstPfp', 'b.id as secondId', 'b.username as secondUsername', 'b.profilePicture as secondPfp')
+                ->leftJoin('users as a', 'a.id', '=', 'd.firstUser')
+                ->leftJoin('users as b', 'b.id', '=', 'd.secondUser')
+                ->where(function($query) {
+                    $query->where('d.firstUser', auth()->user()->id)
+                    ->orWhere('d.secondUser', auth()->user()->id);
+                })
+                ->get();
             return view('directMessage', [
-            'user' => auth()->user() 
+            'user' => auth()->user(),
+            'results' => $query,
         ]);
         } else {
             return redirect()->back();

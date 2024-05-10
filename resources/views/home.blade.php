@@ -68,9 +68,9 @@
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                     <button type="button" class="btn btn-primary reportPost">Report Post</button>
                                 </div>
+                            </div>
                         </div>
                     </div>
-                </div>
                     <div class = "d-flex">
                         <a href = "otherAccount/{{ $post->id }}">
                             <img draggable="false" id = "profilePicture" name = "profilePicture"style = "height:50px; width:50px;" class = "" src="
