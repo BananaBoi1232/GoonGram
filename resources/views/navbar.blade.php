@@ -39,6 +39,9 @@
                     <a class="nav-link" href="/directMessage">Direct Messages</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="/blockedUsers">Blocked Users</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="/logout">Logout</a>
                 </li>
             </ul>

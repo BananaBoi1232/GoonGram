@@ -11,6 +11,29 @@
     @include('navbar')
 </head>
 <body>
+    <h1>Blocked Users</h1>
 
+    <table>
+        <thead>
+            <tr>
+                <th>Blocked User(s)</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($blockedUsers as $blockedUser)
+                <tr>
+                    <td>{{ $blockedUser->username }}</td>
+                    <td>
+                        <form action="{{ route('unblockUser', ['id' => $blockedUser->id]) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit">Unblock</button>
+                        </form>
+                    </td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
 </body>
 </html>
