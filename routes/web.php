@@ -6,6 +6,7 @@ use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\viewController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\AccountControllerApiController;
+use App\Http\Controllers\blockUsersController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\followController;
 use App\Http\Controllers\postApiController;
@@ -41,6 +42,10 @@ Route::get('/logout', [LogoutController::class, 'logout']);
 Route::get('/otherAccount/{id}', [viewController::class, 'showOtherAccount']);
 Route::get('/comments/{postID}', [viewController::class, 'showComments']);
 Route::get('/showMessages/{id}', [viewController::class, 'showMessages']);
+Route::get('/blockedUsers',[blockUsersController::class,'showBlockedUsers'] );
+Route::post('/blockUsers/{id}', [blockUsersController::class, 'blockUser'])->name('blockUser');
+Route::delete('/unblockUser/{id}', [blockUsersController::class, 'unblockUser'])->name('unblockUser');
+
 
 //POST
 Route::post('/follow', [followController::class, 'follow']);

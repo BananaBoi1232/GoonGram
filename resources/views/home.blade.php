@@ -19,7 +19,7 @@
 <body>
     <div class = "d-flex flex-column justify-content-center align-items-center">
         @foreach($posts as $post)
-            @if($followed->contains($post->id) || $post->private == 0 || $post->id == auth()->user()->id)
+        @if(($followed->contains($post->id) || $post->private == 0 || $post->id == auth()->user()->id))
                 <div class = "border p-3 m-2">
 
                     {{-- data loaders --}}
@@ -37,7 +37,7 @@
                                             Message
                                         </li>
                                     </a>
-                                    <a class="link-dark link-underline link-underline-opacity-0">
+                                    <a href="{{ route('blockUser', ['id' => $post->id]) }}" class="link-dark link-underline link-underline-opacity-0">
                                         <li class="dropdown-item">
                                             Block User
                                         </li>
@@ -224,7 +224,7 @@
                         return alert(response.message);
                     }
                 }); 
-            });
+            });            
         });
     </script>
 
