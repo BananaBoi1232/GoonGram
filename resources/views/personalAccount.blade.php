@@ -60,6 +60,17 @@
                                         </a>
                                         <div class="likeCount">{{ $post->likeCount }} Likes</div>
                                     </div>
+
+                                        <a href = "/comments/{{ $post->postID }}" class = "comment-button">
+                                            <ion-icon name="chatbubble-ellipses-outline" id = "commentIcon" style = "width:35px; height:35px" class = "p-1"></ion-icon>
+                                        </a>
+
+                                        <a href = "/comments/{{ $post->postID }}" class = "comment-button">
+                                            <ion-icon name="chatbubble-ellipses-outline" id = "commentIcon" style = "width:35px; height:35px" class = "p-1"></ion-icon>
+                                        </a>
+                                        <div class="likeCount">{{ $post->likeCount }} Likes</div>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
