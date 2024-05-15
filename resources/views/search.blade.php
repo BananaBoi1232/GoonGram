@@ -43,7 +43,7 @@
             <form class="input-group mb-3 col-sm">
                 <input type="text" class="form-control" placeholder="Search users, posts, etc..." aria-label="Search users, posts, etc..." aria-describedby="button-addon2" name="search">
                 <div class="input-group-append">
-                    <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
+                    <button class="btn btn-dark" type="submit" id="button-addon2">Search</button>
                 </div>
             </form>
         </div>

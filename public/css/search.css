@@ -1,10 +1,11 @@
 body {
-    background-image: url('/css/background.png');
+    background-image: url('/css/black.png');
     background-repeat: no-repeat;
     background-size: cover;
     color: white;
     margin: 0;
     padding: 0;
+
 }
 
 .container {
@@ -13,10 +14,12 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
+
 }
 
 .search-container {
     margin-bottom: 20px;
+
 }
 
 .userRes {
@@ -25,4 +28,5 @@ body {
     border: 2px solid white;
     padding: 10px;
     margin-bottom: 10px;
+    color: white;
 }

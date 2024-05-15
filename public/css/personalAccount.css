@@ -1,10 +1,9 @@
         body {
-            background-image: url('/css/background.png');
+            background-image: url('/css/black.png');
             background-repeat: no-repeat;
             background-size: cover;
             color: #939a9d;
-            margin: 0;
-            height: 100vh;
+
         }
         .profile-picture {
             height: 350px;
