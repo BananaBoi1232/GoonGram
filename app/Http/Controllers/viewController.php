@@ -19,22 +19,27 @@ class viewController extends Controller
     }
 
     public function showHome(Request $request){
-        if(Auth::check()){
-            $query = DB::table('users')
-            ->join('posts', 'users.id', '=', 'posts.userID')
-            ->select('users.*', 'posts.postID', 'posts.caption', 'posts.likeCount', 'posts.postImage')
-            ->get();
-            $liked = Like::where('userID', auth()->user()->id)->pluck('postID');
-            $followed = Follower::where('followerID', auth()->user()->id)->pluck('personFollowedID');
-
-            return view('home', [
-                'user' => auth()->user(),
-                'posts' => $query,
-                'liked' => $liked,
-                'followed' => $followed,
-            ]);
+        $query = DB::table('bannedUsers')->where('userID', auth()->user()->id)->first();
+        if(is_null($query)){
+            if(Auth::check()){
+                $query = DB::table('users')
+                ->join('posts', 'users.id', '=', 'posts.userID')
+                ->select('users.*', 'posts.postID', 'posts.caption', 'posts.likeCount', 'posts.postImage')
+                ->get();
+                $liked = Like::where('userID', auth()->user()->id)->pluck('postID');
+                $followed = Follower::where('followerID', auth()->user()->id)->pluck('personFollowedID');
+    
+                return view('home', [
+                    'user' => auth()->user(),
+                    'posts' => $query,
+                    'liked' => $liked,
+                    'followed' => $followed,
+                ]);
+            } else {
+                return redirect()->back()->withErrors(['You are not logged in!']);
+            }
         } else {
-            return redirect()->back()->withErrors(['You are not logged in!']);
+            return redirect()->back()->withErrors(['This user is banned']);
         }
     }
 
@@ -58,7 +63,14 @@ class viewController extends Controller
     
     public function showBannedUsers(){
         if(Auth::check()){
-            return view('bannedUsers');
+            $query = DB::table('users')
+            ->get();
+            $banned = DB::table('bannedUsers')
+            ->get();
+            return view('bannedUsers', [
+                'userInfo' => $query,
+                'bannedUsers' => $banned,
+            ]);
         } else {
             return redirect()->back();
         }
