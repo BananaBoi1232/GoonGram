@@ -39,6 +39,28 @@ class AccountControllerApiController extends Controller
 
     }
 
+    public function ban(Request $request){
+        $check = DB::table('bannedUsers')->where('userID', $request->userID)->first();
+
+        if(is_null($check)){
+            DB::table('bannedUsers')->insert(['userID' => $request->userID]);
+            return response()->json(['message' => 'User has been banned', 200]);
+        } else {
+            return response()->json(['message' => 'Error user is already banned', 200]);
+        }
+    }
+
+    public function unban(Request $request){
+        $check = DB::table('bannedUsers')->where('userID', $request->userID)->first();
+
+        if(is_null($check)){
+            return response()->json(['message' => 'User is not banned', 200]);
+        } else {
+            DB::table('bannedUsers')->where('userID', $request->userID)->delete();
+            return response()->json(['message' => 'User has been unbanned', 200]);
+        }
+    }
+
     /**
      * Display a listing of the resource.
      */
