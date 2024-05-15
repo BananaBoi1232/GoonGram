@@ -1,0 +1,38 @@
+body {
+    background-image: url('/css/black.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: white;
+    margin: 0;
+    padding: 0;
+}
+
+textarea {
+    background-color: #212529;
+    color: white;
+}
+
+textarea::placeholder {
+    color: white;
+}
+
+.border,
+.post-image h1,
+#caption,
+#tag {
+    background-color: #212529;
+    color: white;
+}
+
+.container-white {
+
+    color: black;
+}
+
+.container-white textarea {
+    color: black;
+}
+
+.menu-toggle {
+    color: #000;
+}
