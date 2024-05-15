@@ -20,17 +20,17 @@
             <div class="center-align">
                 <div id="res"></div>
                 <div class="post-image">
-                    <h1>Post Image</h1>
+                    <h1>Select an Image</h1>
                 </div>
                 <img id="postImage" name="postImage">
                 <div class="d-flex flex-column justify-content-center">
                     <input id="fileUpload" type="file" name="image" style="display:none;">
-                    <label class="border p-2 m-2 container-white" for="fileUpload">Select Image</label>
+                    <label class="border p-2 m-2 container-dark" for="fileUpload">Select Image</label>
                 </div>
             </div>
 
             <div class="d-flex flex-column">
-                <div class="p-2">
+                <div class="p-2 justify-content-center">
                     <h4>Caption</h4>
                     <textarea id="caption" name="caption" placeholder="What's on your mind?"></textarea>
                 </div>
@@ -40,7 +40,7 @@
                     <textarea id="tag" name="tag" placeholder="Tag"></textarea>
                 </div>
 
-                <div class="p-2 center-align">
+                <div class="p-2 center-align container-dark">
                     <button id="btn">Create Post</button>
                 </div>
             </div>

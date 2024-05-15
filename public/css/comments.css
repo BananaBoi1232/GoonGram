@@ -15,16 +15,7 @@ body {
     margin-top: 50px;
 }
 
-h1 {
-    text-align: center;
-    background-color: #212529;
-    border-radius: 20px;
-    border: 2px solid #ffffff;
-    padding: 10px;
-    margin: 10px;
-}
-
-h4 {
+h1, h4 {
     text-align: center;
     background-color: #212529;
     border-radius: 20px;
@@ -39,12 +30,12 @@ img {
 }
 
 textarea {
-    width: 100%;
+    width: 300px;
     resize: none;
     color: white;
     background-color: #212529;
     border-radius: 20px;
-    text-align: center;
+    justify-content: center;
 }
 
 #btn {
@@ -58,7 +49,6 @@ textarea {
 #btn:hover {
     background-color: #eeeeee;
 }
-
 
 .border {
     border: 2px solid #ffffff;
@@ -94,4 +84,63 @@ textarea {
 
 .d-flex, .flex-column{
     color: white;
+}
+
+.menu-container {
+    position: relative;
+}
+
+.menu-toggle {
+    font-size: 30px;
+    cursor: pointer;
+    color: #000;
+}
+
+.menu-drop {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+}
+
+.dropdown-menu {
+    margin: 0;
+}
+
+.dropdown-item {
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.dropdown-item a {
+    display: block;
+    padding: 0.5rem 1rem;
+    color: #000;
+    text-decoration: none;
+}
+
+.dropdown-item a:hover {
+    background-color: #2e3135;
+}
+
+#commentContent {
+    height: 50px;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #212529;
+    color: white;
+    border: 2px solid #dee2e6;
+    border-radius: 20px;
+}
+
+#addComment {
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    display: block;
+    margin: 0 auto;
+    cursor: pointer;
 }
