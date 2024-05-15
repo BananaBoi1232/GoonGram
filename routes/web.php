@@ -60,6 +60,8 @@ Route::post('/deleteReportedPost', [postApiController::class, 'deleteReportedPos
 Route::post('/createComment', [commentController::class, 'createComment']);
 Route::post('/spareReportedPost', [postApiController::class, 'spareReportedPost']);
 Route::post('/newMessage', [MessageController::class, 'newMessage']);
+Route::post('/ban', [AccountControllerApiController::class, 'ban']);
+Route::post('/unban', [AccountControllerApiController::class, 'unban']);
 
 
 
